@@ -22,3 +22,5 @@ throw_charge = 0;
 throw_charge_max = 30;   // Tempo em frames para carga máxima (~0.5s a 60 FPS)
 throw_dist_min = 80;     // Distância mínima (toque rápido)
 throw_dist_max = 280;    // Distância máxima (carga completa)
+
+is_local = true;

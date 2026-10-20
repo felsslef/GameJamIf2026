@@ -1,1 +1,3 @@
-script_execute(estado);
+if (is_local) {
+    script_execute(estado);
+}
