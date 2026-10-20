@@ -1,6 +1,9 @@
 function scr_player_get_inputs() {
-    if (playerid == 1) {
-        // Controles P1
+    // Usa controles do lado direito APENAS no Coop Local para o Player 2
+    var use_p2_keys = (global.game_mode == "coop_local" && playerid == 2);
+
+    if (!use_p2_keys) {
+        // Controles Padrão (P1 Local, Solo e P1/P2 Online)
         return {
             up:             keyboard_check(ord("W")),
             down:           keyboard_check(ord("S")),
@@ -12,7 +15,7 @@ function scr_player_get_inputs() {
             dash:           keyboard_check_pressed(vk_lalt)
         };
     } else {
-        // Controles P2
+        // Controles P2 Apenas para Coop Local na mesma tela
         return {
             up:             keyboard_check(vk_up),
             down:           keyboard_check(vk_down),
