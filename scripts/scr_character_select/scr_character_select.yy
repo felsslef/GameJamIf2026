@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_character_select",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_character_select",
+  "parent":{
+    "name":"frontend",
+    "path":"folders/scripts/frontend.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

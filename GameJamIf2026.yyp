@@ -1,57 +1,558 @@
 {
-  "$GMProject":"v1",
-  "%Name":"GameJamIf2026",
-  "AudioGroups":[
-    {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
+  "$GMProject": "v1",
+  "%Name": "GameJamIf2026",
+  "AudioGroups": [
+    {
+      "$GMAudioGroup": "v1",
+      "%Name": "audiogroup_default",
+      "exportDir": "",
+      "name": "audiogroup_default",
+      "resourceType": "GMAudioGroup",
+      "resourceVersion": "2.0",
+      "targets": -1
+    }
   ],
-  "configs":{
-    "children":[],
-    "name":"Default",
+  "configs": {
+    "children": [],
+    "name": "Default"
   },
-  "defaultScriptType":1,
-  "Folders":[
-    {"$GMFolder":"","%Name":"fonte","folderPath":"folders/fonte.yy","name":"fonte","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"objects","folderPath":"folders/objects.yy","name":"objects","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"controladores","folderPath":"folders/objects/controladores.yy","name":"controladores","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"itens","folderPath":"folders/objects/itens.yy","name":"itens","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"rooms","folderPath":"folders/rooms.yy","name":"rooms","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"scripts","folderPath":"folders/scripts.yy","name":"scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"sprites","folderPath":"folders/sprites.yy","name":"sprites","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"personagens","folderPath":"folders/sprites/personagens.yy","name":"personagens","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"tilesets","folderPath":"folders/sprites/tilesets.yy","name":"tilesets","resourceType":"GMFolder","resourceVersion":"2.0",},
+  "defaultScriptType": 1,
+  "Folders": [
+    {
+      "$GMFolder": "",
+      "%Name": "fonts",
+      "folderPath": "folders/fonts.yy",
+      "name": "fonts",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "objects",
+      "folderPath": "folders/objects.yy",
+      "name": "objects",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "controllers",
+      "folderPath": "folders/objects/controllers.yy",
+      "name": "controllers",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "items",
+      "folderPath": "folders/objects/items.yy",
+      "name": "items",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "rooms",
+      "folderPath": "folders/rooms.yy",
+      "name": "rooms",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "scripts",
+      "folderPath": "folders/scripts.yy",
+      "name": "scripts",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "sprites",
+      "folderPath": "folders/sprites.yy",
+      "name": "sprites",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "characters",
+      "folderPath": "folders/sprites/characters.yy",
+      "name": "characters",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "tilesets",
+      "folderPath": "folders/sprites/tilesets.yy",
+      "name": "tilesets",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "ui",
+      "folderPath": "folders/objects/ui.yy",
+      "name": "ui",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "frontend",
+      "folderPath": "folders/scripts/frontend.yy",
+      "name": "frontend",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "frontend",
+      "folderPath": "folders/rooms/frontend.yy",
+      "name": "frontend",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "placeholders",
+      "folderPath": "folders/sprites/placeholders.yy",
+      "name": "placeholders",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "maps",
+      "folderPath": "folders/sprites/maps.yy",
+      "name": "maps",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "gameplay",
+      "folderPath": "folders/objects/gameplay.yy",
+      "name": "gameplay",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "gameplay",
+      "folderPath": "folders/scripts/gameplay.yy",
+      "name": "gameplay",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "levels",
+      "folderPath": "folders/rooms/levels.yy",
+      "name": "levels",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    }
   ],
-  "ForcedPrefabProjectReferences":[],
-  "IncludedFiles":[],
-  "isEcma":false,
-  "LibraryEmitters":[],
-  "MetaData":{
-    "IDEVersion":"2026.0.0.16",
+  "ForcedPrefabProjectReferences": [],
+  "IncludedFiles": [],
+  "isEcma": false,
+  "LibraryEmitters": [],
+  "MetaData": {
+    "IDEVersion": "2026.0.0.16"
   },
-  "name":"GameJamIf2026",
-  "resources":[
-    {"id":{"name":"fnt_default","path":"fonts/fnt_default/fnt_default.yy",},},
-    {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},},
-    {"id":{"name":"obj_criacao_personagem","path":"objects/obj_criacao_personagem/obj_criacao_personagem.yy",},},
-    {"id":{"name":"obj_item_main","path":"objects/obj_item_main/obj_item_main.yy",},},
-    {"id":{"name":"obj_menu","path":"objects/obj_menu/obj_menu.yy",},},
-    {"id":{"name":"obj_network","path":"objects/obj_network/obj_network.yy",},},
-    {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
-    {"id":{"name":"obj_wall","path":"objects/obj_wall/obj_wall.yy",},},
-    {"id":{"name":"rm_menu","path":"rooms/rm_menu/rm_menu.yy",},},
-    {"id":{"name":"rm_teste","path":"rooms/rm_teste/rm_teste.yy",},},
-    {"id":{"name":"scr_player","path":"scripts/scr_player/scr_player.yy",},},
-    {"id":{"name":"spr_item_teste","path":"sprites/spr_item_teste/spr_item_teste.yy",},},
-    {"id":{"name":"spr_testes","path":"sprites/spr_testes/spr_testes.yy",},},
-    {"id":{"name":"spr_wall","path":"sprites/spr_wall/spr_wall.yy",},},
+  "name": "GameJamIf2026",
+  "resources": [
+    {
+      "id": {
+        "name": "scr_split_level",
+        "path": "scripts/scr_split_level/scr_split_level.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_level_03",
+        "path": "rooms/rm_level_03/rm_level_03.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_save_slots",
+        "path": "scripts/scr_save_slots/scr_save_slots.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_save_select",
+        "path": "rooms/rm_save_select/rm_save_select.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_construction",
+        "path": "scripts/scr_construction/scr_construction.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_level_02",
+        "path": "rooms/rm_level_02/rm_level_02.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "fnt_default",
+        "path": "fonts/fnt_default/fnt_default.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_camera",
+        "path": "objects/obj_camera/obj_camera.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_criacao_personagem",
+        "path": "objects/obj_criacao_personagem/obj_criacao_personagem.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_item_main",
+        "path": "objects/obj_item_main/obj_item_main.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_menu",
+        "path": "objects/obj_menu/obj_menu.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_network",
+        "path": "objects/obj_network/obj_network.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_player",
+        "path": "objects/obj_player/obj_player.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_wall",
+        "path": "objects/obj_wall/obj_wall.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_menu",
+        "path": "rooms/rm_menu/rm_menu.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_teste",
+        "path": "rooms/rm_teste/rm_teste.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_player",
+        "path": "scripts/scr_player/scr_player.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_item_teste",
+        "path": "sprites/spr_item_teste/spr_item_teste.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_testes",
+        "path": "sprites/spr_testes/spr_testes.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_wall",
+        "path": "sprites/spr_wall/spr_wall.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_frontend_data",
+        "path": "scripts/scr_frontend_data/scr_frontend_data.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_frontend_navigation",
+        "path": "scripts/scr_frontend_navigation/scr_frontend_navigation.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_frontend_draw",
+        "path": "scripts/scr_frontend_draw/scr_frontend_draw.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_frontend",
+        "path": "objects/obj_frontend/obj_frontend.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_lobby_ui",
+        "path": "objects/obj_lobby_ui/obj_lobby_ui.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_main_menu",
+        "path": "rooms/rm_main_menu/rm_main_menu.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_game_mode",
+        "path": "rooms/rm_game_mode/rm_game_mode.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_character_select",
+        "path": "rooms/rm_character_select/rm_character_select.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_level_select",
+        "path": "rooms/rm_level_select/rm_level_select.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_options",
+        "path": "rooms/rm_options/rm_options.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "fnt_ui_small",
+        "path": "fonts/fnt_ui_small/fnt_ui_small.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "fnt_ui_body",
+        "path": "fonts/fnt_ui_body/fnt_ui_body.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "fnt_ui_title",
+        "path": "fonts/fnt_ui_title/fnt_ui_title.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_session_ui",
+        "path": "scripts/scr_session_ui/scr_session_ui.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_session_ui",
+        "path": "objects/obj_session_ui/obj_session_ui.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_level_map",
+        "path": "scripts/scr_level_map/scr_level_map.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_caragua_map",
+        "path": "sprites/spr_caragua_map/spr_caragua_map.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_character_select",
+        "path": "scripts/scr_character_select/scr_character_select.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_recycling_level",
+        "path": "scripts/scr_recycling_level/scr_recycling_level.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_recycling_draw",
+        "path": "scripts/scr_recycling_draw/scr_recycling_draw.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_recycling_level",
+        "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_recycling_station",
+        "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_recycling_player",
+        "path": "objects/obj_recycling_player/obj_recycling_player.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_recycling_item",
+        "path": "objects/obj_recycling_item/obj_recycling_item.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_level_01",
+        "path": "rooms/rm_level_01/rm_level_01.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_level_04",
+        "path": "rooms/rm_level_04/rm_level_04.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_level_05",
+        "path": "rooms/rm_level_05/rm_level_05.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_workshop_layout",
+        "path": "scripts/scr_workshop_layout/scr_workshop_layout.yy"
+      }
+    }
   ],
-  "resourceType":"GMProject",
-  "resourceVersion":"2.0",
-  "RoomOrderNodes":[
-    {"roomId":{"name":"rm_menu","path":"rooms/rm_menu/rm_menu.yy",},},
-    {"roomId":{"name":"rm_teste","path":"rooms/rm_teste/rm_teste.yy",},},
+  "resourceType": "GMProject",
+  "resourceVersion": "2.0",
+  "RoomOrderNodes": [
+    {
+      "roomId": {
+        "name": "rm_main_menu",
+        "path": "rooms/rm_main_menu/rm_main_menu.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_game_mode",
+        "path": "rooms/rm_game_mode/rm_game_mode.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_character_select",
+        "path": "rooms/rm_character_select/rm_character_select.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_level_select",
+        "path": "rooms/rm_level_select/rm_level_select.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_options",
+        "path": "rooms/rm_options/rm_options.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_menu",
+        "path": "rooms/rm_menu/rm_menu.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_teste",
+        "path": "rooms/rm_teste/rm_teste.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_level_01",
+        "path": "rooms/rm_level_01/rm_level_01.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_level_02",
+        "path": "rooms/rm_level_02/rm_level_02.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_save_select",
+        "path": "rooms/rm_save_select/rm_save_select.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_level_03",
+        "path": "rooms/rm_level_03/rm_level_03.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_level_04",
+        "path": "rooms/rm_level_04/rm_level_04.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_level_05",
+        "path": "rooms/rm_level_05/rm_level_05.yy"
+      }
+    }
   ],
-  "templateType":"game",
-  "TextureGroups":[
-    {"$GMTextureGroup":"","%Name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","customOptions":"","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"name":"Default","resourceType":"GMTextureGroup","resourceVersion":"2.0","targets":-1,},
-  ],
+  "templateType": "game",
+  "TextureGroups": [
+    {
+      "$GMTextureGroup": "",
+      "%Name": "Default",
+      "autocrop": true,
+      "border": 2,
+      "compressFormat": "bz2",
+      "customOptions": "",
+      "directory": "",
+      "groupParent": null,
+      "isScaled": true,
+      "loadType": "default",
+      "mipsToGenerate": 0,
+      "name": "Default",
+      "resourceType": "GMTextureGroup",
+      "resourceVersion": "2.0",
+      "targets": -1
+    }
+  ]
 }

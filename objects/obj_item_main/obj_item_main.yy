@@ -9,8 +9,8 @@
   "name":"obj_item_main",
   "overriddenProperties":[],
   "parent":{
-    "name":"itens",
-    "path":"folders/objects/itens.yy",
+    "name":"items",
+    "path":"folders/objects/items.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -10,8 +10,8 @@
   "name":"obj_network",
   "overriddenProperties":[],
   "parent":{
-    "name":"controladores",
-    "path":"folders/objects/controladores.yy",
+    "name":"controllers",
+    "path":"folders/objects/controllers.yy",
   },
   "parentObjectId":null,
   "persistent":true,

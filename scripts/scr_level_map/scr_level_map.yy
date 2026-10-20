@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_level_map",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_level_map",
+  "parent":{
+    "name":"frontend",
+    "path":"folders/scripts/frontend.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

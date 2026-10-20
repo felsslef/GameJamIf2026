@@ -1,0 +1,13 @@
+{
+  "$GMScript": "v1",
+  "%Name": "scr_frontend_navigation",
+  "isCompatibility": false,
+  "isDnD": false,
+  "name": "scr_frontend_navigation",
+  "parent": {
+    "name": "frontend",
+    "path": "folders/scripts/frontend.yy"
+  },
+  "resourceType": "GMScript",
+  "resourceVersion": "2.0"
+}

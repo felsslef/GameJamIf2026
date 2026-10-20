@@ -1,0 +1,10 @@
+station_kind = "bin";
+station_width = 112;
+station_height = 88;
+trash_type = 0;
+capacity = 3;
+load = 0;
+queue = [];
+trip_remaining = 0;
+return_duration = 8;
+depth = -y;
