@@ -4,6 +4,10 @@ Open `GameJamIf2026.yyp` in GameMaker. The first room is `rm_main_menu`.
 The working title is **Maré da Ciência**. New code/resource names are English;
 player-facing strings are Brazilian Portuguese.
 
+## Editing in GameMaker
+
+The gameplay artwork now uses real sprite resources and every stage has editable room instances. See [gamemaker-editor.md](gamemaker-editor.md) for replacing images, moving objects and changing Instance Variables.
+
 ## Screens
 
 The title follows the supplied sketch: white background, centered title and
@@ -49,9 +53,9 @@ broadcaster. LAN discovery Esc closes the listener before returning to levels.
 - `scr_frontend_data`: palette, scientist/level data, button positions.
 - `scr_frontend_navigation`: selection, Esc navigation and prototype handoff.
 - `scr_character_select`: independent card input, readiness, flipping and layout.
-- `scr_frontend_draw`: simple UI and procedural 32x32 scientist placeholders.
+- `scr_frontend_draw`: UI drawing and sprite-based scientist previews.
 - `scr_level_map`: illustrated map, marker states, routes and locked-stop entry handling.
-- `scr_recycling_level` / `scr_recycling_draw`: first-level gameplay and provisional rendering.
+- `scr_recycling_level` / `scr_recycling_draw`: offline-level gameplay, sprite drawing and dynamic HUD.
 - `scr_session_ui`: fullscreen shortcut, gameplay menu and session exit.
 - `obj_frontend`: per-screen input/rendering controller.
 - `obj_lobby_ui`: visual and Esc adapter for the original lobby.
@@ -65,7 +69,7 @@ the UI controller instance. The original lobby remains immediately before
 
 ## Scope
 
-Stops 1 and 2 are playable offline. Wins save completion and best stars to the selected slot. Stops 3?5 remain prototypes; LAN retains its original path. See [save-slots.md](save-slots.md) for the three-slot screen between modes and characters.
+All five stops are playable offline. Wins save completion and best stars to the selected slot. LAN retains its original path. See [save-slots.md](save-slots.md) for the three-slot screen between modes and characters.
 
 `global.frontend_level` and `global.frontend_characters` retain zero-based menu
 selections. The first offline level draws the selected scientist; the old prototype does not. Selections are not synchronized

@@ -1,63 +1,24 @@
-﻿/// Shared workshop structure: workstations around the perimeter, counters and open aisles.
+/// Read the editable instances already placed in the room. Never create or reposition furniture.
 function workshop_layout_init() {
-    // The cooperation level keeps its exclusive bins, sources and central divider.
-    if (level_index != 2) {
-        for (var i = 0; i < 4; i++) {
-            bins[i].x = i < 2 ? 96 : 1184;
-            bins[i].y = i mod 2 == 0 ? 320 : 448;
-            bins[i].depth = -bins[i].y;
-        }
-        truck.y = 608;
-        truck.depth = -truck.y;
-        with (obj_recycling_station) {
-            if (station_kind == "bench") {
-                x = x < 640 ? 416 : 864;
-                y = 192;
-                depth = -y;
-            }
-            if (station_kind == "storage") { x = 1056; y = 608; depth = -y; }
-        }
-        with (obj_recycling_player) {
-            x = playerid == 1 ? 352 : 928;
-            y = 512;
-        }
-    }
-    for (var tile_x = 96; tile_x <= 1184; tile_x += 64) {
-        workshop_add_counter(tile_x, 192);
-        workshop_add_counter(tile_x, 608);
-    }
-    for (var tile_y = 256; tile_y < 608; tile_y += 64) {
-        workshop_add_counter(96, tile_y);
-        workshop_add_counter(1184, tile_y);
-    }
-    // Short islands guide routes without dividing the players into separate areas.
-    if (level_index == 0 || level_index == 1) {
-        workshop_add_counter(608, 416);
-        workshop_add_counter(672, 416);
-    } else if (level_index == 3) {
-        for (var tile_y = 384; tile_y <= 448; tile_y += 64) {
-            workshop_add_counter(448, tile_y);
-            workshop_add_counter(832, tile_y);
-        }
-    } else if (level_index == 4) {
-        for (var tile_y = 384; tile_y <= 448; tile_y += 64) {
-            workshop_add_counter(512, tile_y);
-            workshop_add_counter(768, tile_y);
-        }
-        workshop_add_counter(576, 448);
-        workshop_add_counter(640, 448);
-        workshop_add_counter(704, 448);
-    }
-}
-
-function workshop_add_counter(_x, _y) {
-    // Leave equipment footprints free instead of stacking counters underneath them.
+    if (layer_exists("Stations_Solo")) layer_set_visible("Stations_Solo", global.game_mode != "coop_local");
+    if (layer_exists("Stations_Coop")) layer_set_visible("Stations_Coop", global.game_mode == "coop_local");
+    stations = [];
+    bins = [];
+    dispensers = [];
+    dispenser = noone;
+    truck = noone;
+    with (obj_recycling_station) array_push(other.stations, id);
+    array_sort(stations, function(a,b) { return a.station_order - b.station_order; });
     for (var i = 0; i < array_length(stations); i++) {
         var station = stations[i];
-        if (abs(_x - station.x) < 32 + station.station_width / 2
-            && abs(_y - station.y) < 32 + station.station_height / 2) return noone;
+        switch (station.station_kind) {
+            case "bin": array_push(bins, station); break;
+            case "dispenser": array_push(dispensers, station); break;
+            case "truck": truck = station; break;
+        }
     }
-    var counter = recycling_create_station("handoff", _x, _y, 64, 64);
-    counter.stored_item = undefined;
-    return counter;
+    if (array_length(dispensers) > 0) dispenser = dispensers[0];
+    if (level_index == 2) feedback = global.game_mode == "coop_local"
+        ? "Coloque o lixo nos blocos para a outra jogadora pegar."
+        : "Passe por baixo dos blocos para acessar o outro lado.";
 }

@@ -1,5 +1,5 @@
 item_kind = "waste";
-trash_type = 0;
-amount = 1;
+image_speed = 0;
 is_held = false;
 holder = noone;
+depth = -y - 2;

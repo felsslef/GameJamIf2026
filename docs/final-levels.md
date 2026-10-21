@@ -1,5 +1,8 @@
 ﻿# Fases 4 e 5 — arenas abertas
 
+> Edição atual: sprites e instâncias estão no editor do GameMaker. Capacidades, metas e posições são configuradas nas rooms; consulte [gamemaker-editor.md](gamemaker-editor.md).
+
+
 Martim de Sá (fase 4) e Massaguaçu (fase 5) combinam as mecânicas de reciclagem e construção da fase 2. Não há divisória, lados exclusivos ou blocos de troca. Cada fase mantém quatro lixeiras, um dispenser misto, duas bancadas e uma área de entrega de robôs. Disponíveis em Solo e Co-op Local; rede mantém o protótipo original.
 
 | Configuração | Fase 4 | Fase 5 |
@@ -18,6 +21,6 @@ As duas metas são obrigatórias ao fim do tempo. Resíduos contam no envio do c
 
 Vitórias salvam conclusão e melhores estrelas no slot ativo. A fase 4 libera a fase 5; a vitória na fase 5 registra a última fase da campanha. O atalho Q continua disponível no mapa para testar todas as fases sem gravar o desbloqueio artificial.
 
-Configuração em `construction_level_init()`. Salas: `rm_level_04` e `rm_level_05`, ambas 1280x720. As fases 1–3 mantêm suas regras.
+Configuração nas variáveis das instâncias de cada room. Salas: `rm_level_04` e `rm_level_05`, ambas 1280x720. As fases 1–3 mantêm suas regras.
 
 Validação: compilação Windows VM e teste de entrada pelo mapa, ausência de divisória, passagem livre, configuração de cada dificuldade, montagem e entrega, exigência das duas metas, vitória, estrelas e modos Solo/Co-op Local.

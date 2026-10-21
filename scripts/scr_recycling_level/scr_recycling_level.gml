@@ -1,6 +1,7 @@
-/// First playable level. Offline gameplay is isolated from the existing LAN prototype.
+/// Offline levels use editor-placed room instances and stay isolated from the LAN prototype.
 function recycling_level_init() {
     display_set_gui_size(1280, 720);
+    if (!layer_exists("Items")) layer_create(-1, "Items");
     if (!variable_global_exists("recycling_rng_ready")) { randomize(); global.recycling_rng_ready = true; }
     if (!variable_global_exists("game_mode")) global.game_mode = "solo";
     if (!variable_global_exists("frontend_characters")) global.frontend_characters = [0, 1];
@@ -8,61 +9,30 @@ function recycling_level_init() {
     var level_rooms = [rm_level_01, rm_level_02, rm_level_03, rm_level_04, rm_level_05];
     level_index = 0;
     for (var room_index = 0; room_index < 5; room_index++) if (room == level_rooms[room_index]) level_index = room_index;
-    has_construction = level_index == 1 || level_index >= 3;
     global.frontend_level = level_index;
     phase_state = "playing";
     result_reason = "";
-    level_duration = 120;
     time_remaining = level_duration;
-    minimum_goal = 12;
-    star_goals = [12, 21, 30];
+    star_goals = [minimum_goal, star_goal_two, star_goal_three];
+    robot_star_goals = [robot_minimum, robot_star_two, robot_star_three];
     result_stars = 0;
     recycled_total = 0;
     sorted_total = 0;
-    spawn_interval = 4;
-    spawn_timer = spawn_interval;
-    spawn_bag = [];
-    overflow_limit = 12;
+    robot_total = 0;
     overflow_elapsed = 0;
     feedback = "Separe os resíduos e envie a carga do caminhão.";
     feedback_timer = 6;
-    stations = [];
-    bins = [];
-    dispenser = recycling_create_station("dispenser", 640, 320, 160, 100);
-    dispenser.capacity = 8;
-    dispenser.queue = [];
-    var positions = [{x: 280, y: 240}, {x: 1000, y: 240}, {x: 280, y: 450}, {x: 1000, y: 450}];
-    for (var i = 0; i < 4; i++) {
-        var bin = recycling_create_station("bin", positions[i].x, positions[i].y, 112, 88);
-        bin.trash_type = i;
-        bin.capacity = 3;
-        array_push(bins, bin);
-    }
-    truck = recycling_create_station("truck", 640, 592, 192, 88);
-    truck.capacity = 12;
-    truck.return_duration = 8;
-    var player_count = global.game_mode == "coop_local" ? 2 : 1;
-    for (var i = 0; i < player_count; i++) {
-        var player = instance_create_layer((530 + i * 220) * room_width / 1280, 430 * room_height / 720, "Instances", obj_recycling_player);
-        player.playerid = i + 1;
-        player.character_index = global.frontend_characters[i];
-    }
-    if (has_construction) construction_level_init();
-    repeat (4) array_push(dispenser.queue, recycling_next_entry());
-    if (level_index == 2) split_level_init();
+    // The room editor owns the instances, positions and appearance.
     workshop_layout_init();
-    // Draw the floor above the room's default background (depth 100), below stations.
+    has_construction = instance_exists(obj_science_bench);
+    for (var i = 0; i < array_length(dispensers); i++) {
+        var source = dispensers[i];
+        repeat (min(4, source.capacity)) array_push(source.queue, recycling_next_entry(source));
+    }
+    // Artwork is the editable background layer; this controller only draws the HUD.
     depth = 50;
 }
 
-function recycling_create_station(_kind, _x, _y, _w, _h) {
-    var station = instance_create_layer(_x * room_width / 1280, _y * room_height / 720, "Instances", obj_recycling_station);
-    station.station_kind = _kind;
-    station.station_width = _w;
-    station.station_height = _h;
-    array_push(stations, station);
-    return station;
-}
 
 function recycling_feedback(_message) {
     with (obj_recycling_level) {
@@ -93,16 +63,20 @@ function recycling_level_tick(_dt) {
     feedback_timer = max(0, feedback_timer - _dt);
     if (has_construction) construction_tick(_dt);
     truck.trip_remaining = max(0, truck.trip_remaining - _dt);
-    if (level_index == 2) { split_level_tick(_dt); return; }
-    spawn_timer -= _dt;
-    while (spawn_timer <= 0 && array_length(dispenser.queue) < dispenser.capacity) {
-        array_push(dispenser.queue, recycling_next_entry());
-        spawn_timer += spawn_interval;
+    overflow_elapsed = 0;
+    for (var i = 0; i < array_length(dispensers); i++) {
+        var source = dispensers[i];
+        source.spawn_timer -= _dt;
+        while (source.spawn_timer <= 0 && array_length(source.queue) < source.capacity) {
+            array_push(source.queue, recycling_next_entry(source));
+            source.spawn_timer += source.spawn_interval;
+        }
+        if (array_length(source.queue) >= source.capacity) {
+            source.spawn_timer = max(0, source.spawn_timer);
+            source.overflow_elapsed += _dt;
+        } else source.overflow_elapsed = 0;
+        overflow_elapsed = max(overflow_elapsed, source.overflow_elapsed);
     }
-    if (array_length(dispenser.queue) >= dispenser.capacity) {
-        spawn_timer = max(0, spawn_timer);
-        overflow_elapsed += _dt;
-    } else overflow_elapsed = 0;
     if (overflow_elapsed >= overflow_limit) {
         recycling_finish(false, "O dispenser ficou cheio por muito tempo.");
     } else if (time_remaining <= 0) {
@@ -128,8 +102,8 @@ function recycling_level_update() {
 }
 
 function recycling_station_distance(_px, _py, _station) {
-    var nearest_x = clamp(_px, _station.x - _station.station_width / 2, _station.x + _station.station_width / 2);
-    var nearest_y = clamp(_py, _station.y - _station.station_height / 2, _station.y + _station.station_height / 2);
+    var nearest_x = clamp(_px, _station.x - _station.station_width * abs(_station.image_xscale) / 2, _station.x + _station.station_width * abs(_station.image_xscale) / 2);
+    var nearest_y = clamp(_py, _station.y - _station.station_height * abs(_station.image_yscale) / 2, _station.y + _station.station_height * abs(_station.image_yscale) / 2);
     return point_distance(_px, _py, nearest_x, nearest_y);
 }
 
@@ -160,7 +134,8 @@ function recycling_position_clear(_px, _py) {
 }
 
 function recycling_give_item(_player, _kind, _type, _amount) {
-    var item = instance_create_layer(_player.x, _player.y, "Instances", obj_recycling_item);
+    var item_object = recycling_item_object(_kind, _type);
+    var item = instance_create_layer(_player.x, _player.y, "Items", item_object);
     item.item_kind = _kind;
     item.trash_type = _type;
     item.amount = _amount;
@@ -281,23 +256,24 @@ function recycling_dispenser_take(_station) {
     for (var queue_index = 1; queue_index < array_length(_station.queue); queue_index++) array_push(remaining, _station.queue[queue_index]);
     _station.queue = remaining;
     obj_recycling_level.overflow_elapsed = 0;
-    if (obj_recycling_level.level_index == 2) _station.overflow_elapsed = 0;
+    _station.overflow_elapsed = 0;
     return taken_type;
 }
 
 // A shuffled bag keeps the order unpredictable without starving a robot recipe.
-function recycling_next_entry() {
-    if (array_length(spawn_bag) == 0) {
+function recycling_next_entry(_source = noone) {
+    if (_source == noone) _source = dispenser;
+    if (array_length(_source.spawn_bag) == 0) {
         var entry_count = has_construction ? 8 : 4;
-        for (var entry_index = 0; entry_index < entry_count; entry_index++) array_push(spawn_bag, entry_index);
+        for (var entry_index = 0; entry_index < entry_count; entry_index++) array_push(_source.spawn_bag, entry_index);
         for (var shuffle_index = entry_count - 1; shuffle_index > 0; shuffle_index--) {
             var swap_index = irandom(shuffle_index);
-            var swap_value = spawn_bag[shuffle_index];
-            spawn_bag[shuffle_index] = spawn_bag[swap_index];
-            spawn_bag[swap_index] = swap_value;
+            var swap_value = _source.spawn_bag[shuffle_index];
+            _source.spawn_bag[shuffle_index] = _source.spawn_bag[swap_index];
+            _source.spawn_bag[swap_index] = swap_value;
         }
     }
-    return array_pop(spawn_bag);
+    return array_pop(_source.spawn_bag);
 }
 
 // Reuse the inherited dash speed, duration and cooldown (60 Hz frame units).

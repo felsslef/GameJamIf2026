@@ -53,7 +53,10 @@
   "resourceType": "GMObject",
   "resourceVersion": "2.0",
   "solid": false,
-  "spriteId": null,
+  "spriteId": {
+    "name": "spr_scientist_ju",
+    "path": "sprites/spr_scientist_ju/spr_scientist_ju.yy"
+  },
   "spriteMaskId": null,
   "visible": true
 }

@@ -122,10 +122,7 @@ function frontend_character_update(_dt) {
 }
 
 function frontend_character_arrow(_x, _y, _direction, _color) {
-    draw_set_color(_color);
-    draw_line_width(_x - 10 * _direction, _y, _x + 10 * _direction, _y, 3);
-    draw_line_width(_x + 10 * _direction, _y, _x + 2 * _direction, _y - 9, 3);
-    draw_line_width(_x + 10 * _direction, _y, _x + 2 * _direction, _y + 9, 3);
+    draw_sprite_ext(spr_ui_arrow, 0, _x, _y, _direction, 1, 0, _color, draw_get_alpha());
 }
 
 function frontend_draw_character_select() {

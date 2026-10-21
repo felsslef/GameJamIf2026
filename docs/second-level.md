@@ -1,5 +1,8 @@
 ﻿# Segunda fase — reciclagem e construção
 
+> Edição atual: sprites e instâncias estão no editor do GameMaker. Capacidades, metas e posições são configuradas nas rooms; consulte [gamemaker-editor.md](gamemaker-editor.md).
+
+
 Indaiá mantém as quatro lixeiras, os sacos, o caminhão e as regras de reciclagem de Porto Novo. A construção é acrescentada à mesma rodada, em Solo e Co-op Local. O código original de rede permanece inalterado.
 
 Um único dispenser mistura lixo e peças eletrônicas na mesma fila. Os códigos internos 0–3 representam resíduos e 4–7 representam circuito, bateria, motor e carcaça. A retirada preserva a ordem exibida. O primeiro ícone está contornado.
@@ -18,6 +21,6 @@ As duas metas são avaliadas ao final do tempo. Concluir desbloqueia o terceiro 
 
 J1: WASD, G para dash e H para a??o. J2: setas, NumPad 1 para dash e NumPad 2 para a??o. Esc: pausa. F11: tela cheia.
 
-Configuração adicional: `construction_level_init()` em `scripts/scr_construction/scr_construction.gml`. A primeira fase mantém seus valores.
+Configuração: variáveis das instâncias em `rm_level_02`; veja [gamemaker-editor.md](gamemaker-editor.md).
 
 Validação em cópia temporária: compilação Windows VM e execução da fila mista, separação nas lixeiras, montagem, entrega, saco/caminhão, contadores independentes, exigência das duas metas e regressão da fila da primeira fase.

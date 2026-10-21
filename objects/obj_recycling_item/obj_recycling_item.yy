@@ -57,11 +57,45 @@
   "physicsShape": 1,
   "physicsShapePoints": [],
   "physicsStartAwake": true,
-  "properties": [],
+  "properties": [
+    {
+      "$GMObjectProperty": "v2",
+      "%Name": "trash_type",
+      "filters": [],
+      "listItems": [],
+      "multiselect": false,
+      "name": "trash_type",
+      "rangeEnabled": false,
+      "rangeMax": 10000,
+      "rangeMin": 0,
+      "resourceType": "GMObjectProperty",
+      "resourceVersion": "2.0",
+      "value": "0",
+      "varType": 1
+    },
+    {
+      "$GMObjectProperty": "v2",
+      "%Name": "amount",
+      "filters": [],
+      "listItems": [],
+      "multiselect": false,
+      "name": "amount",
+      "rangeEnabled": false,
+      "rangeMax": 10000,
+      "rangeMin": 0,
+      "resourceType": "GMObjectProperty",
+      "resourceVersion": "2.0",
+      "value": "1",
+      "varType": 1
+    }
+  ],
   "resourceType": "GMObject",
   "resourceVersion": "2.0",
   "solid": false,
-  "spriteId": null,
+  "spriteId": {
+    "name": "spr_waste_paper",
+    "path": "sprites/spr_waste_paper/spr_waste_paper.yy"
+  },
   "spriteMaskId": null,
   "visible": true
 }

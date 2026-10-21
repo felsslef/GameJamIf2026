@@ -1,5 +1,8 @@
 # First playable level: Porto Novo
 
+> Edição atual: sprites e instâncias estão no editor do GameMaker. Capacidades, metas e posições são configuradas nas rooms; consulte [gamemaker-editor.md](gamemaker-editor.md).
+
+
 Enter stop 1 from the map in Solo or Co-op Local. It now opens `rm_level_01`.
 LAN still opens the unchanged `rm_menu` -> `rm_teste` prototype; the new station,
 bin, timer and score state is not synchronized by the existing LAN protocol.
@@ -57,7 +60,7 @@ Enter or Esc returns to the map. The pause menu does not cover the result screen
   the existing `estado` function field and draws the selected scientist.
 - `obj_recycling_item`: loose waste, carried waste and filled bags.
 - `scr_recycling_level`: round/interaction/movement logic.
-- `scr_recycling_draw`: provisional pixel-style station, waste and HUD drawing.
+- `scr_recycling_draw`: sprite drawing and dynamic HUD.
 
 All balancing values are at the start of `recycling_level_init` in
 `scripts/scr_recycling_level/scr_recycling_level.gml`.

@@ -1,7 +1,6 @@
-/// Primitive placeholders on a 32px grid; replace these helpers with sprites later.
+/// Sprite-based presentation helpers; text and interface state remain dynamic.
 function frontend_rect(_x, _y, _w, _h, _color) {
-    draw_set_color(_color);
-    draw_rectangle(_x, _y, _x + _w, _y + _h, false);
+    draw_sprite_stretched_ext(spr_ui_fill, 0, _x, _y, _w, _h, _color, draw_get_alpha());
 }
 
 function frontend_text(_x, _y, _text, _font, _color, _align = fa_left) {
@@ -17,33 +16,9 @@ function frontend_panel(_x, _y, _w, _h, _fill, _border) {
     frontend_rect(_x + 2, _y + 2, _w - 4, _h - 4, _fill);
 }
 
-function frontend_pixel(_x, _y, _scale, _px, _py, _w, _h, _color) {
-    frontend_rect(_x + _px * _scale, _y + _py * _scale, _w * _scale - 1, _h * _scale - 1, _color);
-}
-
 function frontend_scientist(_x, _y, _scale, _index) {
-    var c = scientists[_index].color;
-    var skin = [make_color_rgb(193, 130, 91), make_color_rgb(239, 185, 142), make_color_rgb(137, 85, 65), make_color_rgb(216, 161, 119)];
-    var hair = [ink, make_color_rgb(105, 63, 43), make_color_rgb(62, 42, 43), make_color_rgb(72, 48, 34)];
-    frontend_pixel(_x, _y, _scale, 8, 30, 18, 2, make_color_rgb(150, 177, 158));
-    frontend_pixel(_x, _y, _scale, 10, 3, 13, 14, hair[_index]);
-    if (_index == 0 || _index == 2) frontend_pixel(_x, _y, _scale, 23, 7, 4, 7, hair[_index]);
-    frontend_pixel(_x, _y, _scale, 12, 7, 10, 9, skin[_index]);
-    frontend_pixel(_x, _y, _scale, 12, 5, 10, 4, hair[_index]);
-    if (_index == 1) frontend_pixel(_x, _y, _scale, 10, 1, 7, 5, hair[_index]);
-    frontend_pixel(_x, _y, _scale, 14, 11, 2, 2, ink);
-    frontend_pixel(_x, _y, _scale, 19, 11, 2, 2, ink);
-    if (_index == 3) {
-        frontend_pixel(_x, _y, _scale, 12, 10, 5, 1, c);
-        frontend_pixel(_x, _y, _scale, 18, 10, 5, 1, c);
-    }
-    frontend_pixel(_x, _y, _scale, 10, 17, 14, 10, c_white);
-    frontend_pixel(_x, _y, _scale, 15, 17, 4, 10, c);
-    frontend_pixel(_x, _y, _scale, 7, 18, 3, 8, c_white);
-    frontend_pixel(_x, _y, _scale, 24, 18, 3, 8, c_white);
-    frontend_pixel(_x, _y, _scale, 11, 27, 5, 4, ink);
-    frontend_pixel(_x, _y, _scale, 19, 27, 5, 4, ink);
-    frontend_pixel(_x, _y, _scale, 21, 20, 2, 2, c);
+    draw_sprite_ext(recycling_scientist_sprite(_index), 0, _x + 16 * _scale, _y + 30 * _scale,
+        _scale / 2, _scale / 2, 0, c_white, draw_get_alpha());
 }
 
 function frontend_draw_button(_b, _index) {

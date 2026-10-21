@@ -1,1 +1,2 @@
-recycling_level_init();
+// All editor instances must finish Create before the level reads their properties.
+phase_state = "loading";
