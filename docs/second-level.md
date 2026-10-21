@@ -16,7 +16,7 @@ Um único dispenser mistura lixo e peças eletrônicas na mesma fila. Os código
 
 As duas metas são avaliadas ao final do tempo. Concluir desbloqueia o terceiro ponto, ainda um protótipo. Progresso salvo no slot selecionado. Consulte [save-slots.md](save-slots.md).
 
-J1: WASD + E. J2: setas + Enter. Esc: pausa. F11: tela cheia.
+J1: WASD, G para dash e H para a??o. J2: setas, NumPad 1 para dash e NumPad 2 para a??o. Esc: pausa. F11: tela cheia.
 
 Configuração adicional: `construction_level_init()` em `scripts/scr_construction/scr_construction.gml`. A primeira fase mantém seus valores.
 

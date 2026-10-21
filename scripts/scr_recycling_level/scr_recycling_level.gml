@@ -268,16 +268,10 @@ function recycling_player_step() {
     var use_arrows = global.game_mode == "coop_local" && playerid == 2;
     var move_x = use_arrows ? keyboard_check(vk_right) - keyboard_check(vk_left) : keyboard_check(ord("D")) - keyboard_check(ord("A"));
     var move_y = use_arrows ? keyboard_check(vk_down) - keyboard_check(vk_up) : keyboard_check(ord("S")) - keyboard_check(ord("W"));
-    var tapped_direction = -1;
-    if (keyboard_check_pressed(use_arrows ? vk_right : ord("D"))) tapped_direction = 0;
-    if (keyboard_check_pressed(use_arrows ? vk_up : ord("W"))) tapped_direction = 1;
-    if (keyboard_check_pressed(use_arrows ? vk_left : ord("A"))) tapped_direction = 2;
-    if (keyboard_check_pressed(use_arrows ? vk_down : ord("S"))) tapped_direction = 3;
-    recycling_player_movement(min(0.05, delta_time / 1000000), move_x, move_y, tapped_direction);
+    var dash_pressed = keyboard_check_pressed(use_arrows ? vk_numpad2 : ord("G"));
+    recycling_player_movement(min(0.05, delta_time / 1000000), move_x, move_y, dash_pressed);
     depth = -y;
-    var command = use_arrows
-        ? keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_rshift)
-        : keyboard_check_pressed(ord("E")) || keyboard_check_pressed(vk_lshift);
+    var command = keyboard_check_pressed(use_arrows ? vk_numpad3 : ord("H"));
     if (command) recycling_interact(id);
 }
 
@@ -307,25 +301,15 @@ function recycling_next_entry() {
 }
 
 // Reuse the inherited dash speed, duration and cooldown (60 Hz frame units).
-function recycling_player_movement(_dt, _move_x, _move_y, _tapped_direction) {
-    tap_remaining = max(0, tap_remaining - _dt);
+function recycling_player_movement(_dt, _move_x, _move_y, _dash_pressed) {
     dash_cooldown = max(0, dash_cooldown - _dt * 60);
-    if (_tapped_direction >= 0) {
-        if (_tapped_direction == last_tap_direction && tap_remaining > 0
-            && !is_dashing && dash_cooldown <= 0) {
-            is_dashing = true;
-            dash_time = dash_time_max;
-            dash_cooldown = dash_cooldown_max;
-            move_dir = _tapped_direction * 90;
-            last_tap_direction = -1;
-            tap_remaining = 0;
-        } else {
-            last_tap_direction = _tapped_direction;
-            tap_remaining = double_tap_window;
-        }
-    }
     if (!is_dashing && (_move_x != 0 || _move_y != 0)) {
         move_dir = point_direction(0, 0, _move_x, _move_y);
+    }
+    if (_dash_pressed && !is_dashing && dash_cooldown <= 0) {
+        is_dashing = true;
+        dash_time = dash_time_max;
+        dash_cooldown = dash_cooldown_max;
     }
     var moving = is_dashing || _move_x != 0 || _move_y != 0;
     if (moving) {

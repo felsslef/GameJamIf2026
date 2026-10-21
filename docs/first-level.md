@@ -33,7 +33,8 @@ No original network or gameplay GML was changed.
 | Action | Solo / local player 1 | Local player 2 |
 | --- | --- | --- |
 | Move | WASD | Arrow keys |
-| Pick up, place, take bag, send truck | E (or left Shift) | Enter (or right Shift) |
+| Pick up, place, take bag, send truck | H | NumPad 3 |
+| Dash | G | NumPad 2 |
 
 Interact near the station (within 58 pixels of its boundary). With an item and
 no nearby station, the command drops it on the floor; the same command picks it
@@ -85,7 +86,7 @@ not implemented here.
 
 ## Dash nas fases 1 e 2
 
-Pressione e solte duas vezes a mesma direção em até 0,25 segundo: WASD para J1 e setas para J2 no Co-op Local. Segurar a tecla não ativa dash. Usa os atributos herdados do jogador original: velocidade 12, duração 8 frames e intervalo entre ativações de 25 frames, com referência de 60 FPS. O dash mantém a direção escolhida e verifica a colisão em passos curtos. Cada jogadora tem seu próprio estado; a pausa congela esses temporizadores.
+Pressione G para J1 ou NumPad 2 para J2 no Co-op Local. O dash usa a direção atual ou a última direção ao parar. Segurar a tecla não repete o dash. Usa os atributos herdados do jogador original: velocidade 12, duração 8 frames e intervalo entre ativações de 25 frames, com referência de 60 FPS. O dash mantém a direção escolhida e verifica a colisão em passos curtos. Cada jogadora tem seu próprio estado; a pausa congela esses temporizadores.
 
 Validação no runner: toque simples, direções diferentes, toques espaçados, velocidade/duração herdadas, recarga, colisão com dispenser e estados independentes em Co-op Local. A lógica original de rede e do protótipo permanece intacta.
 

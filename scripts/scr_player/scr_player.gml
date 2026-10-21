@@ -10,9 +10,9 @@ function scr_player_get_inputs() {
             left:           keyboard_check(ord("A")),
             right:          keyboard_check(ord("D")),
             pick:           keyboard_check_pressed(vk_lshift),
-            action_hold:    keyboard_check(vk_lcontrol),
-            action_release: keyboard_check_released(vk_lcontrol),
-            dash:           keyboard_check_pressed(vk_lalt)
+            action_hold:    keyboard_check(ord("H")),
+            action_release: keyboard_check_released(ord("H")),
+            dash:           keyboard_check_pressed(ord("G"))
         };
     } else {
         // Controles P2 Apenas para Coop Local na mesma tela
@@ -22,9 +22,9 @@ function scr_player_get_inputs() {
             left:           keyboard_check(vk_left),
             right:          keyboard_check(vk_right),
             pick:           keyboard_check_pressed(vk_rshift),
-            action_hold:    keyboard_check(vk_rcontrol),
-            action_release: keyboard_check_released(vk_rcontrol),
-            dash:           keyboard_check_pressed(vk_ralt)
+            action_hold:    keyboard_check(vk_numpad1),
+            action_release: keyboard_check_released(vk_numpad1),
+            dash:           keyboard_check_pressed(vk_numpad2)
         };
     }
 }

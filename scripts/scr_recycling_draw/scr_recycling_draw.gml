@@ -161,7 +161,7 @@ function recycling_draw_hud() {
     var place_names = ["Porto Novo", "Indaiá", "Centro", "Martim de Sá", "Massaguaçu"];
     frontend_text(1220, 32, place_names[level_index], fnt_ui_body, dark, fa_right);
     frontend_text(1220, 62, "Esc: pausa | F11: tela cheia", fnt_ui_small, dark, fa_right);
-    frontend_text(48, 694, global.game_mode == "coop_local" ? "J1: WASD + E   J2: Setas + Enter   |   2x direção: dash" : "WASD: mover   E: pegar / colocar   2x direção: dash", fnt_ui_small, c_white);
+    frontend_text(48, 694, global.game_mode == "coop_local" ? "J1: WASD | G: dash | H: ação   J2: Setas | Num 2: dash | Num 3: ação" : "WASD: mover   G: dash   H: pegar / colocar", fnt_ui_small, c_white);
     if (feedback_timer > 0 && phase_state == "playing") {
         var message_width = min(1120, string_length(feedback) * 10 + 32);
         frontend_panel(640 - message_width / 2, 99, message_width, 32, make_color_rgb(255, 252, 235), dark);
