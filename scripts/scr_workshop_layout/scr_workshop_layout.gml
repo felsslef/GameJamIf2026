@@ -13,7 +13,9 @@ function workshop_layout_init() {
         var station = stations[i];
         switch (station.station_kind) {
             case "bin": array_push(bins, station); break;
+            case "intake":
             case "dispenser": array_push(dispensers, station); break;
+            case "dispatch":
             case "truck": truck = station; break;
         }
     }

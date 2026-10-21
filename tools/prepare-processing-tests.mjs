@@ -1,0 +1,24 @@
+﻿// Prepares an isolated GameMaker project. It never edits production code or real save files.
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+const root=process.cwd();
+const dest=path.join(os.tmpdir(),'GameJamIf2026-processing-tests');
+const read=p=>JSON.parse(fs.readFileSync(p,'utf8').replace(/^\uFEFF/,'').replace(/,\s*([}\]])/g,'$1'));
+const save=(p,x)=>fs.writeFileSync(p,JSON.stringify(x,null,2));
+fs.mkdirSync(dest,{recursive:true});
+for(const folder of ['scripts','rooms','objects','sprites','fonts','options','sounds'])fs.cpSync(path.join(root,folder),path.join(dest,folder),{recursive:true});
+fs.copyFileSync('GameJamIf2026.yyp',path.join(dest,'GameJamIf2026.yyp'));
+const name='obj_processing_probe';
+const object=read('objects/obj_frontend/obj_frontend.yy');
+object.name=object['%Name']=name;object.persistent=true;object.eventList=object.eventList.filter(e=>e.eventType===0||e.eventType===3);
+const objectPath=path.join(dest,'objects',name);
+fs.mkdirSync(objectPath,{recursive:true});save(path.join(objectPath,name+'.yy'),object);
+for(const file of ['Create_0.gml','Step_0.gml'])fs.copyFileSync('tests/processing/'+file,path.join(objectPath,file));
+const project=read(path.join(dest,'GameJamIf2026.yyp'));
+project.resources.push({id:{name,path:`objects/${name}/${name}.yy`}});save(path.join(dest,'GameJamIf2026.yyp'),project);
+const roomPath='rooms/rm_main_menu/rm_main_menu.yy';const room=read(path.join(dest,roomPath));const layer=room.layers.find(l=>l.instances);
+const instance=structuredClone(layer.instances[0]);instance.name=instance['%Name']='inst_processing_probe';instance.objectId={name,path:`objects/${name}/${name}.yy`};layer.instances.push(instance);room.instanceCreationOrder.push({name:instance.name,path:roomPath});save(path.join(dest,roomPath),room);
+const optionsPath=path.join(dest,'options/windows/options_windows.yy');const options=read(optionsPath);options.option_windows_disable_sandbox=true;save(optionsPath,options);
+const inputPath=path.join(dest,'scripts/scr_recycling_level/scr_recycling_level.gml');fs.writeFileSync(inputPath,fs.readFileSync(inputPath,'utf8').replaceAll('keyboard_check_pressed(','global.probe_pressed(').replaceAll('keyboard_check(','global.probe_held('));
+console.log(dest);

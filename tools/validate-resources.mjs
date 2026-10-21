@@ -25,6 +25,11 @@ for (const [name, file] of resources) {
       frames++;
     }
   }
+  if (resource.resourceType === 'GMSound') {
+    const sound = path.join(path.dirname(file), resource.soundFile);
+    check(fs.existsSync(sound), 'Missing sound file: ' + sound);
+    if (sound.endsWith('.wav')) check(fs.readFileSync(sound).subarray(0,4).toString() === 'RIFF', 'Invalid WAV asset: ' + sound);
+  }
   if (resource.resourceType === 'GMObject') {
     for (const id of [resource.spriteId, resource.parentObjectId].filter(Boolean)) check(resources.has(id.name), `Missing object dependency: ${id.name}`);
     for (const event of resource.eventList) {

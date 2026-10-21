@@ -1,5 +1,8 @@
 ﻿# Editar sprites e montar fases no GameMaker
 
+O fluxo atual de triagem e tratamento usa novos prefabs `obj_intake_bin`, `obj_sorting_table`, `obj_washer`, `obj_biodigester`, `obj_dismantling_bench`, `obj_hydraulic_press`, `obj_dispatch_truck`, `obj_common_trash` e `obj_extinguisher_rack`. Materiais usam `obj_material_*`; consulte [processing.md](processing.md) para o cat?logo e as vari?veis atuais. Os recursos antigos da tabela abaixo continuam dispon?veis no projeto.
+
+
 Abra `GameJamIf2026.yyp`. As cinco fases agora estão montadas com instâncias reais no Room Editor. Os desenhos de personagens, lixo, peças, sacos, robô, equipamentos e piso foram convertidos em recursos de sprite com PNGs editáveis. São imagens provisórias reaproveitadas dos desenhos anteriores; você pode substituí-las pelas suas.
 
 ## Trocar uma imagem

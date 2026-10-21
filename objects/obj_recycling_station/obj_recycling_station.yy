@@ -166,6 +166,21 @@
       "resourceVersion": "2.0",
       "value": "0",
       "varType": 1
+    },
+    {
+      "$GMObjectProperty": "v2",
+      "%Name": "process_duration",
+      "filters": [],
+      "listItems": [],
+      "multiselect": false,
+      "name": "process_duration",
+      "rangeEnabled": false,
+      "rangeMax": 10000,
+      "rangeMin": 0,
+      "resourceType": "GMObjectProperty",
+      "resourceVersion": "2.0",
+      "value": "3",
+      "varType": 0
     }
   ],
   "resourceType": "GMObject",

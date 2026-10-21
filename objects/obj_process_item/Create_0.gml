@@ -1,0 +1,9 @@
+event_inherited();
+item_kind = "process";
+process_state = "raw_waste";
+floor_age = 0;
+exposure_age = 0;
+burning = false;
+fire_progress = 0;
+fire_work_frame = -1;
+tool_owner = noone;

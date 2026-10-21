@@ -1,0 +1,13 @@
+{
+  "$GMScript": "v1",
+  "%Name": "scr_processing_draw",
+  "isCompatibility": false,
+  "isDnD": false,
+  "name": "scr_processing_draw",
+  "parent": {
+    "name": "gameplay",
+    "path": "folders/scripts/gameplay.yy"
+  },
+  "resourceType": "GMScript",
+  "resourceVersion": "2.0"
+}

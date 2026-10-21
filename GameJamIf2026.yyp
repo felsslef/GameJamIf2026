@@ -169,6 +169,30 @@
       "name": "stations",
       "resourceType": "GMFolder",
       "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "processing",
+      "folderPath": "folders/sprites/processing.yy",
+      "name": "processing",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "processing",
+      "folderPath": "folders/objects/processing.yy",
+      "name": "processing",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "sounds",
+      "folderPath": "folders/sounds.yy",
+      "name": "sounds",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
     }
   ],
   "ForcedPrefabProjectReferences": [],
@@ -790,6 +814,288 @@
       "id": {
         "name": "scr_gameplay_assets",
         "path": "scripts/scr_gameplay_assets/scr_gameplay_assets.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_raw_waste",
+        "path": "sprites/spr_material_raw_waste/spr_material_raw_waste.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_dirty_plastic",
+        "path": "sprites/spr_material_dirty_plastic/spr_material_dirty_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_organic",
+        "path": "sprites/spr_material_organic/spr_material_organic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_electronic",
+        "path": "sprites/spr_material_electronic/spr_material_electronic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_clean_plastic",
+        "path": "sprites/spr_material_clean_plastic/spr_material_clean_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_fertilizer",
+        "path": "sprites/spr_material_fertilizer/spr_material_fertilizer.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_metal_plate",
+        "path": "sprites/spr_material_metal_plate/spr_material_metal_plate.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_plastic_bale",
+        "path": "sprites/spr_material_plastic_bale/spr_material_plastic_bale.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_metal_bale",
+        "path": "sprites/spr_material_metal_bale/spr_material_metal_bale.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_burned_electronic",
+        "path": "sprites/spr_material_burned_electronic/spr_material_burned_electronic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_extinguisher",
+        "path": "sprites/spr_material_extinguisher/spr_material_extinguisher.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_sorting",
+        "path": "sprites/spr_machine_sorting/spr_machine_sorting.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_dismantler",
+        "path": "sprites/spr_machine_dismantler/spr_machine_dismantler.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_press",
+        "path": "sprites/spr_machine_press/spr_machine_press.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_washer",
+        "path": "sprites/spr_machine_washer/spr_machine_washer.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_biodigester",
+        "path": "sprites/spr_machine_biodigester/spr_machine_biodigester.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_trash",
+        "path": "sprites/spr_machine_trash/spr_machine_trash.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_extinguisher_rack",
+        "path": "sprites/spr_machine_extinguisher_rack/spr_machine_extinguisher_rack.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_fire",
+        "path": "sprites/spr_fire/spr_fire.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_leachate",
+        "path": "sprites/spr_leachate/spr_leachate.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_intake",
+        "path": "sprites/spr_machine_intake/spr_machine_intake.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_dispatch",
+        "path": "sprites/spr_machine_dispatch/spr_machine_dispatch.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_intake_bin",
+        "path": "objects/obj_intake_bin/obj_intake_bin.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_sorting_table",
+        "path": "objects/obj_sorting_table/obj_sorting_table.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_washer",
+        "path": "objects/obj_washer/obj_washer.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_biodigester",
+        "path": "objects/obj_biodigester/obj_biodigester.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_dismantling_bench",
+        "path": "objects/obj_dismantling_bench/obj_dismantling_bench.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_hydraulic_press",
+        "path": "objects/obj_hydraulic_press/obj_hydraulic_press.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_dispatch_truck",
+        "path": "objects/obj_dispatch_truck/obj_dispatch_truck.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_common_trash",
+        "path": "objects/obj_common_trash/obj_common_trash.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_extinguisher_rack",
+        "path": "objects/obj_extinguisher_rack/obj_extinguisher_rack.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_process_item",
+        "path": "objects/obj_process_item/obj_process_item.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_raw_waste",
+        "path": "objects/obj_material_raw_waste/obj_material_raw_waste.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_dirty_plastic",
+        "path": "objects/obj_material_dirty_plastic/obj_material_dirty_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_organic",
+        "path": "objects/obj_material_organic/obj_material_organic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_electronic",
+        "path": "objects/obj_material_electronic/obj_material_electronic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_clean_plastic",
+        "path": "objects/obj_material_clean_plastic/obj_material_clean_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_fertilizer",
+        "path": "objects/obj_material_fertilizer/obj_material_fertilizer.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_metal_plate",
+        "path": "objects/obj_material_metal_plate/obj_material_metal_plate.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_plastic_bale",
+        "path": "objects/obj_material_plastic_bale/obj_material_plastic_bale.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_metal_bale",
+        "path": "objects/obj_material_metal_bale/obj_material_metal_bale.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_burned_electronic",
+        "path": "objects/obj_material_burned_electronic/obj_material_burned_electronic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_extinguisher",
+        "path": "objects/obj_material_extinguisher/obj_material_extinguisher.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_leachate",
+        "path": "objects/obj_leachate/obj_leachate.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_processing_flow",
+        "path": "scripts/scr_processing_flow/scr_processing_flow.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_processing_draw",
+        "path": "scripts/scr_processing_draw/scr_processing_draw.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_delivery_success",
+        "path": "sounds/snd_delivery_success/snd_delivery_success.yy"
       }
     }
   ],

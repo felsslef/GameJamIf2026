@@ -28,6 +28,7 @@ function recycling_draw_bar(_x, _y, _w, _ratio, _color) {
 }
 
 function recycling_draw_station() {
+    if (instance_exists(obj_recycling_level) && obj_recycling_level.processing_enabled) { processing_draw_station(); return; }
     var dark = make_color_rgb(35, 57, 64);
     if (station_kind == "truck" && station_height > 88) {
         draw_sprite_stretched(spr_counter, 0, x - station_width / 2, y - station_height / 2, station_width, station_height);
@@ -84,6 +85,7 @@ function recycling_draw_star(_x, _y, _color) {
 }
 
 function recycling_draw_hud() {
+    if (processing_enabled) { processing_draw_hud(); return; }
     var dark = make_color_rgb(35, 57, 64);
     frontend_panel(32, 20, 1216, 70, make_color_rgb(255, 252, 235), dark);
     frontend_text(56, 31, "Reciclados: " + string(recycled_total) + " / " + string(minimum_goal), fnt_ui_body,

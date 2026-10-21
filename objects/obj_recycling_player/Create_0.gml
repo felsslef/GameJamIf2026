@@ -14,3 +14,6 @@ if (!variable_global_exists("frontend_characters")) global.frontend_characters =
 if (playerid == 2 && global.game_mode != "coop_local") { instance_destroy(); exit; }
 character_index = global.frontend_characters[clamp(playerid - 1, 0, 1)];
 sprite_index = recycling_scientist_sprite(character_index);
+
+stun_remaining = 0;
+slip_contact = noone;

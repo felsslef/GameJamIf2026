@@ -4,6 +4,10 @@ Open `GameJamIf2026.yyp` in GameMaker. The first room is `rm_main_menu`.
 The working title is **Maré da Ciência**. New code/resource names are English;
 player-facing strings are Brazilian Portuguese.
 
+## Current gameplay
+
+The five offline rooms now use raw bags, manual sorting, washing/biodigestion/dismantling, a lever-operated press, active orders and waste hazards. The current goals count completed orders; see [processing.md](processing.md).
+
 ## Editing in GameMaker
 
 The gameplay artwork now uses real sprite resources and every stage has editable room instances. See [gamemaker-editor.md](gamemaker-editor.md) for replacing images, moving objects and changing Instance Variables.

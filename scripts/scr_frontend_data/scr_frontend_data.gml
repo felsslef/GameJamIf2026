@@ -31,11 +31,11 @@ function frontend_init() {
          bio: "Maria programa soluções para desafios da cidade. Ela conecta as ideias da equipe e desenvolve a inteligência das novas robôs de reciclagem."}
     ];
     levels = [
-        {name: "Primeiros passos", place: "Porto Novo", tag: "01 / TUTORIAL", difficulty: "Tranquila", goal: "Aprenda a recolher, separar e encaminhar os resíduos.", targets: [12, 21, 30], scene: 0},
-        {name: "Ideias em construção", place: "Indaiá", tag: "02 / ROBÓTICA", difficulty: "Leve", goal: "Recupere peças e descubra como construir robôs ajudantes.", targets: [12, 21, 30], scene: 1},
-        {name: "De mão em mão", place: "Centro", tag: "03 / COOPERAÇÃO", difficulty: "Moderada", goal: "Passe os materiais entre bancadas. No solo, uma robô ajudará na travessia.", targets: [12, 21, 30], scene: 2},
-        {name: "Mutirão no bairro", place: "Martim de Sá", tag: "04 / ORGANIZAÇÃO", difficulty: "Desafiadora", goal: "Planeje o descarte e as viagens do caminhão para manter o fluxo.", targets: [16, 24, 32], scene: 3},
-        {name: "Uma nova maré", place: "Massaguaçu", tag: "05 / GRANDE DESAFIO", difficulty: "Intensa", goal: "Una a equipe e suas invenções no último grande mutirão.", targets: [20, 28, 36], scene: 4}
+        {name: "Primeiros passos", place: "Porto Novo", tag: "01 / TUTORIAL", difficulty: "Tranquila", goal: "Faça a triagem e atenda os primeiros pedidos.", targets: [3, 5, 7], scene: 0},
+        {name: "Ideias em construção", place: "Indaiá", tag: "02 / TRATAMENTO", difficulty: "Leve", goal: "Organize limpeza, biodigestão e desmontagem.", targets: [4, 6, 8], scene: 1},
+        {name: "De mão em mão", place: "Centro", tag: "03 / COOPERAÇÃO", difficulty: "Moderada", goal: "Passe materiais entre as bancadas dos dois lados.", targets: [5, 7, 9], scene: 2},
+        {name: "Mutirão no bairro", place: "Martim de Sá", tag: "04 / ORGANIZAÇÃO", difficulty: "Desafiadora", goal: "Coordene as máquinas e evite desperdícios.", targets: [6, 8, 10], scene: 3},
+        {name: "Uma nova maré", place: "Massaguaçu", tag: "05 / GRANDE DESAFIO", difficulty: "Intensa", goal: "Domine o processamento e controle os incidentes.", targets: [7, 9, 12], scene: 4}
     ];
     level_nodes = [{x: 200, y: 400}, {x: 385, y: 265}, {x: 640, y: 194}, {x: 897, y: 250}, {x: 1100, y: 150}];
     screen = "main";

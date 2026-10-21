@@ -25,7 +25,8 @@ function recycling_level_init() {
     // The room editor owns the instances, positions and appearance.
     workshop_layout_init();
     has_construction = instance_exists(obj_science_bench);
-    for (var i = 0; i < array_length(dispensers); i++) {
+    if (processing_enabled) processing_level_init();
+    else for (var i = 0; i < array_length(dispensers); i++) {
         var source = dispensers[i];
         repeat (min(4, source.capacity)) array_push(source.queue, recycling_next_entry(source));
     }
@@ -61,6 +62,7 @@ function recycling_level_tick(_dt) {
     if (phase_state != "playing") return;
     time_remaining = max(0, time_remaining - _dt);
     feedback_timer = max(0, feedback_timer - _dt);
+    if (processing_enabled) { processing_tick(_dt); return; }
     if (has_construction) construction_tick(_dt);
     truck.trip_remaining = max(0, truck.trip_remaining - _dt);
     overflow_elapsed = 0;
@@ -153,6 +155,7 @@ function recycling_consume_item(_player) {
 function recycling_interact(_player) {
     var level = obj_recycling_level;
     if (level.phase_state != "playing") return;
+    if (level.processing_enabled) { processing_interact(_player); return; }
     var station = recycling_nearest_station(_player);
     if (!instance_exists(_player.carried_item)) _player.carried_item = noone;
     var item = _player.carried_item;
@@ -240,6 +243,7 @@ function recycling_interact(_player) {
 
 function recycling_player_step() {
     if (!instance_exists(obj_recycling_level) || obj_recycling_level.phase_state != "playing") return;
+    if (obj_recycling_level.processing_enabled && stun_remaining > 0) { is_dashing = false; return; }
     var use_arrows = global.game_mode == "coop_local" && playerid == 2;
     var move_x = use_arrows ? keyboard_check(vk_right) - keyboard_check(vk_left) : keyboard_check(ord("D")) - keyboard_check(ord("A"));
     var move_y = use_arrows ? keyboard_check(vk_down) - keyboard_check(vk_up) : keyboard_check(ord("S")) - keyboard_check(ord("W"));
@@ -247,7 +251,10 @@ function recycling_player_step() {
     recycling_player_movement(min(0.05, delta_time / 1000000), move_x, move_y, dash_pressed);
     depth = -y;
     var command = keyboard_check_pressed(use_arrows ? vk_numpad3 : ord("H"));
-    if (command) recycling_interact(id);
+    if (obj_recycling_level.processing_enabled) {
+        var action_held = keyboard_check(use_arrows ? vk_numpad3 : ord("H"));
+        processing_player_action(id, action_held, command, max(0, delta_time / 1000000));
+    } else if (command) recycling_interact(id);
 }
 
 function recycling_dispenser_take(_station) {
@@ -298,6 +305,7 @@ function recycling_player_movement(_dt, _move_x, _move_y, _dash_pressed) {
         repeat (segments) {
             if (recycling_position_clear(x + step_x, y)) x += step_x;
             if (recycling_position_clear(x, y + step_y)) y += step_y;
+            if (obj_recycling_level.processing_enabled && processing_check_puddle(id)) break;
         }
     }
     if (is_dashing) {
