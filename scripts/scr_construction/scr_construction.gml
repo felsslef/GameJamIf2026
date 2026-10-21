@@ -19,8 +19,8 @@ function construction_drop(_player, _item) {
     _player.carried_item = noone;
 }
 
-function construction_interact(_player) {
-    var station = recycling_nearest_station(_player);
+function construction_interact(_player, _station_override = noone) {
+    var station = instance_exists(_station_override) ? _station_override : recycling_nearest_station(_player);
     var item = _player.carried_item;
     if (!instance_exists(item)) item = noone;
     if (item != noone) {

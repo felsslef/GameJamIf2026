@@ -1,13 +1,13 @@
 {
-  "$GMScript": "v1",
-  "%Name": "scr_recycling_level",
-  "isCompatibility": false,
-  "isDnD": false,
-  "name": "scr_recycling_level",
-  "parent": {
-    "name": "gameplay",
-    "path": "folders/scripts/gameplay.yy"
+  "$GMScript":"v1",
+  "%Name":"scr_recycling_level",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_recycling_level",
+  "parent":{
+    "name":"gameplay",
+    "path":"folders/scripts/gameplay.yy",
   },
-  "resourceType": "GMScript",
-  "resourceVersion": "2.0"
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

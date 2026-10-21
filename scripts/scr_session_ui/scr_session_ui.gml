@@ -82,7 +82,7 @@ function session_ui_update() {
     if (!session_ui_is_gameplay()) return;
     // The finished round owns its result-screen input; F11 above remains available.
     if (instance_exists(obj_recycling_level) && obj_recycling_level.phase_state != "playing") return;
-    if (keyboard_check_pressed(vk_escape)) {
+    if (keyboard_check_pressed(frontend_keybinding("pause"))) {
         if (pause_open) session_ui_close_menu();
         else session_ui_open_menu();
         return;

@@ -1,32 +1,17 @@
 function scr_player_get_inputs() {
     // Usa controles do lado direito APENAS no Coop Local para o Player 2
     var use_p2_keys = (global.game_mode == "coop_local" && playerid == 2);
-
-    if (!use_p2_keys) {
-        // Controles Padrão (P1 Local, Solo e P1/P2 Online)
-        return {
-            up:             keyboard_check(ord("W")),
-            down:           keyboard_check(ord("S")),
-            left:           keyboard_check(ord("A")),
-            right:          keyboard_check(ord("D")),
-            pick:           keyboard_check_pressed(vk_lshift),
-            action_hold:    keyboard_check(ord("H")),
-            action_release: keyboard_check_released(ord("H")),
-            dash:           keyboard_check_pressed(ord("G"))
-        };
-    } else {
-        // Controles P2 Apenas para Coop Local na mesma tela
-        return {
-            up:             keyboard_check(vk_up),
-            down:           keyboard_check(vk_down),
-            left:           keyboard_check(vk_left),
-            right:          keyboard_check(vk_right),
-            pick:           keyboard_check_pressed(vk_rshift),
-            action_hold:    keyboard_check(vk_numpad1),
-            action_release: keyboard_check_released(vk_numpad1),
-            dash:           keyboard_check_pressed(vk_numpad2)
-        };
-    }
+    var prefix = use_p2_keys ? "p2_" : "p1_";
+    return {
+        up:             keyboard_check(frontend_keybinding(prefix + "up")),
+        down:           keyboard_check(frontend_keybinding(prefix + "down")),
+        left:           keyboard_check(frontend_keybinding(prefix + "left")),
+        right:          keyboard_check(frontend_keybinding(prefix + "right")),
+        pick:           keyboard_check_pressed(frontend_keybinding(prefix + "interact")),
+        action_hold:    keyboard_check(frontend_keybinding(prefix + "action")),
+        action_release: keyboard_check_released(frontend_keybinding(prefix + "action")),
+        dash:           keyboard_check_pressed(frontend_keybinding(prefix + "dash"))
+    };
 }
 
 function scr_player_step() {

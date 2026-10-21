@@ -47,13 +47,21 @@ function frontend_draw() {
         case "characters": title = "Cientistas"; break;
         case "levels": title = "Fases"; break;
         case "options": title = "Opções"; break;
+        case "controls": title = "Configuração de teclas"; break;
     }
     frontend_text(640, 92, title, font_title, ink, fa_center);
+
+    if (screen == "controls") {
+        frontend_text(336, 132, "Jogador 1", font_body, teal, fa_center);
+        frontend_text(944, 132, "Jogador 2", font_body, teal, fa_center);
+        frontend_text(640, 504, "Clique em um comando para trocar a tecla. Esc cancela a captura.", font_small, muted, fa_center);
+    }
 
     for (var i = 0; i < array_length(buttons); i++) {
         var b = buttons[i];
         if (b.action != "character" && b.action != "level") frontend_draw_button(b, i);
     }
+    if (screen == "controls" && notice_timer > 0) frontend_text(640, 666, notice, font_small, ink, fa_center);
     if (screen == "saves" && notice_timer > 0) frontend_text(640, 520, notice, font_small, ink, fa_center);
     draw_set_font(-1);
     draw_set_color(c_white);

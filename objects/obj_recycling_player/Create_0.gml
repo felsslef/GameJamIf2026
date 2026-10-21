@@ -3,6 +3,8 @@ estado = recycling_player_step;
 move_spd = 6;
 dash_spd = 18;
 carried_item = noone;
+throw_charge = 0;
+throw_charge_max = 30;
 character_index = 0;
 ink = make_color_rgb(36, 41, 40);
 scientists = [{color: make_color_rgb(18, 113, 105)}, {color: make_color_rgb(212, 106, 85)},
@@ -17,3 +19,7 @@ sprite_index = recycling_scientist_sprite(character_index);
 
 stun_remaining = 0;
 slip_contact = noone;
+dash_trail_x = [];
+dash_trail_y = [];
+dash_trail_age = [];
+dash_trail_strength = [];

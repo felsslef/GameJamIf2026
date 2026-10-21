@@ -190,8 +190,8 @@ function processing_handoff(_player, _station) {
     }
 }
 
-function processing_interact(_player) {
-    var station = recycling_nearest_station(_player);
+function processing_interact(_player, _station_override = noone) {
+    var station = instance_exists(_station_override) ? _station_override : recycling_nearest_station(_player);
     var item = _player.carried_item;
     if (!instance_exists(item)) { item = noone; _player.carried_item = noone; }
     if (item != noone) {
@@ -227,7 +227,7 @@ function processing_interact(_player) {
     var closest = 42;
     with (obj_process_item) {
         var item_distance = point_distance(x,y,_player.x,_player.y);
-        if (!is_held && !burning && item_distance < closest) { loose = id; closest = item_distance; }
+        if (!is_held && !is_thrown && !burning && item_distance < closest) { loose = id; closest = item_distance; }
     }
     if (loose != noone) {
         loose.is_held = true; loose.holder = _player; loose.floor_age = 0; loose.exposure_age = 0;

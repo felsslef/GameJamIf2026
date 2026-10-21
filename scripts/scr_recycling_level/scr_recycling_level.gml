@@ -152,16 +152,84 @@ function recycling_consume_item(_player) {
     _player.carried_item = noone;
 }
 
-function recycling_interact(_player) {
+function recycling_thrown_item_can_interact(_item, _station) {
+    var level = obj_recycling_level;
+    if (level.processing_enabled) {
+        if (!variable_instance_exists(_item, "process_state")) {
+            return _station.station_kind == "trash";
+        }
+        var state = _item.process_state;
+        switch (_station.station_kind) {
+            case "handoff": return is_undefined(_station.stored_item);
+            case "dispatch": return processing_is_final(state) && _station.trip_remaining <= 0;
+            case "trash": return state != "extinguisher";
+            case "extinguisher_rack": return state == "extinguisher";
+            case "intake": return state == "raw_waste" && array_length(_station.queue) < _station.capacity;
+            default:
+                return is_undefined(_station.buffer)
+                    && processing_station_accepts(_station.station_kind, state);
+        }
+    }
+
+    switch (_station.station_kind) {
+        case "handoff": return is_undefined(_station.stored_item);
+        case "bin":
+            return _item.item_kind == "waste" && _item.trash_type == _station.trash_type
+                && _station.load < _station.capacity;
+        case "truck":
+            return _item.item_kind == "bag" && _station.trip_remaining <= 0
+                && _station.load + _item.amount <= _station.capacity;
+        case "bench":
+            return _item.item_kind == "part" && !_station.module_ready && _station.build_remaining <= 0
+                && !_station.parts[_item.trash_type];
+        case "storage": return _item.item_kind == "robot";
+        case "dispenser":
+            return (_item.item_kind == "waste" || _item.item_kind == "part")
+                && array_length(_station.queue) < _station.capacity;
+    }
+    return false;
+}
+
+function recycling_thrown_item_interact(_item, _station) {
+    var thrower = _item.thrower;
+    if (!instance_exists(thrower)) {
+        _item.is_held = false;
+        _item.holder = noone;
+        _item.is_thrown = false;
+        _item.throw_spd = 0;
+        _item.x = _station.x;
+        _item.y = _station.y;
+        return;
+    }
+
+    thrower.carried_item = _item;
+    _item.is_held = true;
+    _item.holder = thrower;
+    if (obj_recycling_level.processing_enabled) processing_interact(thrower, _station);
+    else recycling_interact(thrower, _station);
+
+    // If the station rejects the item, leave it placed on that station.
+    if (instance_exists(_item) && thrower.carried_item == _item) {
+        thrower.carried_item = noone;
+        _item.is_held = false;
+        _item.holder = noone;
+        _item.is_thrown = false;
+        _item.throw_spd = 0;
+        _item.x = _station.x;
+        _item.y = _station.y;
+    }
+}
+
+function recycling_interact(_player, _station_override = noone) {
     var level = obj_recycling_level;
     if (level.phase_state != "playing") return;
-    if (level.processing_enabled) { processing_interact(_player); return; }
-    var station = recycling_nearest_station(_player);
+    if (level.processing_enabled) { processing_interact(_player, _station_override); return; }
+    var station = instance_exists(_station_override) ? _station_override : recycling_nearest_station(_player);
     if (!instance_exists(_player.carried_item)) _player.carried_item = noone;
     var item = _player.carried_item;
     if (station != noone && station.station_kind == "handoff") { split_level_handoff(_player, station); return; }
     if (station != noone && (station.station_kind == "bench" || station.station_kind == "storage")) {
-        construction_interact(_player); return;
+        construction_interact(_player, station); return;
     }
     if (item != noone) {
         if (station != noone) {
@@ -209,7 +277,7 @@ function recycling_interact(_player) {
     var nearest_distance = 42;
     with (obj_recycling_item) {
         var item_distance = point_distance(x, y, _player.x, _player.y);
-        if (!is_held && item_distance < nearest_distance) {
+        if (!is_held && !is_thrown && item_distance < nearest_distance) {
             nearest_distance = item_distance;
             loose_item = id;
         }
@@ -245,16 +313,53 @@ function recycling_player_step() {
     if (!instance_exists(obj_recycling_level) || obj_recycling_level.phase_state != "playing") return;
     if (obj_recycling_level.processing_enabled && stun_remaining > 0) { is_dashing = false; return; }
     var use_arrows = global.game_mode == "coop_local" && playerid == 2;
-    var move_x = use_arrows ? keyboard_check(vk_right) - keyboard_check(vk_left) : keyboard_check(ord("D")) - keyboard_check(ord("A"));
-    var move_y = use_arrows ? keyboard_check(vk_down) - keyboard_check(vk_up) : keyboard_check(ord("S")) - keyboard_check(ord("W"));
-    var dash_pressed = keyboard_check_pressed(use_arrows ? vk_numpad2 : ord("G"));
+    var prefix = use_arrows ? "p2_" : "p1_";
+    var move_x = keyboard_check(frontend_keybinding(prefix + "right")) - keyboard_check(frontend_keybinding(prefix + "left"));
+    var move_y = keyboard_check(frontend_keybinding(prefix + "down")) - keyboard_check(frontend_keybinding(prefix + "up"));
+    var dash_pressed = keyboard_check_pressed(frontend_keybinding(prefix + "dash"));
     recycling_player_movement(min(0.05, delta_time / 1000000), move_x, move_y, dash_pressed);
     depth = -y;
-    var command = keyboard_check_pressed(use_arrows ? vk_numpad3 : ord("H"));
-    if (obj_recycling_level.processing_enabled) {
-        var action_held = keyboard_check(use_arrows ? vk_numpad3 : ord("H"));
-        processing_player_action(id, action_held, command, max(0, delta_time / 1000000));
-    } else if (command) recycling_interact(id);
+    var interact = keyboard_check_pressed(frontend_keybinding(prefix + "interact"));
+    var action_key = frontend_keybinding(prefix + "action");
+    var action_held = keyboard_check(action_key);
+    var action_released = keyboard_check_released(action_key);
+    var dt = max(0, delta_time / 1000000);
+
+    // Shift is dedicated to picking up, placing and interacting with stations.
+    if (interact) {
+        if (obj_recycling_level.processing_enabled) processing_interact(id);
+        else recycling_interact(id);
+    }
+
+    if (instance_exists(carried_item) && obj_recycling_level.processing_enabled
+        && variable_instance_exists(carried_item, "process_state") && carried_item.process_state == "extinguisher") {
+        // Keep the extinguisher's hold-to-work behavior on Ctrl.
+        processing_player_action(id, action_held, false, dt);
+        throw_charge = 0;
+    } else if (instance_exists(carried_item)) {
+        if (action_held) throw_charge = min(throw_charge + dt * 60, throw_charge_max);
+        if (action_released) {
+            var ratio = throw_charge / throw_charge_max;
+            carried_item.is_held = false;
+            carried_item.holder = noone;
+            carried_item.is_thrown = true;
+            carried_item.throw_dir = move_dir;
+            carried_item.throw_spd = 0;
+            carried_item.throw_peak_spd = lerp(420, 760, ratio);
+            carried_item.throw_age = 0;
+            carried_item.thrower = id;
+            carried_item.x = x + lengthdir_x(22, move_dir);
+            carried_item.y = y + lengthdir_y(22, move_dir) - 8;
+            carried_item = noone;
+            throw_charge = 0;
+        }
+    } else {
+        throw_charge = 0;
+        if (obj_recycling_level.processing_enabled && action_held) {
+            // Ctrl performs cutting/manual station work; station interaction stays on Shift.
+            processing_player_action(id, true, false, dt);
+        }
+    }
 }
 
 function recycling_dispenser_take(_station) {
@@ -286,6 +391,16 @@ function recycling_next_entry(_source = noone) {
 // Reuse the inherited dash speed, duration and cooldown (60 Hz frame units).
 function recycling_player_movement(_dt, _move_x, _move_y, _dash_pressed) {
     dash_cooldown = max(0, dash_cooldown - _dt * 60);
+    // Fade old afterimages and capture the player's position while dashing.
+    for (var trail_index = array_length(dash_trail_age) - 1; trail_index >= 0; trail_index--) {
+        dash_trail_age[trail_index] += _dt;
+        if (dash_trail_age[trail_index] >= 0.18) {
+            array_delete(dash_trail_x, trail_index, 1);
+            array_delete(dash_trail_y, trail_index, 1);
+            array_delete(dash_trail_age, trail_index, 1);
+            array_delete(dash_trail_strength, trail_index, 1);
+        }
+    }
     if (!is_dashing && (_move_x != 0 || _move_y != 0)) {
         move_dir = point_direction(0, 0, _move_x, _move_y);
     }
@@ -293,6 +408,18 @@ function recycling_player_movement(_dt, _move_x, _move_y, _dash_pressed) {
         is_dashing = true;
         dash_time = dash_time_max;
         dash_cooldown = dash_cooldown_max;
+    }
+    if (is_dashing) {
+        array_push(dash_trail_x, x);
+        array_push(dash_trail_y, y);
+        array_push(dash_trail_age, 0);
+        array_push(dash_trail_strength, clamp(dash_time / max(1, dash_time_max), 0, 1));
+        while (array_length(dash_trail_x) > 6) {
+            array_delete(dash_trail_x, 0, 1);
+            array_delete(dash_trail_y, 0, 1);
+            array_delete(dash_trail_age, 0, 1);
+            array_delete(dash_trail_strength, 0, 1);
+        }
     }
     var moving = is_dashing || _move_x != 0 || _move_y != 0;
     if (moving) {

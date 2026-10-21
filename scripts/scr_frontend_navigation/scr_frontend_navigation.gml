@@ -3,6 +3,12 @@ function frontend_back() {
         case "main": break;
         case "mode": room_goto(rm_main_menu); break;
         case "options": room_goto(rm_main_menu); break;
+        case "controls":
+            global.frontend_rebinding = "";
+            screen = "options";
+            focus = 0;
+            frontend_build_buttons();
+            break;
         case "saves": room_goto(rm_game_mode); break;
         case "characters": room_goto(rm_save_select); break;
         case "levels":
@@ -16,6 +22,26 @@ function frontend_activate(_button) {
     switch (_button.action) {
         case "play": room_goto(rm_game_mode); break;
         case "options": room_goto(rm_options); break;
+        case "controls":
+            screen = "controls";
+            global.frontend_rebinding = "";
+            focus = 0;
+            frontend_build_buttons();
+            break;
+        case "bind_key":
+            global.frontend_rebinding = _button.value;
+            notice = "Pressione a nova tecla. Esc cancela.";
+            notice_timer = 3;
+            frontend_build_buttons();
+            break;
+        case "reset_keys":
+            global.frontend_keybindings = frontend_keybindings_defaults();
+            global.frontend_rebinding = "";
+            frontend_keybinding_save();
+            notice = "Teclas padrão restauradas.";
+            notice_timer = 3;
+            frontend_build_buttons();
+            break;
         case "quit": game_end(); break;
         case "back": frontend_back(); break;
         case "mode":
@@ -83,6 +109,28 @@ function frontend_update() {
     var dt = min(delta_time / 1000000, 0.05);
     if (!global.frontend_reduced_motion) elapsed += dt;
     notice_timer = max(0, notice_timer - dt);
+    if (screen == "controls" && global.frontend_rebinding != "") {
+        if (keyboard_check_pressed(vk_escape)) {
+            global.frontend_rebinding = "";
+            frontend_build_buttons();
+            return;
+        }
+        for (var key_code = 8; key_code < 256; key_code++) {
+            if (keyboard_check_pressed(key_code)) {
+                if (frontend_keybinding_set(global.frontend_rebinding, key_code)) {
+                    global.frontend_rebinding = "";
+                    notice = "Tecla configurada: " + frontend_key_name(key_code);
+                    notice_timer = 2;
+                } else {
+                    notice = "Essa tecla já está atribuída a outro comando.";
+                    notice_timer = 2;
+                }
+                frontend_build_buttons();
+                return;
+            }
+        }
+        return;
+    }
     if (screen == "levels" && keyboard_check_pressed(ord("Q"))) {
         global.frontend_test_unlock = true;
     }

@@ -1,3 +1,33 @@
+function recycling_draw_item_trail(_item) {
+    var sample_count = array_length(_item.throw_trail_x);
+    var mint = make_color_rgb(130, 232, 204);
+    for (var i = 0; i < sample_count; i++) {
+        var age_alpha = 1 - clamp(_item.throw_trail_age[i] / 0.18, 0, 1);
+        var order_alpha = (i + 1) / sample_count;
+        var sample_strength = _item.throw_trail_power[i];
+        var trail_scale = 0.62 + 0.34 * sample_strength;
+        var trail_alpha = 0.3 * age_alpha * order_alpha * sample_strength;
+        draw_sprite_ext(_item.sprite_index, _item.image_index,
+            _item.throw_trail_x[i], _item.throw_trail_y[i],
+            _item.image_xscale * trail_scale, _item.image_yscale * trail_scale,
+            _item.image_angle, mint, trail_alpha);
+    }
+}
+
+function recycling_draw_item_visual(_item) {
+    recycling_draw_item_trail(_item);
+    var speed_ratio = 0;
+    if (_item.is_thrown && _item.throw_peak_spd > 0) {
+        speed_ratio = clamp(_item.throw_spd / _item.throw_peak_spd, 0, 1);
+    }
+    var draw_scale = 1 + 0.24 * speed_ratio;
+    var draw_y = _item.y - 18 * speed_ratio;
+    draw_sprite_ext(_item.sprite_index, _item.image_index, _item.x, draw_y,
+        _item.image_xscale * draw_scale, _item.image_yscale * draw_scale,
+        _item.image_angle, _item.image_blend, _item.image_alpha);
+    return [speed_ratio, draw_scale, draw_y];
+}
+
 function recycling_trash_color(_type) {
     var colors = [make_color_rgb(62, 125, 193), make_color_rgb(206, 79, 73),
         make_color_rgb(50, 144, 98), make_color_rgb(230, 181, 52)];
@@ -97,8 +127,8 @@ function recycling_draw_hud() {
     frontend_text(640, 30, clock, fnt_ui_title, time_remaining <= 20 ? make_color_rgb(177, 51, 47) : dark, fa_center);
     var place_names = ["Porto Novo", "Indaiá", "Centro", "Martim de Sá", "Massaguaçu"];
     frontend_text(1220, 32, place_names[level_index], fnt_ui_body, dark, fa_right);
-    frontend_text(1220, 62, "Esc: pausa | F11: tela cheia", fnt_ui_small, dark, fa_right);
-    frontend_text(48, 694, global.game_mode == "coop_local" ? "J1: WASD | G: dash | H: ação   J2: Setas | Num 2: dash | Num 3: ação" : "WASD: mover   G: dash   H: pegar / colocar", fnt_ui_small, c_white);
+    frontend_text(1220, 62, frontend_key_name(frontend_keybinding("pause")) + ": pausa | F11: tela cheia", fnt_ui_small, dark, fa_right);
+    frontend_text(48, 694, global.game_mode == "coop_local" ? "J1: WASD | Shift: pegar/colocar | Ctrl: cortar/arremessar | Alt: dash   J2: Setas | Shift dir. | Ctrl dir. | Alt Gr: dash" : "WASD: mover | Shift: pegar/colocar | Ctrl: cortar/arremessar | Alt: dash", fnt_ui_small, c_white);
     if (feedback_timer > 0 && phase_state == "playing") {
         var message_width = min(1120, string_length(feedback) * 10 + 32);
         frontend_panel(640 - message_width / 2, 99, message_width, 32, make_color_rgb(255, 252, 235), dark);
