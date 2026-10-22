@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_tutorial_flow",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_tutorial_flow",
+  "parent":{
+    "name":"gameplay",
+    "path":"folders/scripts/gameplay.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

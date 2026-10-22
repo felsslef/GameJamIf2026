@@ -1,88 +1,56 @@
-﻿# Triagem, tratamento e pedidos
+# Coleta, separação e tratamento
 
-As cinco fases offline agora usam este fluxo. A fase 3 mantém os lados separados em Co-op Local; as demais continuam abertas. A montagem de robôs e os equipamentos antigos permanecem como recursos do projeto, enquanto as metas atuais das rooms passam a contar pedidos atendidos.
+A prensa foi retirada. Plástico limpo e biogás/adubo vão ao caminhão; robôs saem automaticamente ao terminar a montagem na bancada científica. Nenhum material pode ser descartado no lixo comum. Veja [recycling-feedback.md](recycling-feedback.md).
 
-```mermaid
-flowchart LR
-  A[Caçamba: saco misturado] --> B[Triagem: segurar ação]
-  B --> C[Plástico sujo]
-  B --> D[Orgânico]
-  B --> E[Eletrônico]
-  C --> F[Lavadora: 3 s]
-  F --> G[Plástico limpo]
-  G --> H[Prensa: alavanca + 2 s]
-  D --> I[Biodigestor: 4 s]
-  I --> J[Biogás / adubo]
-  E --> K[Desmontagem: segurar ação]
-  K --> L[Placa de metal]
-  L --> H
-  H --> M[Fardo de plástico ou metal]
-  J --> N[Expedição: conferir pedido]
-  M --> N
-```
+## Primeira fase
 
-## Controles
+Porto Novo tem quatro lixeiras, uma caçamba, triagem, lavadora, biodigestor, duas bancadas de apoio e caminhão. A fila mistura os quatro recicláveis e sacos brutos; a triagem produz plástico sujo ou orgânico. Eletrônicos, desmontagem, fogo e extintor entram a partir da fase 2.
 
-J1 usa WASD para andar, G para dash e H para pegar/colocar. J2 usa setas, Num 2 e Num 3. Segure o mesmo botão de ação para trabalhar na triagem, na desmontagem ou com o extintor. O trabalho manual pausa ao soltar o botão ou sair do alcance; o progresso permanece na bancada. Duas jogadoras não aceleram a mesma bancada ao trabalhar no mesmo frame.
+Pegue o reciclável, coloque na lixeira correspondente, retire o saco com as mãos vazias e entregue ao caminhão. A lixeira tem capacidade 3 e recusa itens extras sem destruir o que está na mão. É possível retirar um saco parcial. A quantidade é preservada na bancada e ocupa a mesma quantidade de espaços no caminhão compartilhado. Cada saco ou produto tratado conta uma entrega, independentemente do material.
 
-A triagem leva 2 segundos e a desmontagem 2,5 segundos. Os resultados da triagem são aleatórios em ciclos embaralhados dos três materiais. A lavadora e o biodigestor começam automaticamente ao receber o material correto. Na prensa, primeiro coloque o plástico limpo ou a placa de metal; depois aperte a ação novamente para acionar a alavanca. Ela demora 2 segundos. Cada equipamento comporta um material e só fica livre após retirar o resultado.
+## Fases seguintes
 
-A caçamba gera sacos automaticamente. Se estiver vazia, a ação aciona a alavanca para gerar um saco; aperte novamente para pegá-lo. Sacos brutos não podem entrar na prensa nem ser entregues diretamente. Equipamentos recusam entradas incompatíveis sem destruir o item.
+As fases 2–5 misturam papel, plástico reciclável, vidro, metal reciclável e sacos brutos na mesma fila. A ordem desenhada corresponde à retirada. Materiais já separados vão às lixeiras; sacos brutos passam pela triagem manual.
 
-## Pedidos e pontuação
+| Entrada | Trabalho | Produto entregue |
+| --- | --- | --- |
+| Papel, plástico reciclável, vidro ou metal reciclável | Lixeira da cor correspondente; retirar o saco | Saco separado |
+| Saco bruto → plástico sujo | Segurar Pegar na triagem por 2 s; lavadora automática por 3 s | Plástico limpo |
+| Saco bruto → orgânico | Segurar Pegar na triagem por 2 s; biodigestor automático por 4 s | Biogás / adubo |
+| Saco bruto → eletrônico | Triagem manual por 2 s; desmontagem por 2,5 s; bancada científica por 3 s | Robô de limpeza |
 
-Três pedidos aparecem no topo da tela. As entregas válidas são fardo de plástico, fardo de metal e biogás/adubo. Uma entrega correspondente remove um pedido, dá 100 pontos e toca `snd_delivery_success`. Novos pedidos entram a cada 3 segundos enquanto houver menos de três ativos.
+Cada máquina comporta um material e fica livre após retirar o resultado. O mesmo botão pega, coloca e trabalha: toque para interagir, mantenha pressionado para trabalho manual ou extintor. Soltar o botão ou sair do alcance pausa o trabalho preservando o progresso. Duas jogadoras não aceleram a mesma bancada no mesmo frame. A caçamba gera automaticamente; quando vazia, interagir também gera um item. Matérias-primas não são aceitas na expedição.
 
-Uma entrega finalizada sem pedido correspondente é descartada e desconta 5 segundos; não pontua. Matérias-primas e itens intermediários são recusados e continuam nas mãos da jogadora. O caminhão mantém capacidade e tempo de viagem: encheu, sai automaticamente; com as mãos vazias, a ação também permite enviá-lo antes de encher. Durante a ausência, as entregas ficam bloqueadas sem consumir itens.
+O jogo monta a lista de materiais a partir das lixeiras e máquinas presentes na room. A caçamba nunca gera materiais sem equipamento correspondente. A triagem embaralha os materiais disponíveis sem excluir algum indefinidamente.
 
-Todas as fases duram 120 segundos. As metas abaixo contam pedidos, não os 100 pontos por pedido:
+Uma entrega válida incrementa o contador e toca `snd_delivery_success`. Não há pedidos, descarte por falta de pedido ou penalidade de tempo. O caminhão tem limite compartilhado e tempo de retorno: ao encher, sai automaticamente; com as mãos vazias, é possível enviá-lo antes. Sacos que não cabem e entregas durante a viagem são recusados sem consumo do item.
+
+## Metas
+
+As cinco fases duram 120 segundos. As metas contam entregas de qualquer material finalizado. É possível continuar entregando após atingir o mínimo, até o relógio terminar. Caçamba cheia por tempo excessivo ainda causa derrota. Vitórias salvam a conclusão e as melhores estrelas no slot ativo.
 
 | Fase | Local | 1 estrela | 2 estrelas | 3 estrelas | Intervalo por caçamba |
-|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- |
 | 1 | Porto Novo | 3 | 5 | 7 | 10 s |
 | 2 | Indaiá | 4 | 6 | 8 | 9 s |
-| 3 | Centro | 5 | 7 | 9 | 12 s, duas caçambas |
+| 3 | Centro | 5 | 7 | 9 | 12 s; duas caçambas |
 | 4 | Martim de Sá | 6 | 8 | 10 | 8 s |
 | 5 | Massaguaçu | 7 | 9 | 12 | 7 s |
 
-É necessário sobreviver até o fim do tempo. Caçamba cheia por tempo excessivo ainda causa derrota. Vitórias atualizam o save selecionado e liberam a próxima fase. Os saves existentes de conclusão/estrelas continuam compatíveis. O código original de rede continua separado, usando seu protótipo anterior.
+O tutorial fica separado, no ponto T, sem relógio de derrota e sem incidentes. Ele ensina sete entregas guiadas e salva sua conclusão separadamente das fases. Veja [tutorial.md](tutorial.md).
 
-## Chorume e incêndios
+## Incidentes nas fases com tratamento
 
-Orgânico no chão por 8 segundos vira uma poça de chorume. Recolher o item zera esse tempo; apoiá-lo em bancada evita a deterioração no chão. A poça dura até sair/reiniciar a fase. Ao entrar nela, a personagem escorrega e fica 2 segundos sem andar, dar dash ou interagir. Não há atordoamento infinito por permanecer no mesmo lugar; sair e entrar novamente pode causar outro escorregão. O dash também detecta a poça durante o trajeto.
+Orgânico no chão por 8 segundos vira chorume; no colo ou na bancada ele não deteriora. A poça atordoa por 2 segundos ao entrar nela, inclusive durante o dash. Permanecer sobre a mesma poça não causa atordoamento infinito.
 
-Eletrônicos no chão ou apoiados sem tratamento por 5 segundos entram em curto-circuito. O material vira eletrônico queimado e não pode ser recuperado. Trabalho ativo na desmontagem evita o superaquecimento. Enquanto o item queima, não pode ser recolhido nem processado.
+Eletrônico parado por 5 segundos incendeia. Apague com o extintor segurando Pegar por 1 segundo, devolva a ferramenta e leve o item à desmontagem para recuperar os componentes. Não existe descarte de materiais no lixo comum.
 
-Pegue o extintor no suporte, aproxime-se do fogo e segure a ação por 1 segundo. O primeiro aperto prioriza apagar o fogo, sem largar a ferramenta. Depois, apoie ou devolva o extintor, recolha o eletrônico queimado e leve ao lixo comum. Cada suporte empresta um extintor por vez; passar a ferramenta pelos blocos mantém esse empréstimo e outra jogadora pode devolvê-la.
+A fase 3 mantém duas lixeiras de cada lado e a divisão no Co-op Local. Qualquer bancada permite passar itens e sacos; no Solo, a passagem entre os lados permanece aberta.
 
-As bancadas da fase 3 passam sacos, intermediários, produtos finais e extintores. Eletrônicos também podem incendiar nesses blocos; orgânicos apoiados não viram chorume.
+## Edição e apresentação
 
-## Editar no GameMaker
+Lixeiras, bancadas e máquinas usam sprites e colisões de 64×64. O caminhão tem dois módulos; a área de entrega da fase dividida preserva o bloqueio cooperativo. Instâncias, posições, capacidade e duração continuam editáveis no GameMaker. Veja [modular-art.md](modular-art.md) e [sprites.md](sprites.md).
 
-Todas as máquinas e materiais têm sprites e objetos reais, posicionados nas rooms:
+Os rótulos e detalhes da fila aparecem somente para a estação ao alcance de interação. Cores, pictogramas e avisos de cheio permitem reconhecer o restante. Somente o tutorial mostra funções dos botões. As teclas são configuráveis nas opções: no padrão, J1 usa WASD e Shift esquerdo para pegar/colocar/trabalhar; J2 usa setas e Shift direito. Ctrl arremessa. O dash funciona com dois toques na mesma direção em até 0,25 s; Alt continua como atalho configurável. Toques, recarga e colisões são independentes por jogadora.
 
-- `obj_intake_bin`: caçamba.
-- `obj_sorting_table`: triagem.
-- `obj_washer`: lavadora.
-- `obj_biodigester`: biodigestor.
-- `obj_dismantling_bench`: desmontagem.
-- `obj_hydraulic_press`: prensa.
-- `obj_dispatch_truck`: caminhão.
-- `obj_common_trash`: descarte comum.
-- `obj_extinguisher_rack`: suporte da ferramenta.
-- `obj_material_*`: sacos, materiais, produtos e extintor.
-- `obj_leachate`: poça.
-
-As artes `spr_material_*`, `spr_machine_*`, `spr_fire` e `spr_leachate` são placeholders substituíveis. O som também é um recurso de áudio editável.
-
-As instâncias das máquinas expõem `process_duration`, `spawn_interval`, `capacity` e `return_duration`. O controlador expõe `processing_enabled`, `wrong_delivery_penalty`, `points_per_order`, `organic_decay_time`, `electronic_overheat_time`, `slip_stun_duration`, `extinguish_duration` e as metas/duração da fase. Os layouts continuam sendo lidos do Room Editor, sem criar ou reposicionar equipamentos por código.
-
-A implementação está em `scr_processing_flow` e `scr_processing_draw`. Textos, barras e indicadores permanecem dinâmicos; os desenhos usam sprites.
-
-## Verificação
-
-`node tools/validate-resources.mjs` confere os recursos, imagens, sons e instâncias.
-
-`node tools/prepare-processing-tests.mjs` cria uma cópia isolada em `%TEMP%/GameJamIf2026-processing-tests`, com o teste GML de `tests/processing`. Compile e execute essa cópia para obter `PROCESSING_PROBE_PASSED`. O teste usa comandos de teclado simulados apenas na cópia e desativa escrita de saves reais. Ele cobre os três fluxos completos, duração, ação mantida/solta, disputa entre jogadoras, alavancas, pedidos certos/errados, timers de chorume e fogo, atordoamento, extintor, descarte, divisão/solo e estrelas.
-
-Após executar o runner com saída em `run.log`, `node tools/check-processing-layouts.mjs` verifica acesso aos equipamentos e circulação nas arenas. A compilação validada usa o runtime Windows VM 2024.14.4.268.
+Validação: `tools/run-game-tests.ps1 -Suite processing`, `-Suite tutorial` e `-Suite production` compilam e verificam cópias isoladas de teste ou o projeto real. `node tools/validate-resources.mjs` valida sprites, objetos e rooms.

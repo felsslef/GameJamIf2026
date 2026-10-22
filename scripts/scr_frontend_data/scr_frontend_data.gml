@@ -4,7 +4,7 @@ function frontend_init() {
     if (!variable_global_exists("frontend_mode")) global.frontend_mode = "solo";
     if (!variable_global_exists("game_mode")) global.game_mode = "solo";
     if (!variable_global_exists("frontend_characters")) global.frontend_characters = [0, 1];
-    if (!variable_global_exists("frontend_level")) global.frontend_level = 0;
+    if (!variable_global_exists("frontend_level")) global.frontend_level = -1;
     if (!variable_global_exists("frontend_network_entry")) global.frontend_network_entry = false;
     if (!variable_global_exists("frontend_reduced_motion")) global.frontend_reduced_motion = false;
     frontend_keybindings_init();
@@ -32,13 +32,14 @@ function frontend_init() {
          bio: "Maria programa soluções para desafios da cidade. Ela conecta as ideias da equipe e desenvolve a inteligência das novas robôs de reciclagem."}
     ];
     levels = [
-        {name: "Primeiros passos", place: "Porto Novo", tag: "01 / TUTORIAL", difficulty: "Tranquila", goal: "Faça a triagem e atenda os primeiros pedidos.", targets: [3, 5, 7], scene: 0},
+        {name: "Primeiro mutirão", place: "Porto Novo", tag: "01 / RECICLAGEM", difficulty: "Leve", goal: "Separe recicláveis, lave plástico e trate orgânicos.", targets: [3, 5, 7], scene: 0},
         {name: "Ideias em construção", place: "Indaiá", tag: "02 / TRATAMENTO", difficulty: "Leve", goal: "Organize limpeza, biodigestão e desmontagem.", targets: [4, 6, 8], scene: 1},
         {name: "De mão em mão", place: "Centro", tag: "03 / COOPERAÇÃO", difficulty: "Moderada", goal: "Passe materiais entre as bancadas dos dois lados.", targets: [5, 7, 9], scene: 2},
         {name: "Mutirão no bairro", place: "Martim de Sá", tag: "04 / ORGANIZAÇÃO", difficulty: "Desafiadora", goal: "Coordene as máquinas e evite desperdícios.", targets: [6, 8, 10], scene: 3},
         {name: "Uma nova maré", place: "Massaguaçu", tag: "05 / GRANDE DESAFIO", difficulty: "Intensa", goal: "Domine o processamento e controle os incidentes.", targets: [7, 9, 12], scene: 4}
     ];
     level_nodes = [{x: 200, y: 400}, {x: 385, y: 265}, {x: 640, y: 194}, {x: 897, y: 250}, {x: 1100, y: 150}];
+    tutorial_node = {x: 88, y: 520};
     screen = "main";
     if (room == rm_game_mode) screen = "mode";
     if (room == rm_save_select) screen = "saves";
@@ -57,7 +58,7 @@ function frontend_init() {
     buttons = [];
     if (screen == "characters") frontend_character_init();
     frontend_build_buttons();
-    if (screen == "levels") focus = selected_level;
+    if (screen == "levels") focus = selected_level + 1;
 }
 
 function frontend_keybinding_names() {
@@ -201,7 +202,7 @@ function frontend_player_controls_hint(_player_id) {
         frontend_key_short_name(frontend_keybinding(prefix + "right"));
     return player_label + " mover (cima/baixo/esq./dir.) " + movement +
         " | pegar " + frontend_key_short_name(frontend_keybinding(prefix + "interact")) +
-        " | ação " + frontend_key_short_name(frontend_keybinding(prefix + "action")) +
+        " | arremesso " + frontend_key_short_name(frontend_keybinding(prefix + "action")) +
         " | dash " + frontend_key_short_name(frontend_keybinding(prefix + "dash"));
 }
 
@@ -229,6 +230,7 @@ function frontend_build_buttons() {
             frontend_character_build_buttons();
             break;
         case "levels":
+            frontend_button(tutorial_node.x - 34, tutorial_node.y - 34, 68, 68, "T", "level", -1);
             for (var i = 0; i < 5; i++) frontend_button(level_nodes[i].x - 34, level_nodes[i].y - 34, 68, 68, string(i + 1), "level", i);
             frontend_button(64, 624, 184, 48, "Voltar", "back");
             frontend_button(1032, 624, 184, 48, "Jogar", "start");
@@ -241,7 +243,7 @@ function frontend_build_buttons() {
         case "controls":
             var commands = ["up", "down", "left", "right", "interact", "action", "dash"];
             var labels = ["Mover para cima", "Mover para baixo", "Mover para esquerda", "Mover para direita",
-                "Pegar / colocar", "Cortar / arremessar", "Dash"];
+                "Pegar / colocar / trabalhar", "Arremessar", "Dash (atalho)"];
             for (var i = 0; i < array_length(commands); i++) {
                 var p1_name = "p1_" + commands[i];
                 var p2_name = "p2_" + commands[i];

@@ -1,216 +1,1932 @@
 {
-  "$GMRoom":"v1",
-  "%Name":"rm_level_02",
-  "creationCodeFile":"",
-  "inheritCode":false,
-  "inheritCreationOrder":false,
-  "inheritLayers":false,
-  "instanceCreationOrder":[
-    {"name":"inst_bb15ef86a6754ef6","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_f8a4bc43dd8e43a0","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_38cfc131598341b3","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_2b829aacbfa94aa8","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_b44869e048164e19","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_7215778d07e0476d","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_397d7d850c3240fb","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_b5a46edd9c784588","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_ad3406b340d948fc","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_53cd3e18382a4d46","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_a2101006ae4049b4","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_e72eb723755b414a","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_2b216c39ff49432e","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_9c3b6e634e324383","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_8e9f18a02e9e4988","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_30f12755667c4397","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_5ce9212abd134c43","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_8442b05bf54e487c","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_c11430d3908742b1","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_4619275ce0984fc7","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_359f6fcd700a4f8f","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_21ba45e3393241e5","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_0f312921c5f448bc","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_ad681c1b97ab48f6","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_28e96996576047e9","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_93a514f05c894876","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_a55efdaeb36b4bbf","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_bc1bd15351d149cc","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_6b365c3fbff04059","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_3234b53fa4d04495","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_bcfa8af6ae4a4afd","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_6e5b0f678f8e4d4a","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_84bb4218fb374833","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_6855b6029cc749b3","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_ad884e3f76634f80","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_2cfd74f52f794dbb","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_level_02_session_ui","path":"rooms/rm_level_02/rm_level_02.yy",},
-    {"name":"inst_level_02_recycling_level","path":"rooms/rm_level_02/rm_level_02.yy",},
+  "$GMRoom": "v1",
+  "%Name": "rm_level_02",
+  "creationCodeFile": "",
+  "inheritCode": false,
+  "inheritCreationOrder": false,
+  "inheritLayers": false,
+  "instanceCreationOrder": [
+    {
+      "name": "inst_bb15ef86a6754ef6",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_f8a4bc43dd8e43a0",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_38cfc131598341b3",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_2b829aacbfa94aa8",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_b44869e048164e19",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_7215778d07e0476d",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_397d7d850c3240fb",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_b5a46edd9c784588",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_a2101006ae4049b4",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_2b216c39ff49432e",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_8e9f18a02e9e4988",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_5ce9212abd134c43",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_8442b05bf54e487c",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_c11430d3908742b1",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_4619275ce0984fc7",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_359f6fcd700a4f8f",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_21ba45e3393241e5",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_0f312921c5f448bc",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_ad681c1b97ab48f6",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_28e96996576047e9",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_93a514f05c894876",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_a55efdaeb36b4bbf",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_6e5b0f678f8e4d4a",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_84bb4218fb374833",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_6855b6029cc749b3",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_rm_level_02_bin_paper",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_rm_level_02_bin_plastic",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_rm_level_02_bin_glass",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_rm_level_02_bin_metal",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_ad884e3f76634f80",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_2cfd74f52f794dbb",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_level_02_session_ui",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    },
+    {
+      "name": "inst_level_02_recycling_level",
+      "path": "rooms/rm_level_02/rm_level_02.yy"
+    }
   ],
-  "isDnd":false,
-  "layers":[
-    {"$GMRInstanceLayer":"","%Name":"Stations","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
-        {"$GMRInstance":"v4","%Name":"inst_bb15ef86a6754ef6","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_bb15ef86a6754ef6","objectId":{"name":"obj_intake_bin","path":"objects/obj_intake_bin/obj_intake_bin.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"0",},
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"capacity","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"8",},
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"spawn_interval","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"9",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":640,"y":320,},
-        {"$GMRInstance":"v4","%Name":"inst_f8a4bc43dd8e43a0","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_f8a4bc43dd8e43a0","objectId":{"name":"obj_washer","path":"objects/obj_washer/obj_washer.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"1",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":96,"y":320,},
-        {"$GMRInstance":"v4","%Name":"inst_38cfc131598341b3","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_38cfc131598341b3","objectId":{"name":"obj_biodigester","path":"objects/obj_biodigester/obj_biodigester.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"2",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":96,"y":448,},
-        {"$GMRInstance":"v4","%Name":"inst_2b829aacbfa94aa8","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_2b829aacbfa94aa8","objectId":{"name":"obj_common_trash","path":"objects/obj_common_trash/obj_common_trash.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"3",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":1184,"y":320,},
-        {"$GMRInstance":"v4","%Name":"inst_b44869e048164e19","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_b44869e048164e19","objectId":{"name":"obj_extinguisher_rack","path":"objects/obj_extinguisher_rack/obj_extinguisher_rack.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"4",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":1184,"y":448,},
-        {"$GMRInstance":"v4","%Name":"inst_7215778d07e0476d","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_7215778d07e0476d","objectId":{"name":"obj_dispatch_truck","path":"objects/obj_dispatch_truck/obj_dispatch_truck.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"5",},
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"capacity","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"12",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":640,"y":608,},
-        {"$GMRInstance":"v4","%Name":"inst_397d7d850c3240fb","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_397d7d850c3240fb","objectId":{"name":"obj_sorting_table","path":"objects/obj_sorting_table/obj_sorting_table.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"6",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":416,"y":192,},
-        {"$GMRInstance":"v4","%Name":"inst_b5a46edd9c784588","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_b5a46edd9c784588","objectId":{"name":"obj_dismantling_bench","path":"objects/obj_dismantling_bench/obj_dismantling_bench.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"7",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":864,"y":192,},
-        {"$GMRInstance":"v4","%Name":"inst_ad3406b340d948fc","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_ad3406b340d948fc","objectId":{"name":"obj_hydraulic_press","path":"objects/obj_hydraulic_press/obj_hydraulic_press.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"8",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":1056,"y":608,},
-        {"$GMRInstance":"v4","%Name":"inst_53cd3e18382a4d46","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_53cd3e18382a4d46","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"9",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":96,"y":192,},
-        {"$GMRInstance":"v4","%Name":"inst_a2101006ae4049b4","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_a2101006ae4049b4","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"10",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":96,"y":608,},
-        {"$GMRInstance":"v4","%Name":"inst_e72eb723755b414a","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_e72eb723755b414a","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"11",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":160,"y":192,},
-        {"$GMRInstance":"v4","%Name":"inst_2b216c39ff49432e","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_2b216c39ff49432e","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"12",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":160,"y":608,},
-        {"$GMRInstance":"v4","%Name":"inst_9c3b6e634e324383","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_9c3b6e634e324383","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"13",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":224,"y":192,},
-        {"$GMRInstance":"v4","%Name":"inst_8e9f18a02e9e4988","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_8e9f18a02e9e4988","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"14",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":224,"y":608,},
-        {"$GMRInstance":"v4","%Name":"inst_30f12755667c4397","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_30f12755667c4397","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"15",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":288,"y":192,},
-        {"$GMRInstance":"v4","%Name":"inst_5ce9212abd134c43","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_5ce9212abd134c43","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"16",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":288,"y":608,},
-        {"$GMRInstance":"v4","%Name":"inst_8442b05bf54e487c","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_8442b05bf54e487c","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"17",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":352,"y":608,},
-        {"$GMRInstance":"v4","%Name":"inst_c11430d3908742b1","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_c11430d3908742b1","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"18",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":416,"y":608,},
-        {"$GMRInstance":"v4","%Name":"inst_4619275ce0984fc7","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_4619275ce0984fc7","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"19",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":480,"y":608,},
-        {"$GMRInstance":"v4","%Name":"inst_359f6fcd700a4f8f","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_359f6fcd700a4f8f","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"20",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":544,"y":192,},
-        {"$GMRInstance":"v4","%Name":"inst_21ba45e3393241e5","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_21ba45e3393241e5","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"21",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":608,"y":192,},
-        {"$GMRInstance":"v4","%Name":"inst_0f312921c5f448bc","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_0f312921c5f448bc","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"22",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":672,"y":192,},
-        {"$GMRInstance":"v4","%Name":"inst_ad681c1b97ab48f6","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_ad681c1b97ab48f6","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"23",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":736,"y":192,},
-        {"$GMRInstance":"v4","%Name":"inst_28e96996576047e9","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_28e96996576047e9","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"24",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":800,"y":608,},
-        {"$GMRInstance":"v4","%Name":"inst_93a514f05c894876","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_93a514f05c894876","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"25",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":864,"y":608,},
-        {"$GMRInstance":"v4","%Name":"inst_a55efdaeb36b4bbf","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_a55efdaeb36b4bbf","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"26",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":928,"y":608,},
-        {"$GMRInstance":"v4","%Name":"inst_bc1bd15351d149cc","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_bc1bd15351d149cc","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"27",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":992,"y":192,},
-        {"$GMRInstance":"v4","%Name":"inst_6b365c3fbff04059","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6b365c3fbff04059","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"28",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":1056,"y":192,},
-        {"$GMRInstance":"v4","%Name":"inst_3234b53fa4d04495","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_3234b53fa4d04495","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"29",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":1120,"y":192,},
-        {"$GMRInstance":"v4","%Name":"inst_bcfa8af6ae4a4afd","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_bcfa8af6ae4a4afd","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"30",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":1184,"y":192,},
-        {"$GMRInstance":"v4","%Name":"inst_6e5b0f678f8e4d4a","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6e5b0f678f8e4d4a","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"31",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":1184,"y":608,},
-        {"$GMRInstance":"v4","%Name":"inst_84bb4218fb374833","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_84bb4218fb374833","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"32",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":608,"y":416,},
-        {"$GMRInstance":"v4","%Name":"inst_6855b6029cc749b3","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6855b6029cc749b3","objectId":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"propertyId":{"name":"station_order","path":"objects/obj_recycling_station/obj_recycling_station.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"33",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":672,"y":416,},
-      ],"layers":[],"name":"Stations","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
-    {"$GMRInstanceLayer":"","%Name":"Players","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
-        {"$GMRInstance":"v4","%Name":"inst_ad884e3f76634f80","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_ad884e3f76634f80","objectId":{"name":"obj_recycling_player","path":"objects/obj_recycling_player/obj_recycling_player.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":352,"y":512,},
-        {"$GMRInstance":"v4","%Name":"inst_2cfd74f52f794dbb","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_2cfd74f52f794dbb","objectId":{"name":"obj_recycling_player_two","path":"objects/obj_recycling_player_two/obj_recycling_player_two.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":928,"y":512,},
-      ],"layers":[],"name":"Players","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
-    {"$GMRInstanceLayer":"","%Name":"Instances","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
-        {"$GMRInstance":"v4","%Name":"inst_level_02_session_ui","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_level_02_session_ui","objectId":{"name":"obj_session_ui","path":"objects/obj_session_ui/obj_session_ui.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":0,"y":0,},
-        {"$GMRInstance":"v4","%Name":"inst_level_02_recycling_level","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_level_02_recycling_level","objectId":{"name":"obj_recycling_level","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_level","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"propertyId":{"name":"overflow_limit","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"12",},
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_level","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"propertyId":{"name":"processing_enabled","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"1",},
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_level","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"propertyId":{"name":"minimum_goal","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"4",},
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_level","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"propertyId":{"name":"star_goal_two","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"6",},
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_level","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"propertyId":{"name":"star_goal_three","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"8",},
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_level","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"propertyId":{"name":"robot_minimum","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"0",},
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_level","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"propertyId":{"name":"robot_star_two","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"0",},
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_recycling_level","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"propertyId":{"name":"robot_star_three","path":"objects/obj_recycling_level/obj_recycling_level.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"0",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0,"scaleX":1,"scaleY":1,"x":0,"y":0,},
-      ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
-    {"$GMRInstanceLayer":"","%Name":"Items","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[],"layers":[],"name":"Items","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
-    {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":15,"animationSpeedType":0,"colour":4294967295,"depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":{"name":"spr_workshop_floor","path":"sprites/spr_workshop_floor/spr_workshop_floor.yy",},"stretch":true,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0,"vtiled":false,"x":0,"y":0,},
+  "isDnd": false,
+  "layers": [
+    {
+      "$GMRInstanceLayer": "",
+      "%Name": "Stations",
+      "depth": 0,
+      "effectEnabled": true,
+      "effectType": null,
+      "gridX": 32,
+      "gridY": 32,
+      "hierarchyFrozen": false,
+      "inheritLayerDepth": false,
+      "inheritLayerSettings": false,
+      "inheritSubLayers": true,
+      "inheritVisibility": true,
+      "instances": [
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_bb15ef86a6754ef6",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_bb15ef86a6754ef6",
+          "objectId": {
+            "name": "obj_intake_bin",
+            "path": "objects/obj_intake_bin/obj_intake_bin.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "0"
+            },
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "capacity",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "8"
+            },
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "spawn_interval",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "9"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 640,
+          "y": 320
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_f8a4bc43dd8e43a0",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_f8a4bc43dd8e43a0",
+          "objectId": {
+            "name": "obj_washer",
+            "path": "objects/obj_washer/obj_washer.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "1"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 96,
+          "y": 320
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_38cfc131598341b3",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_38cfc131598341b3",
+          "objectId": {
+            "name": "obj_biodigester",
+            "path": "objects/obj_biodigester/obj_biodigester.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "2"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 96,
+          "y": 448
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_2b829aacbfa94aa8",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_2b829aacbfa94aa8",
+          "objectId": {
+            "name": "obj_common_trash",
+            "path": "objects/obj_common_trash/obj_common_trash.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "3"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 1184,
+          "y": 320
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_b44869e048164e19",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_b44869e048164e19",
+          "objectId": {
+            "name": "obj_extinguisher_rack",
+            "path": "objects/obj_extinguisher_rack/obj_extinguisher_rack.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "4"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 1184,
+          "y": 448
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_7215778d07e0476d",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_7215778d07e0476d",
+          "objectId": {
+            "name": "obj_dispatch_truck",
+            "path": "objects/obj_dispatch_truck/obj_dispatch_truck.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "5"
+            },
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "capacity",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "12"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 640,
+          "y": 608
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_397d7d850c3240fb",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_397d7d850c3240fb",
+          "objectId": {
+            "name": "obj_sorting_table",
+            "path": "objects/obj_sorting_table/obj_sorting_table.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "6"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 416,
+          "y": 192
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_b5a46edd9c784588",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_b5a46edd9c784588",
+          "objectId": {
+            "name": "obj_dismantling_bench",
+            "path": "objects/obj_dismantling_bench/obj_dismantling_bench.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "7"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 864,
+          "y": 192
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_a2101006ae4049b4",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_a2101006ae4049b4",
+          "objectId": {
+            "name": "obj_science_bench",
+            "path": "objects/obj_science_bench/obj_science_bench.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "10"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 96,
+          "y": 608
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_2b216c39ff49432e",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_2b216c39ff49432e",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "12"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 160,
+          "y": 608
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_8e9f18a02e9e4988",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_8e9f18a02e9e4988",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "14"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 224,
+          "y": 608
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_5ce9212abd134c43",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_5ce9212abd134c43",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "16"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 288,
+          "y": 608
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_8442b05bf54e487c",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_8442b05bf54e487c",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "17"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 352,
+          "y": 608
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_c11430d3908742b1",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_c11430d3908742b1",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "18"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 416,
+          "y": 608
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_4619275ce0984fc7",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_4619275ce0984fc7",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "19"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 480,
+          "y": 608
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_359f6fcd700a4f8f",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_359f6fcd700a4f8f",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "20"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 544,
+          "y": 192
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_21ba45e3393241e5",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_21ba45e3393241e5",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "21"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 608,
+          "y": 192
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_0f312921c5f448bc",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_0f312921c5f448bc",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "22"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 672,
+          "y": 192
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_ad681c1b97ab48f6",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_ad681c1b97ab48f6",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "23"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 736,
+          "y": 192
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_28e96996576047e9",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_28e96996576047e9",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "24"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 800,
+          "y": 608
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_93a514f05c894876",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_93a514f05c894876",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "25"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 864,
+          "y": 608
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_a55efdaeb36b4bbf",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_a55efdaeb36b4bbf",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "26"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 928,
+          "y": 608
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_6e5b0f678f8e4d4a",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_6e5b0f678f8e4d4a",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "31"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 1184,
+          "y": 608
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_84bb4218fb374833",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_84bb4218fb374833",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "32"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 608,
+          "y": 416
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_6855b6029cc749b3",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_6855b6029cc749b3",
+          "objectId": {
+            "name": "obj_counter",
+            "path": "objects/obj_counter/obj_counter.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_station",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "propertyId": {
+                "name": "station_order",
+                "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "33"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 672,
+          "y": 416
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_rm_level_02_bin_paper",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_rm_level_02_bin_paper",
+          "objectId": {
+            "name": "obj_bin_paper",
+            "path": "objects/obj_bin_paper/obj_bin_paper.yy"
+          },
+          "properties": [],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 128,
+          "y": 192
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_rm_level_02_bin_plastic",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_rm_level_02_bin_plastic",
+          "objectId": {
+            "name": "obj_bin_plastic",
+            "path": "objects/obj_bin_plastic/obj_bin_plastic.yy"
+          },
+          "properties": [],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 256,
+          "y": 192
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_rm_level_02_bin_glass",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_rm_level_02_bin_glass",
+          "objectId": {
+            "name": "obj_bin_glass",
+            "path": "objects/obj_bin_glass/obj_bin_glass.yy"
+          },
+          "properties": [],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 1024,
+          "y": 192
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_rm_level_02_bin_metal",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_rm_level_02_bin_metal",
+          "objectId": {
+            "name": "obj_bin_metal",
+            "path": "objects/obj_bin_metal/obj_bin_metal.yy"
+          },
+          "properties": [],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 1152,
+          "y": 192
+        }
+      ],
+      "layers": [],
+      "name": "Stations",
+      "properties": [],
+      "resourceType": "GMRInstanceLayer",
+      "resourceVersion": "2.0",
+      "userdefinedDepth": false,
+      "visible": true
+    },
+    {
+      "$GMRInstanceLayer": "",
+      "%Name": "Players",
+      "depth": 0,
+      "effectEnabled": true,
+      "effectType": null,
+      "gridX": 32,
+      "gridY": 32,
+      "hierarchyFrozen": false,
+      "inheritLayerDepth": false,
+      "inheritLayerSettings": false,
+      "inheritSubLayers": true,
+      "inheritVisibility": true,
+      "instances": [
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_ad884e3f76634f80",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_ad884e3f76634f80",
+          "objectId": {
+            "name": "obj_recycling_player",
+            "path": "objects/obj_recycling_player/obj_recycling_player.yy"
+          },
+          "properties": [],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 352,
+          "y": 512
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_2cfd74f52f794dbb",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 0,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_2cfd74f52f794dbb",
+          "objectId": {
+            "name": "obj_recycling_player_two",
+            "path": "objects/obj_recycling_player_two/obj_recycling_player_two.yy"
+          },
+          "properties": [],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 928,
+          "y": 512
+        }
+      ],
+      "layers": [],
+      "name": "Players",
+      "properties": [],
+      "resourceType": "GMRInstanceLayer",
+      "resourceVersion": "2.0",
+      "userdefinedDepth": false,
+      "visible": true
+    },
+    {
+      "$GMRInstanceLayer": "",
+      "%Name": "Instances",
+      "depth": 0,
+      "effectEnabled": true,
+      "effectType": null,
+      "gridX": 32,
+      "gridY": 32,
+      "hierarchyFrozen": false,
+      "inheritLayerDepth": false,
+      "inheritLayerSettings": false,
+      "inheritSubLayers": true,
+      "inheritVisibility": true,
+      "instances": [
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_level_02_session_ui",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 1,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_level_02_session_ui",
+          "objectId": {
+            "name": "obj_session_ui",
+            "path": "objects/obj_session_ui/obj_session_ui.yy"
+          },
+          "properties": [],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 0,
+          "y": 0
+        },
+        {
+          "$GMRInstance": "v4",
+          "%Name": "inst_level_02_recycling_level",
+          "colour": 4294967295,
+          "frozen": false,
+          "hasCreationCode": false,
+          "ignore": false,
+          "imageIndex": 0,
+          "imageSpeed": 1,
+          "inheritCode": false,
+          "inheritedItemId": null,
+          "inheritItemSettings": false,
+          "isDnd": false,
+          "name": "inst_level_02_recycling_level",
+          "objectId": {
+            "name": "obj_recycling_level",
+            "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+          },
+          "properties": [
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_level",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "propertyId": {
+                "name": "overflow_limit",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "12"
+            },
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_level",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "propertyId": {
+                "name": "processing_enabled",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "1"
+            },
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_level",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "propertyId": {
+                "name": "minimum_goal",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "4"
+            },
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_level",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "propertyId": {
+                "name": "star_goal_two",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "6"
+            },
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_level",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "propertyId": {
+                "name": "star_goal_three",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "8"
+            },
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_level",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "propertyId": {
+                "name": "robot_minimum",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "0"
+            },
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_level",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "propertyId": {
+                "name": "robot_star_two",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "0"
+            },
+            {
+              "$GMOverriddenProperty": "v1",
+              "%Name": "",
+              "name": "",
+              "objectId": {
+                "name": "obj_recycling_level",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "propertyId": {
+                "name": "robot_star_three",
+                "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+              },
+              "resourceType": "GMOverriddenProperty",
+              "resourceVersion": "2.0",
+              "value": "0"
+            }
+          ],
+          "resourceType": "GMRInstance",
+          "resourceVersion": "2.0",
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "x": 0,
+          "y": 0
+        }
+      ],
+      "layers": [],
+      "name": "Instances",
+      "properties": [],
+      "resourceType": "GMRInstanceLayer",
+      "resourceVersion": "2.0",
+      "userdefinedDepth": false,
+      "visible": true
+    },
+    {
+      "$GMRInstanceLayer": "",
+      "%Name": "Items",
+      "depth": 0,
+      "effectEnabled": true,
+      "effectType": null,
+      "gridX": 32,
+      "gridY": 32,
+      "hierarchyFrozen": false,
+      "inheritLayerDepth": false,
+      "inheritLayerSettings": false,
+      "inheritSubLayers": true,
+      "inheritVisibility": true,
+      "instances": [],
+      "layers": [],
+      "name": "Items",
+      "properties": [],
+      "resourceType": "GMRInstanceLayer",
+      "resourceVersion": "2.0",
+      "userdefinedDepth": false,
+      "visible": true
+    },
+    {
+      "$GMRBackgroundLayer": "",
+      "%Name": "Background",
+      "animationFPS": 15,
+      "animationSpeedType": 0,
+      "colour": 4294967295,
+      "depth": 100,
+      "effectEnabled": true,
+      "effectType": null,
+      "gridX": 32,
+      "gridY": 32,
+      "hierarchyFrozen": false,
+      "hspeed": 0,
+      "htiled": false,
+      "inheritLayerDepth": false,
+      "inheritLayerSettings": false,
+      "inheritSubLayers": true,
+      "inheritVisibility": true,
+      "layers": [],
+      "name": "Background",
+      "properties": [],
+      "resourceType": "GMRBackgroundLayer",
+      "resourceVersion": "2.0",
+      "spriteId": {
+        "name": "spr_workshop_floor",
+        "path": "sprites/spr_workshop_floor/spr_workshop_floor.yy"
+      },
+      "stretch": true,
+      "userdefinedAnimFPS": false,
+      "userdefinedDepth": false,
+      "visible": true,
+      "vspeed": 0,
+      "vtiled": false,
+      "x": 0,
+      "y": 0
+    }
   ],
-  "name":"rm_level_02",
-  "parent":{
-    "name":"levels",
-    "path":"folders/rooms/levels.yy",
+  "name": "rm_level_02",
+  "parent": {
+    "name": "levels",
+    "path": "folders/rooms/levels.yy"
   },
-  "parentRoom":null,
-  "physicsSettings":{
-    "inheritPhysicsSettings":false,
-    "PhysicsWorld":false,
-    "PhysicsWorldGravityX":0,
-    "PhysicsWorldGravityY":10,
-    "PhysicsWorldPixToMetres":0.1,
+  "parentRoom": null,
+  "physicsSettings": {
+    "inheritPhysicsSettings": false,
+    "PhysicsWorld": false,
+    "PhysicsWorldGravityX": 0,
+    "PhysicsWorldGravityY": 10,
+    "PhysicsWorldPixToMetres": 0.1
   },
-  "resourceType":"GMRoom",
-  "resourceVersion":"2.0",
-  "roomSettings":{
-    "Height":720,
-    "inheritRoomSettings":false,
-    "persistent":false,
-    "Width":1280,
+  "resourceType": "GMRoom",
+  "resourceVersion": "2.0",
+  "roomSettings": {
+    "Height": 720,
+    "inheritRoomSettings": false,
+    "persistent": false,
+    "Width": 1280
   },
-  "sequenceId":null,
-  "views":[
-    {"hborder":32,"hport":720,"hspeed":-1,"hview":720,"inherit":false,"objectId":null,"vborder":32,"visible":true,"vspeed":-1,"wport":1280,"wview":1280,"xport":0,"xview":0,"yport":0,"yview":0,},
-    {"hborder":32,"hport":768,"hspeed":-1,"hview":768,"inherit":false,"objectId":null,"vborder":32,"visible":false,"vspeed":-1,"wport":1366,"wview":1366,"xport":0,"xview":0,"yport":0,"yview":0,},
-    {"hborder":32,"hport":768,"hspeed":-1,"hview":768,"inherit":false,"objectId":null,"vborder":32,"visible":false,"vspeed":-1,"wport":1366,"wview":1366,"xport":0,"xview":0,"yport":0,"yview":0,},
-    {"hborder":32,"hport":768,"hspeed":-1,"hview":768,"inherit":false,"objectId":null,"vborder":32,"visible":false,"vspeed":-1,"wport":1366,"wview":1366,"xport":0,"xview":0,"yport":0,"yview":0,},
-    {"hborder":32,"hport":768,"hspeed":-1,"hview":768,"inherit":false,"objectId":null,"vborder":32,"visible":false,"vspeed":-1,"wport":1366,"wview":1366,"xport":0,"xview":0,"yport":0,"yview":0,},
-    {"hborder":32,"hport":768,"hspeed":-1,"hview":768,"inherit":false,"objectId":null,"vborder":32,"visible":false,"vspeed":-1,"wport":1366,"wview":1366,"xport":0,"xview":0,"yport":0,"yview":0,},
-    {"hborder":32,"hport":768,"hspeed":-1,"hview":768,"inherit":false,"objectId":null,"vborder":32,"visible":false,"vspeed":-1,"wport":1366,"wview":1366,"xport":0,"xview":0,"yport":0,"yview":0,},
-    {"hborder":32,"hport":768,"hspeed":-1,"hview":768,"inherit":false,"objectId":null,"vborder":32,"visible":false,"vspeed":-1,"wport":1366,"wview":1366,"xport":0,"xview":0,"yport":0,"yview":0,},
+  "sequenceId": null,
+  "views": [
+    {
+      "hborder": 32,
+      "hport": 720,
+      "hspeed": -1,
+      "hview": 720,
+      "inherit": false,
+      "objectId": null,
+      "vborder": 32,
+      "visible": true,
+      "vspeed": -1,
+      "wport": 1280,
+      "wview": 1280,
+      "xport": 0,
+      "xview": 0,
+      "yport": 0,
+      "yview": 0
+    },
+    {
+      "hborder": 32,
+      "hport": 768,
+      "hspeed": -1,
+      "hview": 768,
+      "inherit": false,
+      "objectId": null,
+      "vborder": 32,
+      "visible": false,
+      "vspeed": -1,
+      "wport": 1366,
+      "wview": 1366,
+      "xport": 0,
+      "xview": 0,
+      "yport": 0,
+      "yview": 0
+    },
+    {
+      "hborder": 32,
+      "hport": 768,
+      "hspeed": -1,
+      "hview": 768,
+      "inherit": false,
+      "objectId": null,
+      "vborder": 32,
+      "visible": false,
+      "vspeed": -1,
+      "wport": 1366,
+      "wview": 1366,
+      "xport": 0,
+      "xview": 0,
+      "yport": 0,
+      "yview": 0
+    },
+    {
+      "hborder": 32,
+      "hport": 768,
+      "hspeed": -1,
+      "hview": 768,
+      "inherit": false,
+      "objectId": null,
+      "vborder": 32,
+      "visible": false,
+      "vspeed": -1,
+      "wport": 1366,
+      "wview": 1366,
+      "xport": 0,
+      "xview": 0,
+      "yport": 0,
+      "yview": 0
+    },
+    {
+      "hborder": 32,
+      "hport": 768,
+      "hspeed": -1,
+      "hview": 768,
+      "inherit": false,
+      "objectId": null,
+      "vborder": 32,
+      "visible": false,
+      "vspeed": -1,
+      "wport": 1366,
+      "wview": 1366,
+      "xport": 0,
+      "xview": 0,
+      "yport": 0,
+      "yview": 0
+    },
+    {
+      "hborder": 32,
+      "hport": 768,
+      "hspeed": -1,
+      "hview": 768,
+      "inherit": false,
+      "objectId": null,
+      "vborder": 32,
+      "visible": false,
+      "vspeed": -1,
+      "wport": 1366,
+      "wview": 1366,
+      "xport": 0,
+      "xview": 0,
+      "yport": 0,
+      "yview": 0
+    },
+    {
+      "hborder": 32,
+      "hport": 768,
+      "hspeed": -1,
+      "hview": 768,
+      "inherit": false,
+      "objectId": null,
+      "vborder": 32,
+      "visible": false,
+      "vspeed": -1,
+      "wport": 1366,
+      "wview": 1366,
+      "xport": 0,
+      "xview": 0,
+      "yport": 0,
+      "yview": 0
+    },
+    {
+      "hborder": 32,
+      "hport": 768,
+      "hspeed": -1,
+      "hview": 768,
+      "inherit": false,
+      "objectId": null,
+      "vborder": 32,
+      "visible": false,
+      "vspeed": -1,
+      "wport": 1366,
+      "wview": 1366,
+      "xport": 0,
+      "xview": 0,
+      "yport": 0,
+      "yview": 0
+    }
   ],
-  "viewSettings":{
-    "clearDisplayBuffer":true,
-    "clearViewBackground":false,
-    "enableViews":true,
-    "inheritViewSettings":false,
+  "viewSettings": {
+    "clearDisplayBuffer": true,
+    "clearViewBackground": false,
+    "enableViews": true,
+    "inheritViewSettings": false
   },
-  "volume":1,
+  "volume": 1
 }

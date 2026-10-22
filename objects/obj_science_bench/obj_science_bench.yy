@@ -31,7 +31,7 @@
       },
       "resourceType": "GMOverriddenProperty",
       "resourceVersion": "2.0",
-      "value": "144"
+      "value": "64"
     },
     {
       "$GMOverriddenProperty": "v1",
@@ -47,7 +47,7 @@
       },
       "resourceType": "GMOverriddenProperty",
       "resourceVersion": "2.0",
-      "value": "80"
+      "value": "64"
     },
     {
       "$GMOverriddenProperty": "v1",

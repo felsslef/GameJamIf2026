@@ -23,3 +23,6 @@ dash_trail_x = [];
 dash_trail_y = [];
 dash_trail_age = [];
 dash_trail_strength = [];
+last_tap_direction = -1;
+last_tap_elapsed = 1;
+double_tap_window = 0.25;

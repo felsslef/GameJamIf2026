@@ -6,11 +6,11 @@ player-facing strings are Brazilian Portuguese.
 
 ## Current gameplay
 
-The five offline rooms now use raw bags, manual sorting, washing/biodigestion/dismantling, a lever-operated press, active orders and waste hazards. The current goals count completed orders; see [processing.md](processing.md).
+The map has an optional tutorial before the five campaign stops. Character selection opens the map; the player chooses Tutorial or a campaign phase and presses Jogar. The tutorial progressively teaches bins, recycling sacks, dispatch, manual triage and treatment without time pressure. Phase 1 uses only paper/plastic bins and dispatch; phases 2–5 add treatment and hazards. There is no press or compaction step. See [tutorial.md](tutorial.md) and [processing.md](processing.md).
 
 ## Editing in GameMaker
 
-The gameplay artwork now uses real sprite resources and every stage has editable room instances. See [gamemaker-editor.md](gamemaker-editor.md) for replacing images, moving objects and changing Instance Variables.
+The gameplay artwork uses real sprite resources and every stage has editable room instances. See [gamemaker-editor.md](gamemaker-editor.md) for replacing images, moving objects and changing Instance Variables. The full sprite inventory is in [sprites.md](sprites.md).
 
 ## Screens
 
@@ -21,14 +21,16 @@ three outlined buttons (Jogar, Opções, Sair). The other menus stay minimal. Th
 - `rm_character_select`: one card in solo/LAN, two independent simultaneous cards in local co-op. Turn a card to read its biography and confirm to show Pronto. See `docs/character-select.md`.
 - `rm_level_select`: cartoon Caraguá map, connected stops, padlocks and Jogar/Voltar. See `docs/level-map.md`.
 - `rm_options`: menu-animation preference for this session.
-- `rm_level_01`: first playable offline round, with dispenser, four bins, truck, two-minute timer and a recycling target. See `docs/first-level.md`.
+- `rm_tutorial`: separate guided introduction, selectable as T on the map. See [tutorial.md](tutorial.md).
+- `rm_level_01`: simple two-minute Porto Novo phase with one intake, paper/plastic bins, two support counters and a truck. Workstations use square 64×64 modules.
 - `rm_menu`: existing LAN lobby with a minimal visual overlay. Original discovery,
   create/join handling and mouse hitboxes remain in `obj_menu`.
 
 ## Controls
 
 - Mouse, WASD or arrows select ordinary menu buttons; Enter/Space activates.
-- Character cards use independent controls: P1 A/D choose, W/S turn, E confirm; P2 left/right choose, up/down turn, Enter confirm. Space continues once all are ready.
+- Character cards use independent controls: P1 A/D choose, W/S turn, E confirm (Enter also works in Solo); P2 left/right choose, up/down turn, Enter confirm. Direction keys follow the configured bindings. Ready Solo selection opens the map; local co-op waits for both selections before opening it. Cards still turn to show biographies.
+- Gameplay button hints are contextual and shown only in the tutorial.
 - Esc returns to the previous screen, including the LAN lobby. Returning from the map restores the simultaneous cards.
 - F11 toggles fullscreen in every room, including gameplay and the pause menu.
 - Fullscreen is controlled only with F11; there is no fullscreen button.

@@ -1,0 +1,15 @@
+ticks = 0;
+stage = 0;
+global.game_mode = "solo";
+global.frontend_mode = "solo";
+global.frontend_characters = [0, 1];
+global.frontend_save_slot = -1;
+global.frontend_level = -1;
+global.frontend_tutorial_completed = false;
+global.frontend_level_completed = array_create(5, false);
+global.probe_failed = false;
+global.keys_held = [];
+global.keys_pressed = [];
+global.probe_held = function(_key) { return array_contains(global.keys_held, _key); };
+global.probe_pressed = function(_key) { return array_contains(global.keys_pressed, _key); };
+room_goto(rm_character_select);

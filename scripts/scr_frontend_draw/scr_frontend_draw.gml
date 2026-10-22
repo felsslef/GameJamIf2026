@@ -12,8 +12,16 @@ function frontend_text(_x, _y, _text, _font, _color, _align = fa_left) {
 }
 
 function frontend_panel(_x, _y, _w, _h, _fill, _border) {
-    frontend_rect(_x, _y, _w, _h, _border);
-    frontend_rect(_x + 2, _y + 2, _w - 4, _h - 4, _fill);
+    draw_set_color(make_color_rgb(25, 45, 51));
+    var panel_alpha = draw_get_alpha();
+    draw_set_alpha(panel_alpha * 0.18);
+    draw_roundrect_ext(_x, _y + 5, _x + _w, _y + _h + 5, 12, 12, false);
+    draw_set_alpha(panel_alpha);
+    draw_set_color(_border);
+    draw_roundrect_ext(_x, _y, _x + _w, _y + _h, 12, 12, false);
+    draw_set_color(_fill);
+    draw_roundrect_ext(_x + 2, _y + 2, _x + _w - 2, _y + _h - 2, 10, 10, false);
+    draw_set_color(c_white);
 }
 
 function frontend_scientist(_x, _y, _scale, _index) {

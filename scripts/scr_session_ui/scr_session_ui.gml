@@ -1,4 +1,58 @@
 /// Shared fullscreen shortcut and gameplay menu. Existing gameplay/network events stay intact.
+function session_ui_transition_active() {
+    if (!variable_global_exists("ui_fade_phase")) return false;
+    return global.ui_fade_phase != "idle";
+}
+
+function session_ui_change_room(_target) {
+    if (session_ui_transition_active()) return;
+    if (!instance_exists(obj_session_ui) || global.frontend_reduced_motion) {
+        if (_target == room) room_restart(); else room_goto(_target);
+        return;
+    }
+    global.ui_fade_room = _target;
+    global.ui_fade_screen = "";
+    global.ui_fade_phase = "out";
+    global.ui_fade_progress = 0;
+}
+
+function session_ui_change_screen(_screen) {
+    if (session_ui_transition_active()) return;
+    if (global.frontend_reduced_motion) {
+        with(obj_frontend) { screen = _screen; focus = 0; frontend_build_buttons(); }
+        return;
+    }
+    global.ui_fade_room = room;
+    global.ui_fade_screen = _screen;
+    global.ui_fade_phase = "out";
+    global.ui_fade_progress = 0;
+}
+
+function session_ui_draw_transition() {
+    if (!session_ui_transition_active()) return;
+    var t = clamp(global.ui_fade_progress,0,1);
+    var eased = t*t*t*(t*(t*6-15)+10);
+    var w = display_get_gui_width(), h = display_get_gui_height();
+    var cover_x = global.ui_fade_phase == "out" ? -w-96+(w+96)*eased : (w+96)*eased;
+    draw_set_alpha(1);
+    // A coastal wipe travels in one direction across both screens.
+    frontend_rect(cover_x,0,w+96,h,make_color_rgb(38,126,120));
+    var edge = global.ui_fade_phase == "out" ? cover_x+w+96 : cover_x;
+    var stripe_direction = global.ui_fade_phase == "out" ? -1 : 1;
+    frontend_rect(edge+stripe_direction*40,0,16,h,make_color_rgb(164,215,191));
+    frontend_rect(edge+stripe_direction*18,0,8,h,make_color_rgb(248,235,195));
+    draw_set_alpha(1);draw_set_color(c_white);
+    global.ui_fade_progress += min(0.05,max(0,delta_time/1000000))/0.36;
+    if (t < 1) return;
+    if (global.ui_fade_phase == "out") {
+        global.ui_fade_phase = "in";global.ui_fade_progress = 0;
+        if (global.ui_fade_screen != "") {
+            with(obj_frontend) { screen = global.ui_fade_screen; focus = 0; frontend_build_buttons(); }
+        } else if (global.ui_fade_room == room) room_restart();
+        else room_goto(global.ui_fade_room);
+    } else global.ui_fade_phase = "idle";
+}
+
 function session_ui_is_gameplay() {
     return room != rm_main_menu && room != rm_game_mode
         && room != rm_character_select && room != rm_level_select
@@ -79,6 +133,7 @@ function session_ui_update() {
         session_ui_toggle_fullscreen();
         return;
     }
+    if (session_ui_transition_active()) return;
     if (!session_ui_is_gameplay()) return;
     // The finished round owns its result-screen input; F11 above remains available.
     if (instance_exists(obj_recycling_level) && obj_recycling_level.phase_state != "playing") return;

@@ -8,6 +8,7 @@ throw_dir = 0;
 thrower = noone;
 throw_peak_spd = 0;
 throw_age = 0;
+badge_started = current_time;
 throw_accel_duration = 0.12;
 throw_trail_x = [];
 throw_trail_y = [];

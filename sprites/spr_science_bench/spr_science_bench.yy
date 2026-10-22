@@ -2,9 +2,9 @@
   "$GMSprite": "v2",
   "%Name": "spr_science_bench",
   "bboxMode": 0,
-  "bbox_bottom": 95,
+  "bbox_bottom": 63,
   "bbox_left": 0,
-  "bbox_right": 159,
+  "bbox_right": 63,
   "bbox_top": 0,
   "collisionKind": 1,
   "collisionTolerance": 0,
@@ -22,7 +22,7 @@
   ],
   "gridX": 0,
   "gridY": 0,
-  "height": 96,
+  "height": 64,
   "HTile": false,
   "layers": [
     {
@@ -132,8 +132,8 @@
     ],
     "visibleRange": null,
     "volume": 1,
-    "xorigin": 80,
-    "yorigin": 48
+    "xorigin": 32,
+    "yorigin": 32
   },
   "swatchColours": null,
   "swfPrecision": 0.5,
@@ -143,5 +143,5 @@
   },
   "type": 0,
   "VTile": false,
-  "width": 160
+  "width": 64
 }

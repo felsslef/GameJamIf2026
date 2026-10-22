@@ -13,9 +13,10 @@ no remote readiness synchronization or network changes are introduced.
 | Turn card to read biography | W / S | Up / down |
 | Confirm / undo confirmation | E | Enter |
 
-Solo accepts either input set: A/D or left/right to choose, W/S or up/down to
-turn, E or Enter to confirm. Space or the Continue button opens the map once
-all visible slots are ready. Esc and the upper-left arrow return to game modes.
+Solo uses the configured P1 direction keys (WASD by default), with E or Enter to select.
+Selecting opens the map. Local co-op opens the map when both
+cards are ready; there is no extra Continue button. Direction controls follow
+the bindings configured in Options. Esc and the upper-left arrow return to save selection.
 F11 remains the only fullscreen control.
 
 With the mouse, use each card's arrows to choose, click the card to turn it,
@@ -33,12 +34,11 @@ and click the name/status underneath to confirm or undo.
 - A scientist confirmed by one player cannot be confirmed by the other. Cycling
   skips the other ready player's scientist. If both confirm the same scientist
   in one frame, the first slot claims it and the second receives a brief notice.
-- No automatic transition hides `Pronto`. Players explicitly choose Continue.
+- Local co-op keeps the first ready card visible until the second player selects.
 
-Confirmed choices are copied into `global.frontend_characters` only when the
-team continues to the map. Going back from the map restores those choices and
-asks both players to confirm again. There is no longer a sequential player-1
-then player-2 selection step.
+Confirmed choices are copied into `global.frontend_characters` together when
+the team is ready, and the map opens. Select the separate tutorial or an available
+campaign phase, then press Jogar. LAN campaign entry still opens the existing lobby.
 
 ## Implementation
 
@@ -47,7 +47,7 @@ input, readiness, flip animation and rendering. The existing frontend controller
 routes the character screen to this script. Other screens and the original
 13 gameplay/network GML files remain unchanged.
 
-Character illustrations are still simple procedural placeholders. Biographies
+Character illustrations use editable sprite resources. Biographies
 are the existing fictional draft biographies, pending the real text.
 
 ## Validation
@@ -58,9 +58,9 @@ An isolated temporary GameMaker runtime probe passed these scenarios:
 - Simultaneous E/Enter confirmation and independent cancellation.
 - Ready labels remain visible; ready cards turn but cannot change character.
 - Duplicate confirmation is rejected without committing pending selections.
-- Both selections are committed together on Continue, then the map opens.
+- Both selections are committed together when all are ready, then the map opens.
 - Map Back restores both cards; Esc returns to mode selection.
-- Solo has one card, supports both input sets and cannot continue unconfirmed.
+- Solo has one card and opens the map on E/Enter or the name/status mouse action.
 - Card/status mouse actions, reduced-motion flipping and F11 work.
 - LAN displays one local card and leaves networking unchanged.
 

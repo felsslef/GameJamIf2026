@@ -1,29 +1,29 @@
 function frontend_back() {
     switch (screen) {
         case "main": break;
-        case "mode": room_goto(rm_main_menu); break;
-        case "options": room_goto(rm_main_menu); break;
+        case "mode": session_ui_change_room(rm_main_menu); break;
+        case "options": session_ui_change_room(rm_main_menu); break;
         case "controls":
             global.frontend_rebinding = "";
-            screen = "options";
+            session_ui_change_screen("options");
             focus = 0;
             frontend_build_buttons();
             break;
-        case "saves": room_goto(rm_game_mode); break;
-        case "characters": room_goto(rm_save_select); break;
+        case "saves": session_ui_change_room(rm_game_mode); break;
+        case "characters": session_ui_change_room(rm_save_select); break;
         case "levels":
             global.frontend_level = selected_level;
-            room_goto(rm_character_select);
+            session_ui_change_room(rm_character_select);
             break;
     }
 }
 
 function frontend_activate(_button) {
     switch (_button.action) {
-        case "play": room_goto(rm_game_mode); break;
-        case "options": room_goto(rm_options); break;
+        case "play": session_ui_change_room(rm_game_mode); break;
+        case "options": session_ui_change_room(rm_options); break;
         case "controls":
-            screen = "controls";
+            session_ui_change_screen("controls");
             global.frontend_rebinding = "";
             focus = 0;
             frontend_build_buttons();
@@ -47,10 +47,10 @@ function frontend_activate(_button) {
         case "mode":
             var modes = ["solo", "coop_local", "coop_online"];
             global.frontend_mode = modes[_button.value];
-            room_goto(rm_save_select);
+            session_ui_change_room(rm_save_select);
             break;
         case "save_load":
-            if (save_slot_load(_button.value)) room_goto(rm_character_select);
+            if (save_slot_load(_button.value)) session_ui_change_room(rm_character_select);
             else { notice = "Falha ao abrir o save."; notice_timer = 3; }
             break;
         case "save_new":
@@ -60,7 +60,7 @@ function frontend_activate(_button) {
                 notice_timer = 5;
                 frontend_build_buttons();
             } else {
-                if (save_slot_new(_button.value)) room_goto(rm_character_select);
+                if (save_slot_new(_button.value)) session_ui_change_room(rm_character_select);
                 else { notice = "Falha ao salvar."; notice_timer = 3; }
             }
             break;
@@ -91,11 +91,11 @@ function frontend_activate(_button) {
                 global.game_mode = "solo";
                 // The legacy room stays directly before rm_teste in RoomOrderNodes.
                 // Its original room_goto_next() and network events remain untouched.
-                room_goto(rm_menu);
+                session_ui_change_room(rm_menu);
             } else {
                 global.game_mode = global.frontend_mode;
                 var offline_rooms = [rm_level_01, rm_level_02, rm_level_03, rm_level_04, rm_level_05];
-                room_goto(offline_rooms[selected_level]);
+                session_ui_change_room(selected_level == -1 ? rm_tutorial : offline_rooms[selected_level]);
             }
             break;
         case "motion":
@@ -106,6 +106,7 @@ function frontend_activate(_button) {
 }
 
 function frontend_update() {
+    if (session_ui_transition_active()) return;
     var dt = min(delta_time / 1000000, 0.05);
     if (!global.frontend_reduced_motion) elapsed += dt;
     notice_timer = max(0, notice_timer - dt);
@@ -155,7 +156,7 @@ function frontend_update() {
     var next = keyboard_check_pressed(vk_down) || keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("S")) || keyboard_check_pressed(ord("D")) || keyboard_check_pressed(vk_tab);
     if (previous) focus = (focus + array_length(buttons) - 1) mod array_length(buttons);
     if (next) focus = (focus + 1) mod array_length(buttons);
-    if (screen == "levels" && focus < 5) selected_level = focus;
+    if (screen == "levels" && buttons[focus].action == "level") selected_level = buttons[focus].value;
     if (keyboard_check_pressed(vk_escape)) {
         if (screen == "saves" && pending_reset >= 0) { pending_reset = -1; frontend_build_buttons(); return; }
         frontend_back(); return;

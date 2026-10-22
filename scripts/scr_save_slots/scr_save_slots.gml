@@ -1,4 +1,5 @@
 ﻿function save_slots_init() {
+    if (!variable_global_exists("frontend_tutorial_completed")) global.frontend_tutorial_completed = false;
     if (!variable_global_exists("frontend_save_slot")) global.frontend_save_slot = -1;
     if (!variable_global_exists("frontend_level_stars")) global.frontend_level_stars = array_create(5, 0);
 }
@@ -17,7 +18,8 @@ function save_slot_write() {
     if (slot < 0 || slot >= 3) return false;
     try {
         ini_open(save_slot_filename(slot));
-        ini_write_real("save", "version", 1);
+        ini_write_real("save", "version", 2);
+        ini_write_real("save", "tutorial_completed", global.frontend_tutorial_completed ? 1 : 0);
         for (var i = 0; i < 5; i++) {
             ini_write_real("completed", string(i), global.frontend_level_completed[i] ? 1 : 0);
             ini_write_real("stars", string(i), global.frontend_level_stars[i]);
@@ -43,11 +45,13 @@ function save_slot_load(_slot) {
             completed[i] = ini_read_real("completed", string(i), 0) == 1;
             stars[i] = completed[i] ? clamp(floor(ini_read_real("stars", string(i), 0)), 0, 3) : 0;
         }
-        var selected = clamp(floor(ini_read_real("save", "level", 0)), 0, 4);
+        var selected = clamp(floor(ini_read_real("save", "level", -1)), -1, 4);
+        var tutorial_completed = ini_read_real("save", "tutorial_completed", 0) == 1;
         ini_close();
         global.frontend_save_slot = _slot;
         global.frontend_level_completed = completed;
         global.frontend_level_stars = stars;
+        global.frontend_tutorial_completed = tutorial_completed;
         global.frontend_level = selected;
         global.frontend_test_unlock = false;
         return true;
@@ -62,7 +66,8 @@ function save_slot_new(_slot) {
     global.frontend_save_slot = _slot;
     global.frontend_level_completed = array_create(5, false);
     global.frontend_level_stars = array_create(5, 0);
-    global.frontend_level = 0;
+    global.frontend_level = -1;
+    global.frontend_tutorial_completed = false;
     global.frontend_test_unlock = false;
     return save_slot_write();
 }

@@ -5,7 +5,7 @@ function recycling_draw_item_trail(_item) {
         var age_alpha = 1 - clamp(_item.throw_trail_age[i] / 0.18, 0, 1);
         var order_alpha = (i + 1) / sample_count;
         var sample_strength = _item.throw_trail_power[i];
-        var trail_scale = 0.62 + 0.34 * sample_strength;
+        var trail_scale = (0.62 + 0.34 * sample_strength) * 48 / max(sprite_get_width(_item.sprite_index),sprite_get_height(_item.sprite_index));
         var trail_alpha = 0.3 * age_alpha * order_alpha * sample_strength;
         draw_sprite_ext(_item.sprite_index, _item.image_index,
             _item.throw_trail_x[i], _item.throw_trail_y[i],
@@ -20,7 +20,7 @@ function recycling_draw_item_visual(_item) {
     if (_item.is_thrown && _item.throw_peak_spd > 0) {
         speed_ratio = clamp(_item.throw_spd / _item.throw_peak_spd, 0, 1);
     }
-    var draw_scale = 1 + 0.24 * speed_ratio;
+    var draw_scale = (1 + 0.24 * speed_ratio) * 48 / max(sprite_get_width(_item.sprite_index),sprite_get_height(_item.sprite_index));
     var draw_y = _item.y - 18 * speed_ratio;
     draw_sprite_ext(_item.sprite_index, _item.image_index, _item.x, draw_y,
         _item.image_xscale * draw_scale, _item.image_yscale * draw_scale,
@@ -61,12 +61,23 @@ function recycling_draw_station() {
     if (instance_exists(obj_recycling_level) && obj_recycling_level.processing_enabled) { processing_draw_station(); return; }
     var dark = make_color_rgb(35, 57, 64);
     if (station_kind == "truck" && station_height > 88) {
-        draw_sprite_stretched(spr_counter, 0, x - station_width / 2, y - station_height / 2, station_width, station_height);
+        draw_sprite_stretched(spr_truck_dock, 0, x - station_width / 2, y - station_height / 2, station_width, station_height);
     }
     var returning = station_kind == "truck" && trip_remaining > 0;
     if (returning) draw_set_alpha(0.3);
-    draw_self();
+    if (station_kind == "truck") recycling_draw_truck(); else draw_self();
     draw_set_alpha(1);
+    if (instance_exists(obj_tutorial)) {
+        if (station_kind == "bin") frontend_text(x, y + 56, recycling_trash_name(trash_type), fnt_ui_small, dark, fa_center);
+        if (station_kind == "dispenser") {
+            frontend_text(x, y - 88, "Caçamba", fnt_ui_body, dark, fa_center);
+            if (array_length(queue) > 0) recycling_draw_waste(x, y + 13, queue[0]);
+        }
+        draw_set_font(-1);
+        draw_set_color(c_white);
+        draw_set_halign(fa_left);
+        return;
+    }
     switch (station_kind) {
         case "handoff":
             if (!is_undefined(stored_item)) recycling_draw_item(x, y - 3, stored_item.kind, stored_item.trash_type, stored_item.amount);
@@ -115,6 +126,7 @@ function recycling_draw_star(_x, _y, _color) {
 }
 
 function recycling_draw_hud() {
+    if (instance_exists(obj_tutorial)) { tutorial_draw_hud(); return; }
     if (processing_enabled) { processing_draw_hud(); return; }
     var dark = make_color_rgb(35, 57, 64);
     frontend_panel(32, 20, 1216, 70, make_color_rgb(255, 252, 235), dark);
@@ -127,11 +139,6 @@ function recycling_draw_hud() {
     frontend_text(640, 30, clock, fnt_ui_title, time_remaining <= 20 ? make_color_rgb(177, 51, 47) : dark, fa_center);
     var place_names = ["Porto Novo", "Indaiá", "Centro", "Martim de Sá", "Massaguaçu"];
     frontend_text(1220, 32, place_names[level_index], fnt_ui_body, dark, fa_right);
-    frontend_text(1220, 62, frontend_key_name(frontend_keybinding("pause")) + ": pausa | F11: tela cheia", fnt_ui_small, dark, fa_right);
-    if (global.game_mode == "coop_local") {
-        frontend_text(48, 670, frontend_player_controls_hint(1), fnt_ui_small, c_white);
-        frontend_text(48, 694, frontend_player_controls_hint(2), fnt_ui_small, c_white);
-    } else frontend_text(48, 694, frontend_player_controls_hint(1), fnt_ui_small, c_white);
     if (feedback_timer > 0 && phase_state == "playing") {
         var message_width = min(1120, string_length(feedback) * 10 + 32);
         frontend_panel(640 - message_width / 2, 99, message_width, 32, make_color_rgb(255, 252, 235), dark);
@@ -141,7 +148,7 @@ function recycling_draw_hud() {
         draw_set_alpha(0.55);
         frontend_rect(0, 0, 1280, 720, c_black);
         draw_set_alpha(1);
-        frontend_panel(320, 184, 640, 370, make_color_rgb(255, 252, 235), dark);
+        frontend_panel(240, 150, 800, 440, make_color_rgb(255, 252, 235), dark);
         frontend_text(640, 217, phase_state == "won" ? "Fase concluída!" : "Fim da rodada", fnt_ui_title, dark, fa_center);
         frontend_text(640, 296, result_reason, fnt_ui_small, dark, fa_center);
         frontend_text(640, 335, "Reciclados: " + string(recycled_total) + " / " + string(minimum_goal), fnt_ui_body, dark, fa_center);
@@ -160,4 +167,63 @@ function recycling_draw_hud() {
     draw_set_color(c_white);
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
+}
+
+// Shared GUI coordinates keep the inventory fixed in the top bar.
+function recycling_draw_inventory() {
+    with (obj_recycling_player) {
+        var slot_x = 370 + (playerid - 1) * 90;
+        frontend_text(slot_x - 8, 42, "J" + string(playerid), fnt_ui_small, make_color_rgb(35,57,64), fa_right);
+        frontend_panel(slot_x, 28, 48, 48, c_white, make_color_rgb(35,57,64));
+        if (instance_exists(carried_item)) {
+            var icon = carried_item.sprite_index;
+            var scale = 40 / max(sprite_get_width(icon),sprite_get_height(icon));
+            draw_sprite_ext(icon,0,slot_x+24,52,scale,scale,0,c_white,1);
+        }
+    }
+    draw_set_halign(fa_left);draw_set_color(c_white);draw_set_font(-1);
+}
+
+// Countdown uses gameplay time, so the pause menu and screen wipe suspend it.
+function recycling_start_tick(_dt) {
+    if (start_countdown <= 0) return false;
+    start_countdown = max(0,start_countdown-_dt);
+    return true;
+}
+
+function recycling_draw_start() {
+    if (phase_state != "playing" || start_countdown <= 0) return;
+    var elapsed = 3.65-start_countdown;
+    var final_beat = elapsed >= 3;
+    var beat = final_beat ? (elapsed-3)/0.65 : frac(elapsed);
+    var reduced = variable_global_exists("frontend_reduced_motion") && global.frontend_reduced_motion;
+    var scale = reduced ? 1 : 0.88+0.12*ui_pop_scale(clamp(beat/0.28,0,1));
+    var dark = make_color_rgb(35,57,64);
+    draw_set_alpha(0.32);frontend_rect(0,0,1280,720,dark);draw_set_alpha(1);
+    draw_sprite_ext(spr_ui_timeout,0,640,267,1.2*scale,1.2*scale,0,c_white,1);
+    var before = matrix_get(matrix_world);
+    matrix_set(matrix_world,matrix_build(640,355,0,0,0,0,scale*1.7,scale*1.7,1));
+    frontend_text(0,0,final_beat?"Já!":string(3-floor(elapsed)),fnt_ui_title,make_color_rgb(255,252,235),fa_center);
+    matrix_set(matrix_world,before);
+    draw_set_font(-1);draw_set_halign(fa_left);draw_set_color(c_white);
+}
+
+// Animate the sprite only: the editable dock and its collision stay in place.
+function recycling_draw_truck() {
+    draw_sprite_stretched(spr_truck_dock,0,x-station_width/2,y-station_height/2,station_width,station_height);
+    var away = trip_remaining > 0;
+    var reduced = variable_global_exists("frontend_reduced_motion") && global.frontend_reduced_motion;
+    if (!away) { draw_set_alpha(1); draw_self(); return; }
+    var leg_duration = min(0.8, max(0.01, return_duration / 2));
+    var elapsed = max(0,return_duration-trip_remaining);
+    var departing = elapsed < leg_duration;
+    var arriving = trip_remaining < leg_duration;
+    if (!departing && !arriving) return;
+    var distance_ratio = departing ? elapsed / leg_duration : trip_remaining / leg_duration;
+    var eased = distance_ratio * distance_ratio * (3 - 2 * distance_ratio);
+    var offset = (room_width - x + sprite_width + 32) * eased;
+    var opacity = reduced ? 1 - eased : 1;
+    if (reduced) offset = 0;
+    draw_sprite_ext(sprite_index,image_index,x+offset,y,arriving?-image_xscale:image_xscale,image_yscale,image_angle,image_blend,opacity);
+    draw_set_alpha(1);
 }

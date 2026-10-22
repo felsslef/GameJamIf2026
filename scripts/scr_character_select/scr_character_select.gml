@@ -2,6 +2,7 @@
 function frontend_character_init() {
     character_player_count = global.frontend_mode == "coop_local" ? 2 : 1;
     character_slots = [];
+    character_starting = false;
     for (var i = 0; i < character_player_count; i++) {
         var choice = clamp(global.frontend_characters[i], 0, array_length(scientists) - 1);
         if (i == 1 && choice == character_slots[0].choice) choice = (choice + 1) mod array_length(scientists);
@@ -22,7 +23,7 @@ function frontend_character_build_buttons() {
         frontend_button(card.x, card.y, card.w, card.h, "", "character_flip", i);
         frontend_button(card.x + 40, 516, 200, 40, "", "character_ready", i);
     }
-    frontend_button(530, 628, 220, 46, "Continuar", "character_continue");
+
 }
 
 function frontend_character_is_claimed(_player, _choice) {
@@ -65,6 +66,7 @@ function frontend_character_toggle_ready(_player) {
         return;
     }
     slot.ready = true;
+    if (frontend_character_all_ready()) frontend_character_continue();
 }
 
 function frontend_character_all_ready() {
@@ -75,9 +77,10 @@ function frontend_character_all_ready() {
 }
 
 function frontend_character_continue() {
-    if (!frontend_character_all_ready()) return;
+    if (character_starting || !frontend_character_all_ready()) return;
+    character_starting = true;
     for (var i = 0; i < character_player_count; i++) global.frontend_characters[i] = character_slots[i].choice;
-    room_goto(rm_level_select);
+    session_ui_change_room(rm_level_select);
 }
 
 function frontend_character_update(_dt) {
@@ -95,6 +98,7 @@ function frontend_character_update(_dt) {
         var flip = keyboard_check_pressed(frontend_keybinding(key_prefix + "up"))
             || keyboard_check_pressed(frontend_keybinding(key_prefix + "down"));
         var confirm = keyboard_check_pressed(use_arrows ? vk_enter : ord("E"));
+        if (character_player_count == 1) confirm = confirm || keyboard_check_pressed(vk_enter);
         var choice_step = next - previous;
         if (choice_step != 0) frontend_character_cycle(i, choice_step);
         if (flip) frontend_character_flip(i);
@@ -111,7 +115,7 @@ function frontend_character_update(_dt) {
         frontend_activate(buttons[focus]);
         return;
     }
-    if (keyboard_check_pressed(vk_space)) frontend_character_continue();
+
 }
 
 function frontend_character_arrow(_x, _y, _direction, _color) {
@@ -172,7 +176,7 @@ function frontend_draw_character_select() {
         var key_down = frontend_key_short_name(frontend_keybinding(key_prefix + "down"));
         if (character_player_count == 1) {
             frontend_text(center_x, 568, key_left + "/" + key_right + ": escolher | " + key_up + "/" + key_down + ": virar", font_small, muted, fa_center);
-            frontend_text(center_x, 594, "E / Enter: confirmar ou desfazer", font_small, muted, fa_center);
+            frontend_text(center_x, 594, "E / Enter: selecionar", font_small, muted, fa_center);
         } else if (i == 0) {
             frontend_text(center_x, 568, key_left + "/" + key_right + ": escolher | " + key_up + "/" + key_down + ": virar", font_small, muted, fa_center);
             frontend_text(center_x, 594, "E: confirmar / desfazer", font_small, muted, fa_center);
@@ -181,13 +185,7 @@ function frontend_draw_character_select() {
             frontend_text(center_x, 594, "Enter: confirmar / desfazer", font_small, muted, fa_center);
         }
     }
-    var all_ready = frontend_character_all_ready();
-    var continue_index = array_length(buttons) - 1;
-    if (all_ready) {
-        frontend_panel(530, 628, 220, 46, focus == continue_index ? make_color_rgb(234, 240, 236) : paper, teal);
-        frontend_text(640, 638, "Continuar", font_body, ink, fa_center);
-        frontend_text(640, 688, "Espaço para continuar", font_small, muted, fa_center);
-    } else frontend_text(640, 650, "Escolhendo personagem", font_small, muted, fa_center);
+    frontend_text(640, 650, character_player_count == 2 ? "Escolham suas personagens" : "Escolha sua personagem", font_small, muted, fa_center);
     if (notice_timer > 0) frontend_text(640, 76, notice, font_small, coral, fa_center);
     draw_set_font(-1);
     draw_set_color(c_white);

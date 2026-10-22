@@ -1,221 +1,1318 @@
 {
-  "$GMProject":"v1",
-  "%Name":"GameJamIf2026",
-  "AudioGroups":[
-    {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
+  "$GMProject": "v1",
+  "%Name": "GameJamIf2026",
+  "AudioGroups": [
+    {
+      "$GMAudioGroup": "v1",
+      "%Name": "audiogroup_default",
+      "exportDir": "",
+      "name": "audiogroup_default",
+      "resourceType": "GMAudioGroup",
+      "resourceVersion": "2.0",
+      "targets": -1
+    }
   ],
-  "configs":{
-    "children":[],
-    "name":"Default",
+  "configs": {
+    "children": [],
+    "name": "Default"
   },
-  "defaultScriptType":1,
-  "Folders":[
-    {"$GMFolder":"","%Name":"fonts","folderPath":"folders/fonts.yy","name":"fonts","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"objects","folderPath":"folders/objects.yy","name":"objects","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"controllers","folderPath":"folders/objects/controllers.yy","name":"controllers","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"gameplay","folderPath":"folders/objects/gameplay.yy","name":"gameplay","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"items","folderPath":"folders/objects/items.yy","name":"items","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"processing","folderPath":"folders/objects/processing.yy","name":"processing","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"stations","folderPath":"folders/objects/stations.yy","name":"stations","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"ui","folderPath":"folders/objects/ui.yy","name":"ui","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"rooms","folderPath":"folders/rooms.yy","name":"rooms","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"frontend","folderPath":"folders/rooms/frontend.yy","name":"frontend","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"levels","folderPath":"folders/rooms/levels.yy","name":"levels","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"scripts","folderPath":"folders/scripts.yy","name":"scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"frontend","folderPath":"folders/scripts/frontend.yy","name":"frontend","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"gameplay","folderPath":"folders/scripts/gameplay.yy","name":"gameplay","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"sounds","folderPath":"folders/sounds.yy","name":"sounds","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"sprites","folderPath":"folders/sprites.yy","name":"sprites","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"characters","folderPath":"folders/sprites/characters.yy","name":"characters","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"gameplay","folderPath":"folders/sprites/gameplay.yy","name":"gameplay","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"maps","folderPath":"folders/sprites/maps.yy","name":"maps","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"placeholders","folderPath":"folders/sprites/placeholders.yy","name":"placeholders","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"processing","folderPath":"folders/sprites/processing.yy","name":"processing","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"tilesets","folderPath":"folders/sprites/tilesets.yy","name":"tilesets","resourceType":"GMFolder","resourceVersion":"2.0",},
+  "defaultScriptType": 1,
+  "Folders": [
+    {
+      "$GMFolder": "",
+      "%Name": "fonts",
+      "folderPath": "folders/fonts.yy",
+      "name": "fonts",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "objects",
+      "folderPath": "folders/objects.yy",
+      "name": "objects",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "controllers",
+      "folderPath": "folders/objects/controllers.yy",
+      "name": "controllers",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "gameplay",
+      "folderPath": "folders/objects/gameplay.yy",
+      "name": "gameplay",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "items",
+      "folderPath": "folders/objects/items.yy",
+      "name": "items",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "processing",
+      "folderPath": "folders/objects/processing.yy",
+      "name": "processing",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "stations",
+      "folderPath": "folders/objects/stations.yy",
+      "name": "stations",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "ui",
+      "folderPath": "folders/objects/ui.yy",
+      "name": "ui",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "rooms",
+      "folderPath": "folders/rooms.yy",
+      "name": "rooms",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "frontend",
+      "folderPath": "folders/rooms/frontend.yy",
+      "name": "frontend",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "levels",
+      "folderPath": "folders/rooms/levels.yy",
+      "name": "levels",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "scripts",
+      "folderPath": "folders/scripts.yy",
+      "name": "scripts",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "frontend",
+      "folderPath": "folders/scripts/frontend.yy",
+      "name": "frontend",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "gameplay",
+      "folderPath": "folders/scripts/gameplay.yy",
+      "name": "gameplay",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "sounds",
+      "folderPath": "folders/sounds.yy",
+      "name": "sounds",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "sprites",
+      "folderPath": "folders/sprites.yy",
+      "name": "sprites",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "characters",
+      "folderPath": "folders/sprites/characters.yy",
+      "name": "characters",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "gameplay",
+      "folderPath": "folders/sprites/gameplay.yy",
+      "name": "gameplay",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "maps",
+      "folderPath": "folders/sprites/maps.yy",
+      "name": "maps",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "placeholders",
+      "folderPath": "folders/sprites/placeholders.yy",
+      "name": "placeholders",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "processing",
+      "folderPath": "folders/sprites/processing.yy",
+      "name": "processing",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "tilesets",
+      "folderPath": "folders/sprites/tilesets.yy",
+      "name": "tilesets",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    }
   ],
-  "ForcedPrefabProjectReferences":[],
-  "IncludedFiles":[],
-  "isEcma":false,
-  "LibraryEmitters":[],
-  "MetaData":{
-    "IDEVersion":"2026.0.0.16",
+  "ForcedPrefabProjectReferences": [],
+  "IncludedFiles": [],
+  "isEcma": false,
+  "LibraryEmitters": [],
+  "MetaData": {
+    "IDEVersion": "2026.0.0.16"
   },
-  "name":"GameJamIf2026",
-  "resources":[
-    {"id":{"name":"fnt_default","path":"fonts/fnt_default/fnt_default.yy",},},
-    {"id":{"name":"fnt_ui_body","path":"fonts/fnt_ui_body/fnt_ui_body.yy",},},
-    {"id":{"name":"fnt_ui_small","path":"fonts/fnt_ui_small/fnt_ui_small.yy",},},
-    {"id":{"name":"fnt_ui_title","path":"fonts/fnt_ui_title/fnt_ui_title.yy",},},
-    {"id":{"name":"obj_bag_glass","path":"objects/obj_bag_glass/obj_bag_glass.yy",},},
-    {"id":{"name":"obj_bag_metal","path":"objects/obj_bag_metal/obj_bag_metal.yy",},},
-    {"id":{"name":"obj_bag_paper","path":"objects/obj_bag_paper/obj_bag_paper.yy",},},
-    {"id":{"name":"obj_bag_plastic","path":"objects/obj_bag_plastic/obj_bag_plastic.yy",},},
-    {"id":{"name":"obj_bin_glass","path":"objects/obj_bin_glass/obj_bin_glass.yy",},},
-    {"id":{"name":"obj_bin_metal","path":"objects/obj_bin_metal/obj_bin_metal.yy",},},
-    {"id":{"name":"obj_bin_paper","path":"objects/obj_bin_paper/obj_bin_paper.yy",},},
-    {"id":{"name":"obj_bin_plastic","path":"objects/obj_bin_plastic/obj_bin_plastic.yy",},},
-    {"id":{"name":"obj_biodigester","path":"objects/obj_biodigester/obj_biodigester.yy",},},
-    {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},},
-    {"id":{"name":"obj_common_trash","path":"objects/obj_common_trash/obj_common_trash.yy",},},
-    {"id":{"name":"obj_counter","path":"objects/obj_counter/obj_counter.yy",},},
-    {"id":{"name":"obj_criacao_personagem","path":"objects/obj_criacao_personagem/obj_criacao_personagem.yy",},},
-    {"id":{"name":"obj_dismantling_bench","path":"objects/obj_dismantling_bench/obj_dismantling_bench.yy",},},
-    {"id":{"name":"obj_dispatch_truck","path":"objects/obj_dispatch_truck/obj_dispatch_truck.yy",},},
-    {"id":{"name":"obj_dispenser","path":"objects/obj_dispenser/obj_dispenser.yy",},},
-    {"id":{"name":"obj_extinguisher_rack","path":"objects/obj_extinguisher_rack/obj_extinguisher_rack.yy",},},
-    {"id":{"name":"obj_frontend","path":"objects/obj_frontend/obj_frontend.yy",},},
-    {"id":{"name":"obj_hydraulic_press","path":"objects/obj_hydraulic_press/obj_hydraulic_press.yy",},},
-    {"id":{"name":"obj_intake_bin","path":"objects/obj_intake_bin/obj_intake_bin.yy",},},
-    {"id":{"name":"obj_item_main","path":"objects/obj_item_main/obj_item_main.yy",},},
-    {"id":{"name":"obj_leachate","path":"objects/obj_leachate/obj_leachate.yy",},},
-    {"id":{"name":"obj_lobby_ui","path":"objects/obj_lobby_ui/obj_lobby_ui.yy",},},
-    {"id":{"name":"obj_material_burned_electronic","path":"objects/obj_material_burned_electronic/obj_material_burned_electronic.yy",},},
-    {"id":{"name":"obj_material_clean_plastic","path":"objects/obj_material_clean_plastic/obj_material_clean_plastic.yy",},},
-    {"id":{"name":"obj_material_dirty_plastic","path":"objects/obj_material_dirty_plastic/obj_material_dirty_plastic.yy",},},
-    {"id":{"name":"obj_material_electronic","path":"objects/obj_material_electronic/obj_material_electronic.yy",},},
-    {"id":{"name":"obj_material_extinguisher","path":"objects/obj_material_extinguisher/obj_material_extinguisher.yy",},},
-    {"id":{"name":"obj_material_fertilizer","path":"objects/obj_material_fertilizer/obj_material_fertilizer.yy",},},
-    {"id":{"name":"obj_material_metal_bale","path":"objects/obj_material_metal_bale/obj_material_metal_bale.yy",},},
-    {"id":{"name":"obj_material_metal_plate","path":"objects/obj_material_metal_plate/obj_material_metal_plate.yy",},},
-    {"id":{"name":"obj_material_organic","path":"objects/obj_material_organic/obj_material_organic.yy",},},
-    {"id":{"name":"obj_material_plastic_bale","path":"objects/obj_material_plastic_bale/obj_material_plastic_bale.yy",},},
-    {"id":{"name":"obj_material_raw_waste","path":"objects/obj_material_raw_waste/obj_material_raw_waste.yy",},},
-    {"id":{"name":"obj_menu","path":"objects/obj_menu/obj_menu.yy",},},
-    {"id":{"name":"obj_network","path":"objects/obj_network/obj_network.yy",},},
-    {"id":{"name":"obj_part_battery","path":"objects/obj_part_battery/obj_part_battery.yy",},},
-    {"id":{"name":"obj_part_casing","path":"objects/obj_part_casing/obj_part_casing.yy",},},
-    {"id":{"name":"obj_part_circuit","path":"objects/obj_part_circuit/obj_part_circuit.yy",},},
-    {"id":{"name":"obj_part_motor","path":"objects/obj_part_motor/obj_part_motor.yy",},},
-    {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
-    {"id":{"name":"obj_process_item","path":"objects/obj_process_item/obj_process_item.yy",},},
-    {"id":{"name":"obj_recycling_item","path":"objects/obj_recycling_item/obj_recycling_item.yy",},},
-    {"id":{"name":"obj_recycling_level","path":"objects/obj_recycling_level/obj_recycling_level.yy",},},
-    {"id":{"name":"obj_recycling_player_two","path":"objects/obj_recycling_player_two/obj_recycling_player_two.yy",},},
-    {"id":{"name":"obj_recycling_player","path":"objects/obj_recycling_player/obj_recycling_player.yy",},},
-    {"id":{"name":"obj_recycling_station","path":"objects/obj_recycling_station/obj_recycling_station.yy",},},
-    {"id":{"name":"obj_robot_delivery","path":"objects/obj_robot_delivery/obj_robot_delivery.yy",},},
-    {"id":{"name":"obj_robot","path":"objects/obj_robot/obj_robot.yy",},},
-    {"id":{"name":"obj_science_bench","path":"objects/obj_science_bench/obj_science_bench.yy",},},
-    {"id":{"name":"obj_session_ui","path":"objects/obj_session_ui/obj_session_ui.yy",},},
-    {"id":{"name":"obj_sorting_table","path":"objects/obj_sorting_table/obj_sorting_table.yy",},},
-    {"id":{"name":"obj_truck","path":"objects/obj_truck/obj_truck.yy",},},
-    {"id":{"name":"obj_tutorial","path":"objects/obj_tutorial/obj_tutorial.yy",},},
-    {"id":{"name":"obj_wall","path":"objects/obj_wall/obj_wall.yy",},},
-    {"id":{"name":"obj_washer","path":"objects/obj_washer/obj_washer.yy",},},
-    {"id":{"name":"obj_waste_glass","path":"objects/obj_waste_glass/obj_waste_glass.yy",},},
-    {"id":{"name":"obj_waste_metal","path":"objects/obj_waste_metal/obj_waste_metal.yy",},},
-    {"id":{"name":"obj_waste_paper","path":"objects/obj_waste_paper/obj_waste_paper.yy",},},
-    {"id":{"name":"obj_waste_plastic","path":"objects/obj_waste_plastic/obj_waste_plastic.yy",},},
-    {"id":{"name":"rm_character_select","path":"rooms/rm_character_select/rm_character_select.yy",},},
-    {"id":{"name":"rm_game_mode","path":"rooms/rm_game_mode/rm_game_mode.yy",},},
-    {"id":{"name":"rm_level_01","path":"rooms/rm_level_01/rm_level_01.yy",},},
-    {"id":{"name":"rm_level_02","path":"rooms/rm_level_02/rm_level_02.yy",},},
-    {"id":{"name":"rm_level_03","path":"rooms/rm_level_03/rm_level_03.yy",},},
-    {"id":{"name":"rm_level_04","path":"rooms/rm_level_04/rm_level_04.yy",},},
-    {"id":{"name":"rm_level_05","path":"rooms/rm_level_05/rm_level_05.yy",},},
-    {"id":{"name":"rm_level_select","path":"rooms/rm_level_select/rm_level_select.yy",},},
-    {"id":{"name":"rm_main_menu","path":"rooms/rm_main_menu/rm_main_menu.yy",},},
-    {"id":{"name":"rm_menu","path":"rooms/rm_menu/rm_menu.yy",},},
-    {"id":{"name":"rm_options","path":"rooms/rm_options/rm_options.yy",},},
-    {"id":{"name":"rm_save_select","path":"rooms/rm_save_select/rm_save_select.yy",},},
-    {"id":{"name":"rm_teste","path":"rooms/rm_teste/rm_teste.yy",},},
-    {"id":{"name":"scr_character_select","path":"scripts/scr_character_select/scr_character_select.yy",},},
-    {"id":{"name":"scr_construction","path":"scripts/scr_construction/scr_construction.yy",},},
-    {"id":{"name":"scr_frontend_data","path":"scripts/scr_frontend_data/scr_frontend_data.yy",},},
-    {"id":{"name":"scr_frontend_draw","path":"scripts/scr_frontend_draw/scr_frontend_draw.yy",},},
-    {"id":{"name":"scr_frontend_navigation","path":"scripts/scr_frontend_navigation/scr_frontend_navigation.yy",},},
-    {"id":{"name":"scr_gameplay_assets","path":"scripts/scr_gameplay_assets/scr_gameplay_assets.yy",},},
-    {"id":{"name":"scr_level_map","path":"scripts/scr_level_map/scr_level_map.yy",},},
-    {"id":{"name":"scr_player","path":"scripts/scr_player/scr_player.yy",},},
-    {"id":{"name":"scr_processing_draw","path":"scripts/scr_processing_draw/scr_processing_draw.yy",},},
-    {"id":{"name":"scr_processing_flow","path":"scripts/scr_processing_flow/scr_processing_flow.yy",},},
-    {"id":{"name":"scr_recycling_draw","path":"scripts/scr_recycling_draw/scr_recycling_draw.yy",},},
-    {"id":{"name":"scr_recycling_level","path":"scripts/scr_recycling_level/scr_recycling_level.yy",},},
-    {"id":{"name":"scr_save_slots","path":"scripts/scr_save_slots/scr_save_slots.yy",},},
-    {"id":{"name":"scr_session_ui","path":"scripts/scr_session_ui/scr_session_ui.yy",},},
-    {"id":{"name":"scr_split_level","path":"scripts/scr_split_level/scr_split_level.yy",},},
-    {"id":{"name":"scr_workshop_layout","path":"scripts/scr_workshop_layout/scr_workshop_layout.yy",},},
-    {"id":{"name":"snd_delivery_success","path":"sounds/snd_delivery_success/snd_delivery_success.yy",},},
-    {"id":{"name":"spr_bag_glass","path":"sprites/spr_bag_glass/spr_bag_glass.yy",},},
-    {"id":{"name":"spr_bag_metal","path":"sprites/spr_bag_metal/spr_bag_metal.yy",},},
-    {"id":{"name":"spr_bag_paper","path":"sprites/spr_bag_paper/spr_bag_paper.yy",},},
-    {"id":{"name":"spr_bag_plastic","path":"sprites/spr_bag_plastic/spr_bag_plastic.yy",},},
-    {"id":{"name":"spr_bin_glass","path":"sprites/spr_bin_glass/spr_bin_glass.yy",},},
-    {"id":{"name":"spr_bin_metal","path":"sprites/spr_bin_metal/spr_bin_metal.yy",},},
-    {"id":{"name":"spr_bin_paper","path":"sprites/spr_bin_paper/spr_bin_paper.yy",},},
-    {"id":{"name":"spr_bin_plastic","path":"sprites/spr_bin_plastic/spr_bin_plastic.yy",},},
-    {"id":{"name":"spr_caragua_map","path":"sprites/spr_caragua_map/spr_caragua_map.yy",},},
-    {"id":{"name":"spr_counter","path":"sprites/spr_counter/spr_counter.yy",},},
-    {"id":{"name":"spr_dispenser","path":"sprites/spr_dispenser/spr_dispenser.yy",},},
-    {"id":{"name":"spr_fire","path":"sprites/spr_fire/spr_fire.yy",},},
-    {"id":{"name":"spr_item_teste","path":"sprites/spr_item_teste/spr_item_teste.yy",},},
-    {"id":{"name":"spr_leachate","path":"sprites/spr_leachate/spr_leachate.yy",},},
-    {"id":{"name":"spr_leleCostas","path":"sprites/spr_leleCostas/spr_leleCostas.yy",},},
-    {"id":{"name":"spr_leleFrente","path":"sprites/spr_leleFrente/spr_leleFrente.yy",},},
-    {"id":{"name":"spr_leleLado","path":"sprites/spr_leleLado/spr_leleLado.yy",},},
-    {"id":{"name":"spr_machine_biodigester","path":"sprites/spr_machine_biodigester/spr_machine_biodigester.yy",},},
-    {"id":{"name":"spr_machine_dismantler","path":"sprites/spr_machine_dismantler/spr_machine_dismantler.yy",},},
-    {"id":{"name":"spr_machine_dispatch","path":"sprites/spr_machine_dispatch/spr_machine_dispatch.yy",},},
-    {"id":{"name":"spr_machine_extinguisher_rack","path":"sprites/spr_machine_extinguisher_rack/spr_machine_extinguisher_rack.yy",},},
-    {"id":{"name":"spr_machine_intake","path":"sprites/spr_machine_intake/spr_machine_intake.yy",},},
-    {"id":{"name":"spr_machine_press","path":"sprites/spr_machine_press/spr_machine_press.yy",},},
-    {"id":{"name":"spr_machine_sorting","path":"sprites/spr_machine_sorting/spr_machine_sorting.yy",},},
-    {"id":{"name":"spr_machine_trash","path":"sprites/spr_machine_trash/spr_machine_trash.yy",},},
-    {"id":{"name":"spr_machine_washer","path":"sprites/spr_machine_washer/spr_machine_washer.yy",},},
-    {"id":{"name":"spr_material_burned_electronic","path":"sprites/spr_material_burned_electronic/spr_material_burned_electronic.yy",},},
-    {"id":{"name":"spr_material_clean_plastic","path":"sprites/spr_material_clean_plastic/spr_material_clean_plastic.yy",},},
-    {"id":{"name":"spr_material_dirty_plastic","path":"sprites/spr_material_dirty_plastic/spr_material_dirty_plastic.yy",},},
-    {"id":{"name":"spr_material_electronic","path":"sprites/spr_material_electronic/spr_material_electronic.yy",},},
-    {"id":{"name":"spr_material_extinguisher","path":"sprites/spr_material_extinguisher/spr_material_extinguisher.yy",},},
-    {"id":{"name":"spr_material_fertilizer","path":"sprites/spr_material_fertilizer/spr_material_fertilizer.yy",},},
-    {"id":{"name":"spr_material_metal_bale","path":"sprites/spr_material_metal_bale/spr_material_metal_bale.yy",},},
-    {"id":{"name":"spr_material_metal_plate","path":"sprites/spr_material_metal_plate/spr_material_metal_plate.yy",},},
-    {"id":{"name":"spr_material_organic","path":"sprites/spr_material_organic/spr_material_organic.yy",},},
-    {"id":{"name":"spr_material_plastic_bale","path":"sprites/spr_material_plastic_bale/spr_material_plastic_bale.yy",},},
-    {"id":{"name":"spr_material_raw_waste","path":"sprites/spr_material_raw_waste/spr_material_raw_waste.yy",},},
-    {"id":{"name":"spr_part_battery","path":"sprites/spr_part_battery/spr_part_battery.yy",},},
-    {"id":{"name":"spr_part_casing","path":"sprites/spr_part_casing/spr_part_casing.yy",},},
-    {"id":{"name":"spr_part_circuit","path":"sprites/spr_part_circuit/spr_part_circuit.yy",},},
-    {"id":{"name":"spr_part_motor","path":"sprites/spr_part_motor/spr_part_motor.yy",},},
-    {"id":{"name":"spr_robot_delivery","path":"sprites/spr_robot_delivery/spr_robot_delivery.yy",},},
-    {"id":{"name":"spr_robot","path":"sprites/spr_robot/spr_robot.yy",},},
-    {"id":{"name":"spr_science_bench","path":"sprites/spr_science_bench/spr_science_bench.yy",},},
-    {"id":{"name":"spr_scientist_ju","path":"sprites/spr_scientist_ju/spr_scientist_ju.yy",},},
-    {"id":{"name":"spr_scientist_le","path":"sprites/spr_scientist_le/spr_scientist_le.yy",},},
-    {"id":{"name":"spr_scientist_manu","path":"sprites/spr_scientist_manu/spr_scientist_manu.yy",},},
-    {"id":{"name":"spr_scientist_maria","path":"sprites/spr_scientist_maria/spr_scientist_maria.yy",},},
-    {"id":{"name":"spr_testes","path":"sprites/spr_testes/spr_testes.yy",},},
-    {"id":{"name":"spr_truck","path":"sprites/spr_truck/spr_truck.yy",},},
-    {"id":{"name":"spr_tutorialFundo","path":"sprites/spr_tutorialFundo/spr_tutorialFundo.yy",},},
-    {"id":{"name":"spr_ui_arrow","path":"sprites/spr_ui_arrow/spr_ui_arrow.yy",},},
-    {"id":{"name":"spr_ui_fill","path":"sprites/spr_ui_fill/spr_ui_fill.yy",},},
-    {"id":{"name":"spr_ui_star","path":"sprites/spr_ui_star/spr_ui_star.yy",},},
-    {"id":{"name":"spr_wall","path":"sprites/spr_wall/spr_wall.yy",},},
-    {"id":{"name":"spr_waste_glass","path":"sprites/spr_waste_glass/spr_waste_glass.yy",},},
-    {"id":{"name":"spr_waste_metal","path":"sprites/spr_waste_metal/spr_waste_metal.yy",},},
-    {"id":{"name":"spr_waste_paper","path":"sprites/spr_waste_paper/spr_waste_paper.yy",},},
-    {"id":{"name":"spr_waste_plastic","path":"sprites/spr_waste_plastic/spr_waste_plastic.yy",},},
-    {"id":{"name":"spr_workshop_floor","path":"sprites/spr_workshop_floor/spr_workshop_floor.yy",},},
+  "name": "GameJamIf2026",
+  "resources": [
+    {
+      "id": {
+        "name": "fnt_default",
+        "path": "fonts/fnt_default/fnt_default.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "fnt_ui_body",
+        "path": "fonts/fnt_ui_body/fnt_ui_body.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "fnt_ui_small",
+        "path": "fonts/fnt_ui_small/fnt_ui_small.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "fnt_ui_title",
+        "path": "fonts/fnt_ui_title/fnt_ui_title.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_bag_glass",
+        "path": "objects/obj_bag_glass/obj_bag_glass.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_bag_metal",
+        "path": "objects/obj_bag_metal/obj_bag_metal.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_bag_paper",
+        "path": "objects/obj_bag_paper/obj_bag_paper.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_bag_plastic",
+        "path": "objects/obj_bag_plastic/obj_bag_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_bin_glass",
+        "path": "objects/obj_bin_glass/obj_bin_glass.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_bin_metal",
+        "path": "objects/obj_bin_metal/obj_bin_metal.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_bin_paper",
+        "path": "objects/obj_bin_paper/obj_bin_paper.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_bin_plastic",
+        "path": "objects/obj_bin_plastic/obj_bin_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_biodigester",
+        "path": "objects/obj_biodigester/obj_biodigester.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_camera",
+        "path": "objects/obj_camera/obj_camera.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_common_trash",
+        "path": "objects/obj_common_trash/obj_common_trash.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_counter",
+        "path": "objects/obj_counter/obj_counter.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_criacao_personagem",
+        "path": "objects/obj_criacao_personagem/obj_criacao_personagem.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_dismantling_bench",
+        "path": "objects/obj_dismantling_bench/obj_dismantling_bench.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_dispatch_truck",
+        "path": "objects/obj_dispatch_truck/obj_dispatch_truck.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_dispenser",
+        "path": "objects/obj_dispenser/obj_dispenser.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_extinguisher_rack",
+        "path": "objects/obj_extinguisher_rack/obj_extinguisher_rack.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_frontend",
+        "path": "objects/obj_frontend/obj_frontend.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_hydraulic_press",
+        "path": "objects/obj_hydraulic_press/obj_hydraulic_press.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_intake_bin",
+        "path": "objects/obj_intake_bin/obj_intake_bin.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_item_main",
+        "path": "objects/obj_item_main/obj_item_main.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_leachate",
+        "path": "objects/obj_leachate/obj_leachate.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_lobby_ui",
+        "path": "objects/obj_lobby_ui/obj_lobby_ui.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_burned_electronic",
+        "path": "objects/obj_material_burned_electronic/obj_material_burned_electronic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_clean_plastic",
+        "path": "objects/obj_material_clean_plastic/obj_material_clean_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_dirty_plastic",
+        "path": "objects/obj_material_dirty_plastic/obj_material_dirty_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_electronic",
+        "path": "objects/obj_material_electronic/obj_material_electronic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_extinguisher",
+        "path": "objects/obj_material_extinguisher/obj_material_extinguisher.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_fertilizer",
+        "path": "objects/obj_material_fertilizer/obj_material_fertilizer.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_metal_bale",
+        "path": "objects/obj_material_metal_bale/obj_material_metal_bale.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_metal_plate",
+        "path": "objects/obj_material_metal_plate/obj_material_metal_plate.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_organic",
+        "path": "objects/obj_material_organic/obj_material_organic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_plastic_bale",
+        "path": "objects/obj_material_plastic_bale/obj_material_plastic_bale.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_raw_waste",
+        "path": "objects/obj_material_raw_waste/obj_material_raw_waste.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_menu",
+        "path": "objects/obj_menu/obj_menu.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_network",
+        "path": "objects/obj_network/obj_network.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_part_battery",
+        "path": "objects/obj_part_battery/obj_part_battery.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_part_casing",
+        "path": "objects/obj_part_casing/obj_part_casing.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_part_circuit",
+        "path": "objects/obj_part_circuit/obj_part_circuit.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_part_motor",
+        "path": "objects/obj_part_motor/obj_part_motor.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_player",
+        "path": "objects/obj_player/obj_player.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_process_item",
+        "path": "objects/obj_process_item/obj_process_item.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_recycling_item",
+        "path": "objects/obj_recycling_item/obj_recycling_item.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_recycling_level",
+        "path": "objects/obj_recycling_level/obj_recycling_level.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_recycling_player_two",
+        "path": "objects/obj_recycling_player_two/obj_recycling_player_two.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_recycling_player",
+        "path": "objects/obj_recycling_player/obj_recycling_player.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_recycling_station",
+        "path": "objects/obj_recycling_station/obj_recycling_station.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_robot_delivery",
+        "path": "objects/obj_robot_delivery/obj_robot_delivery.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_robot",
+        "path": "objects/obj_robot/obj_robot.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_science_bench",
+        "path": "objects/obj_science_bench/obj_science_bench.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_session_ui",
+        "path": "objects/obj_session_ui/obj_session_ui.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_sorting_table",
+        "path": "objects/obj_sorting_table/obj_sorting_table.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_truck",
+        "path": "objects/obj_truck/obj_truck.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_tutorial",
+        "path": "objects/obj_tutorial/obj_tutorial.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_wall",
+        "path": "objects/obj_wall/obj_wall.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_washer",
+        "path": "objects/obj_washer/obj_washer.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_waste_glass",
+        "path": "objects/obj_waste_glass/obj_waste_glass.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_waste_metal",
+        "path": "objects/obj_waste_metal/obj_waste_metal.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_waste_paper",
+        "path": "objects/obj_waste_paper/obj_waste_paper.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_waste_plastic",
+        "path": "objects/obj_waste_plastic/obj_waste_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_character_select",
+        "path": "rooms/rm_character_select/rm_character_select.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_game_mode",
+        "path": "rooms/rm_game_mode/rm_game_mode.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_level_01",
+        "path": "rooms/rm_level_01/rm_level_01.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_level_02",
+        "path": "rooms/rm_level_02/rm_level_02.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_level_03",
+        "path": "rooms/rm_level_03/rm_level_03.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_level_04",
+        "path": "rooms/rm_level_04/rm_level_04.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_level_05",
+        "path": "rooms/rm_level_05/rm_level_05.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_level_select",
+        "path": "rooms/rm_level_select/rm_level_select.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_main_menu",
+        "path": "rooms/rm_main_menu/rm_main_menu.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_menu",
+        "path": "rooms/rm_menu/rm_menu.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_options",
+        "path": "rooms/rm_options/rm_options.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_save_select",
+        "path": "rooms/rm_save_select/rm_save_select.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_teste",
+        "path": "rooms/rm_teste/rm_teste.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_character_select",
+        "path": "scripts/scr_character_select/scr_character_select.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_construction",
+        "path": "scripts/scr_construction/scr_construction.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_frontend_data",
+        "path": "scripts/scr_frontend_data/scr_frontend_data.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_frontend_draw",
+        "path": "scripts/scr_frontend_draw/scr_frontend_draw.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_frontend_navigation",
+        "path": "scripts/scr_frontend_navigation/scr_frontend_navigation.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_gameplay_assets",
+        "path": "scripts/scr_gameplay_assets/scr_gameplay_assets.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_level_map",
+        "path": "scripts/scr_level_map/scr_level_map.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_player",
+        "path": "scripts/scr_player/scr_player.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_processing_draw",
+        "path": "scripts/scr_processing_draw/scr_processing_draw.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_processing_flow",
+        "path": "scripts/scr_processing_flow/scr_processing_flow.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_recycling_draw",
+        "path": "scripts/scr_recycling_draw/scr_recycling_draw.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_recycling_level",
+        "path": "scripts/scr_recycling_level/scr_recycling_level.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_save_slots",
+        "path": "scripts/scr_save_slots/scr_save_slots.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_session_ui",
+        "path": "scripts/scr_session_ui/scr_session_ui.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_split_level",
+        "path": "scripts/scr_split_level/scr_split_level.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_workshop_layout",
+        "path": "scripts/scr_workshop_layout/scr_workshop_layout.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_delivery_success",
+        "path": "sounds/snd_delivery_success/snd_delivery_success.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_bag_glass",
+        "path": "sprites/spr_bag_glass/spr_bag_glass.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_bag_metal",
+        "path": "sprites/spr_bag_metal/spr_bag_metal.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_bag_paper",
+        "path": "sprites/spr_bag_paper/spr_bag_paper.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_bag_plastic",
+        "path": "sprites/spr_bag_plastic/spr_bag_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_bin_glass",
+        "path": "sprites/spr_bin_glass/spr_bin_glass.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_bin_metal",
+        "path": "sprites/spr_bin_metal/spr_bin_metal.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_bin_paper",
+        "path": "sprites/spr_bin_paper/spr_bin_paper.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_bin_plastic",
+        "path": "sprites/spr_bin_plastic/spr_bin_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_caragua_map",
+        "path": "sprites/spr_caragua_map/spr_caragua_map.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_counter",
+        "path": "sprites/spr_counter/spr_counter.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_dispenser",
+        "path": "sprites/spr_dispenser/spr_dispenser.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_fire",
+        "path": "sprites/spr_fire/spr_fire.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_item_teste",
+        "path": "sprites/spr_item_teste/spr_item_teste.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_leachate",
+        "path": "sprites/spr_leachate/spr_leachate.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_leleCostas",
+        "path": "sprites/spr_leleCostas/spr_leleCostas.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_leleFrente",
+        "path": "sprites/spr_leleFrente/spr_leleFrente.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_leleLado",
+        "path": "sprites/spr_leleLado/spr_leleLado.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_biodigester",
+        "path": "sprites/spr_machine_biodigester/spr_machine_biodigester.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_dismantler",
+        "path": "sprites/spr_machine_dismantler/spr_machine_dismantler.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_dispatch",
+        "path": "sprites/spr_machine_dispatch/spr_machine_dispatch.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_extinguisher_rack",
+        "path": "sprites/spr_machine_extinguisher_rack/spr_machine_extinguisher_rack.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_intake",
+        "path": "sprites/spr_machine_intake/spr_machine_intake.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_press",
+        "path": "sprites/spr_machine_press/spr_machine_press.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_sorting",
+        "path": "sprites/spr_machine_sorting/spr_machine_sorting.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_trash",
+        "path": "sprites/spr_machine_trash/spr_machine_trash.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_machine_washer",
+        "path": "sprites/spr_machine_washer/spr_machine_washer.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_burned_electronic",
+        "path": "sprites/spr_material_burned_electronic/spr_material_burned_electronic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_clean_plastic",
+        "path": "sprites/spr_material_clean_plastic/spr_material_clean_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_dirty_plastic",
+        "path": "sprites/spr_material_dirty_plastic/spr_material_dirty_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_electronic",
+        "path": "sprites/spr_material_electronic/spr_material_electronic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_extinguisher",
+        "path": "sprites/spr_material_extinguisher/spr_material_extinguisher.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_fertilizer",
+        "path": "sprites/spr_material_fertilizer/spr_material_fertilizer.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_metal_bale",
+        "path": "sprites/spr_material_metal_bale/spr_material_metal_bale.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_metal_plate",
+        "path": "sprites/spr_material_metal_plate/spr_material_metal_plate.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_organic",
+        "path": "sprites/spr_material_organic/spr_material_organic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_plastic_bale",
+        "path": "sprites/spr_material_plastic_bale/spr_material_plastic_bale.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_material_raw_waste",
+        "path": "sprites/spr_material_raw_waste/spr_material_raw_waste.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_part_battery",
+        "path": "sprites/spr_part_battery/spr_part_battery.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_part_casing",
+        "path": "sprites/spr_part_casing/spr_part_casing.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_part_circuit",
+        "path": "sprites/spr_part_circuit/spr_part_circuit.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_part_motor",
+        "path": "sprites/spr_part_motor/spr_part_motor.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_robot_delivery",
+        "path": "sprites/spr_robot_delivery/spr_robot_delivery.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_robot",
+        "path": "sprites/spr_robot/spr_robot.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_science_bench",
+        "path": "sprites/spr_science_bench/spr_science_bench.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_scientist_ju",
+        "path": "sprites/spr_scientist_ju/spr_scientist_ju.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_scientist_le",
+        "path": "sprites/spr_scientist_le/spr_scientist_le.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_scientist_manu",
+        "path": "sprites/spr_scientist_manu/spr_scientist_manu.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_scientist_maria",
+        "path": "sprites/spr_scientist_maria/spr_scientist_maria.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_testes",
+        "path": "sprites/spr_testes/spr_testes.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_truck",
+        "path": "sprites/spr_truck/spr_truck.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_tutorialFundo",
+        "path": "sprites/spr_tutorialFundo/spr_tutorialFundo.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_ui_arrow",
+        "path": "sprites/spr_ui_arrow/spr_ui_arrow.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_ui_fill",
+        "path": "sprites/spr_ui_fill/spr_ui_fill.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_ui_star",
+        "path": "sprites/spr_ui_star/spr_ui_star.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_wall",
+        "path": "sprites/spr_wall/spr_wall.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_waste_glass",
+        "path": "sprites/spr_waste_glass/spr_waste_glass.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_waste_metal",
+        "path": "sprites/spr_waste_metal/spr_waste_metal.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_waste_paper",
+        "path": "sprites/spr_waste_paper/spr_waste_paper.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_waste_plastic",
+        "path": "sprites/spr_waste_plastic/spr_waste_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_workshop_floor",
+        "path": "sprites/spr_workshop_floor/spr_workshop_floor.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_tutorial_flow",
+        "path": "scripts/scr_tutorial_flow/scr_tutorial_flow.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_sorted_paper",
+        "path": "objects/obj_material_sorted_paper/obj_material_sorted_paper.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_sorted_plastic",
+        "path": "objects/obj_material_sorted_plastic/obj_material_sorted_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_sorted_glass",
+        "path": "objects/obj_material_sorted_glass/obj_material_sorted_glass.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_sorted_metal",
+        "path": "objects/obj_material_sorted_metal/obj_material_sorted_metal.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_bag_paper",
+        "path": "objects/obj_material_bag_paper/obj_material_bag_paper.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_bag_plastic",
+        "path": "objects/obj_material_bag_plastic/obj_material_bag_plastic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_bag_glass",
+        "path": "objects/obj_material_bag_glass/obj_material_bag_glass.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_bag_metal",
+        "path": "objects/obj_material_bag_metal/obj_material_bag_metal.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "rm_tutorial",
+        "path": "rooms/rm_tutorial/rm_tutorial.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_ui_timeout",
+        "path": "sprites/spr_ui_timeout/spr_ui_timeout.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_material_robot",
+        "path": "objects/obj_material_robot/obj_material_robot.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_truck_dock",
+        "path": "sprites/spr_truck_dock/spr_truck_dock.yy"
+      }
+    }
   ],
-  "resourceType":"GMProject",
-  "resourceVersion":"2.0",
-  "RoomOrderNodes":[
-    {"roomId":{"name":"rm_main_menu","path":"rooms/rm_main_menu/rm_main_menu.yy",},},
-    {"roomId":{"name":"rm_game_mode","path":"rooms/rm_game_mode/rm_game_mode.yy",},},
-    {"roomId":{"name":"rm_character_select","path":"rooms/rm_character_select/rm_character_select.yy",},},
-    {"roomId":{"name":"rm_level_select","path":"rooms/rm_level_select/rm_level_select.yy",},},
-    {"roomId":{"name":"rm_options","path":"rooms/rm_options/rm_options.yy",},},
-    {"roomId":{"name":"rm_menu","path":"rooms/rm_menu/rm_menu.yy",},},
-    {"roomId":{"name":"rm_teste","path":"rooms/rm_teste/rm_teste.yy",},},
-    {"roomId":{"name":"rm_level_01","path":"rooms/rm_level_01/rm_level_01.yy",},},
-    {"roomId":{"name":"rm_level_02","path":"rooms/rm_level_02/rm_level_02.yy",},},
-    {"roomId":{"name":"rm_save_select","path":"rooms/rm_save_select/rm_save_select.yy",},},
-    {"roomId":{"name":"rm_level_03","path":"rooms/rm_level_03/rm_level_03.yy",},},
-    {"roomId":{"name":"rm_level_04","path":"rooms/rm_level_04/rm_level_04.yy",},},
-    {"roomId":{"name":"rm_level_05","path":"rooms/rm_level_05/rm_level_05.yy",},},
+  "resourceType": "GMProject",
+  "resourceVersion": "2.0",
+  "RoomOrderNodes": [
+    {
+      "roomId": {
+        "name": "rm_main_menu",
+        "path": "rooms/rm_main_menu/rm_main_menu.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_game_mode",
+        "path": "rooms/rm_game_mode/rm_game_mode.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_character_select",
+        "path": "rooms/rm_character_select/rm_character_select.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_level_select",
+        "path": "rooms/rm_level_select/rm_level_select.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_options",
+        "path": "rooms/rm_options/rm_options.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_menu",
+        "path": "rooms/rm_menu/rm_menu.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_teste",
+        "path": "rooms/rm_teste/rm_teste.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_tutorial",
+        "path": "rooms/rm_tutorial/rm_tutorial.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_level_01",
+        "path": "rooms/rm_level_01/rm_level_01.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_level_02",
+        "path": "rooms/rm_level_02/rm_level_02.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_save_select",
+        "path": "rooms/rm_save_select/rm_save_select.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_level_03",
+        "path": "rooms/rm_level_03/rm_level_03.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_level_04",
+        "path": "rooms/rm_level_04/rm_level_04.yy"
+      }
+    },
+    {
+      "roomId": {
+        "name": "rm_level_05",
+        "path": "rooms/rm_level_05/rm_level_05.yy"
+      }
+    }
   ],
-  "templateType":"game",
-  "TextureGroups":[
-    {"$GMTextureGroup":"","%Name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","customOptions":"","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"name":"Default","resourceType":"GMTextureGroup","resourceVersion":"2.0","targets":-1,},
-  ],
+  "templateType": "game",
+  "TextureGroups": [
+    {
+      "$GMTextureGroup": "",
+      "%Name": "Default",
+      "autocrop": true,
+      "border": 2,
+      "compressFormat": "bz2",
+      "customOptions": "",
+      "directory": "",
+      "groupParent": null,
+      "isScaled": true,
+      "loadType": "default",
+      "mipsToGenerate": 0,
+      "name": "Default",
+      "resourceType": "GMTextureGroup",
+      "resourceVersion": "2.0",
+      "targets": -1
+    }
+  ]
 }

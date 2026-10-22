@@ -1,5 +1,6 @@
 /// Visual campaign state only; victory detection and persistence are intentionally out of scope.
 function frontend_level_is_available(_level) {
+    if (_level == -1) return true;
     if (_level < 0 || _level >= array_length(global.frontend_level_completed)) return false;
     if (variable_global_exists("frontend_test_unlock") && global.frontend_test_unlock) return true;
     for (var i = 0; i < _level; i++) {
@@ -63,10 +64,11 @@ function frontend_draw_level_map() {
     frontend_text(640, 40, "Caraguatatuba", font_body, outline, fa_center);
 
     for (var i = 0; i < 4; i++) level_map_route(level_nodes[i], level_nodes[i + 1], global.frontend_level_completed[i]);
-    for (var i = 0; i < 5; i++) {
-        var node = level_nodes[i];
+    level_map_route(tutorial_node, level_nodes[0], global.frontend_tutorial_completed);
+    for (var i = -1; i < 5; i++) {
+        var node = i == -1 ? tutorial_node : level_nodes[i];
         var available = frontend_level_is_available(i);
-        var completed = available && global.frontend_level_completed[i];
+        var completed = i == -1 ? global.frontend_tutorial_completed : (available && global.frontend_level_completed[i]);
         var selected = selected_level == i;
         var fill = completed ? teal : (available ? gold : make_color_rgb(222, 232, 215));
         draw_set_alpha(0.24);
@@ -82,7 +84,7 @@ function frontend_draw_level_map() {
         draw_set_color(fill);
         draw_circle(node.x, node.y, 31, false);
         if (available) {
-            frontend_text(node.x, node.y - 14, string(i + 1), font_body, completed ? c_white : outline, fa_center);
+            frontend_text(node.x, node.y - 14, i == -1 ? "T" : string(i + 1), font_body, completed ? c_white : outline, fa_center);
             if (completed) {
                 draw_set_color(outline);
                 draw_circle(node.x + 26, node.y + 23, 12, false);
@@ -96,18 +98,20 @@ function frontend_draw_level_map() {
             draw_circle(node.x - 28, node.y - 24, 12, false);
             frontend_text(node.x - 28, node.y - 35, string(i + 1), font_small, c_white, fa_center);
         }
-        var label_width = max(100, string_length(levels[i].place) * 10 + 28);
+        var place_name = i == -1 ? "Tutorial" : levels[i].place;
+        var label_width = max(100, string_length(place_name) * 10 + 28);
         level_map_round_panel(node.x - label_width / 2, node.y + 46, label_width, 32,
             make_color_rgb(255, 251, 232), outline);
-        frontend_text(node.x, node.y + 51, levels[i].place, font_small, outline, fa_center);
+        frontend_text(node.x, node.y + 51, place_name, font_small, outline, fa_center);
     }
 
     level_map_round_panel(32, 608, 1216, 80, make_color_rgb(255, 251, 232), outline);
-    frontend_text(640, 620, "Fase " + string(selected_level + 1) + " - " + levels[selected_level].place, font_body, outline, fa_center);
+    frontend_text(640, 620, selected_level == -1 ? "Tutorial - Central de reciclagem" : "Fase " + string(selected_level + 1) + " - " + levels[selected_level].place, font_body, outline, fa_center);
     var available = frontend_level_is_available(selected_level);
-    var status = global.frontend_level_completed[selected_level] ? "Concluída" : (available ? "Disponível" : "Conclua a fase anterior");
+    var complete = selected_level == -1 ? global.frontend_tutorial_completed : global.frontend_level_completed[selected_level];
+    var status = complete ? "Concluída" : (available ? "Disponível" : "Conclua a fase anterior");
     frontend_text(640, 652, status, font_small, outline, fa_center);
-    for (var i = 5; i < 7; i++) {
+    for (var i = 6; i < 8; i++) {
         var b = buttons[i];
         var enabled = b.action != "start" || available;
         var active = focus == i && enabled;
