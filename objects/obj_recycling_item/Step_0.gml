@@ -52,9 +52,12 @@ if (is_thrown && throw_peak_spd > 0) {
 
 if (is_held) {
     if (instance_exists(holder)) {
-        x = holder.x + lengthdir_x(20, holder.move_dir);
-        y = holder.y - 38;
-        depth = holder.depth - 2;
+        // Keep the item centered on the player's hand line, in the facing direction.
+        // The small upward correction aligns it with the hands instead of the feet.
+        x = holder.x + lengthdir_x(22, holder.move_dir);
+        y = holder.y + lengthdir_y(22, holder.move_dir) - 8;
+        // Items in front of the character when facing down, behind when facing up.
+        depth = -y - 2;
     } else {
         is_held = false;
         holder = noone;

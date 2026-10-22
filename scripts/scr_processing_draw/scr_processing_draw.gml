@@ -89,10 +89,13 @@ function processing_draw_hud() {
         frontend_text(ox+48,110,processing_material_name(active_orders[i]),fnt_ui_small,dark);
     }
     if(feedback_timer>0 && phase_state=="playing") {
-        frontend_panel(160,652,960,30,make_color_rgb(255,252,235),dark);
-        frontend_text(640,656,feedback,fnt_ui_small,dark,fa_center);
+        frontend_panel(160,612,960,30,make_color_rgb(255,252,235),dark);
+        frontend_text(640,616,feedback,fnt_ui_small,dark,fa_center);
     }
-    frontend_text(40,694,global.game_mode=="coop_local"?"J1: WASD | Shift: pegar/colocar | Ctrl: cortar/arremessar | Alt: dash   J2: Setas | Shift dir. | Ctrl dir. | Alt Gr: dash":"WASD: mover | Shift: pegar/colocar | Ctrl: cortar/arremessar | Alt: dash",fnt_ui_small,c_white);
+    if(global.game_mode=="coop_local") {
+        frontend_text(40,670,frontend_player_controls_hint(1),fnt_ui_small,c_white);
+        frontend_text(40,694,frontend_player_controls_hint(2),fnt_ui_small,c_white);
+    } else frontend_text(40,694,frontend_player_controls_hint(1),fnt_ui_small,c_white);
     with(obj_recycling_player) if(stun_remaining>0) frontend_text(x,y-86,"Atordoada "+string(ceil(stun_remaining))+"s",fnt_ui_small,make_color_rgb(177,51,47),fa_center);
     if(phase_state!="playing") {
         draw_set_alpha(0.55);frontend_rect(0,0,1280,720,c_black);draw_set_alpha(1);

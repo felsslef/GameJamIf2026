@@ -50,17 +50,13 @@ function scr_player_step() {
 
     // Posição do item segurado nas mãos
     if (held_item != noone && instance_exists(held_item)) {
-        var offset_dist = 14;
-        
+        var offset_dist = 22;
         held_item.x = x + lengthdir_x(offset_dist, move_dir);
-        held_item.y = y + lengthdir_y(offset_dist, move_dir) - 6;
+        held_item.y = y + lengthdir_y(offset_dist, move_dir) - 8;
 
-        // Ajuste de profundidade (atrás do player se olhar para cima)
-        if (move_dir >= 45 && move_dir <= 135) {
-            held_item.depth = depth + 1;
-        } else {
-            held_item.depth = depth - 1;
-        }
+        // A profundidade acompanha a posição: atrás ao olhar para cima,
+        // à frente ao olhar para baixo.
+        held_item.depth = -held_item.y - 2;
     }
 
     // Pegar ou soltar item

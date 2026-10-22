@@ -134,10 +134,75 @@ function frontend_key_name(_key) {
         case vk_enter: return "Enter";
         case vk_escape: return "Esc";
         case vk_backspace: return "Backspace";
+        case vk_numpad0: return "Num 0";
+        case vk_numpad1: return "Num 1";
+        case vk_numpad2: return "Num 2";
+        case vk_numpad3: return "Num 3";
+        case vk_numpad4: return "Num 4";
+        case vk_numpad5: return "Num 5";
+        case vk_numpad6: return "Num 6";
+        case vk_numpad7: return "Num 7";
+        case vk_numpad8: return "Num 8";
+        case vk_numpad9: return "Num 9";
     }
     if (_key >= 112 && _key <= 123) return "F" + string(_key - 111);
     if (_key >= 32 && _key <= 126) return string_upper(chr(_key));
     return "Tecla " + string(_key);
+}
+
+function frontend_key_short_name(_key) {
+    switch (_key) {
+        case vk_up: return "Cima";
+        case vk_down: return "Baixo";
+        case vk_left: return "Esq.";
+        case vk_right: return "Dir.";
+        case vk_lshift: return "L-Shift";
+        case vk_rshift: return "R-Shift";
+        case vk_lcontrol: return "L-Ctrl";
+        case vk_rcontrol: return "R-Ctrl";
+        case vk_lalt: return "L-Alt";
+        case vk_ralt: return "Alt Gr";
+        case vk_space: return "Espaço";
+        case vk_tab: return "Tab";
+        case vk_enter: return "Enter";
+        case vk_escape: return "Esc";
+        case vk_backspace: return "Backspace";
+        case vk_numpad0: return "Num0";
+        case vk_numpad1: return "Num1";
+        case vk_numpad2: return "Num2";
+        case vk_numpad3: return "Num3";
+        case vk_numpad4: return "Num4";
+        case vk_numpad5: return "Num5";
+        case vk_numpad6: return "Num6";
+        case vk_numpad7: return "Num7";
+        case vk_numpad8: return "Num8";
+        case vk_numpad9: return "Num9";
+    }
+    if (_key >= 112 && _key <= 123) return "F" + string(_key - 111);
+    if (_key >= 32 && _key <= 126) return string_upper(chr(_key));
+    return frontend_key_name(_key);
+}
+
+function frontend_player_movement_hint(_player_id) {
+    var prefix = _player_id == 2 ? "p2_" : "p1_";
+    return "Mover cima/baixo/esq./dir.: " +
+        frontend_key_short_name(frontend_keybinding(prefix + "up")) + "/" +
+        frontend_key_short_name(frontend_keybinding(prefix + "down")) + "/" +
+        frontend_key_short_name(frontend_keybinding(prefix + "left")) + "/" +
+        frontend_key_short_name(frontend_keybinding(prefix + "right"));
+}
+
+function frontend_player_controls_hint(_player_id) {
+    var prefix = _player_id == 2 ? "p2_" : "p1_";
+    var player_label = "J" + string(_player_id);
+    var movement = frontend_key_short_name(frontend_keybinding(prefix + "up")) + "/" +
+        frontend_key_short_name(frontend_keybinding(prefix + "down")) + "/" +
+        frontend_key_short_name(frontend_keybinding(prefix + "left")) + "/" +
+        frontend_key_short_name(frontend_keybinding(prefix + "right"));
+    return player_label + " mover (cima/baixo/esq./dir.) " + movement +
+        " | pegar " + frontend_key_short_name(frontend_keybinding(prefix + "interact")) +
+        " | ação " + frontend_key_short_name(frontend_keybinding(prefix + "action")) +
+        " | dash " + frontend_key_short_name(frontend_keybinding(prefix + "dash"));
 }
 
 function frontend_button(_x, _y, _w, _h, _label, _action, _value = 0) {

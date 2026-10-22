@@ -24,6 +24,9 @@ function recycling_level_init() {
     feedback_timer = 6;
     // The room editor owns the instances, positions and appearance.
     workshop_layout_init();
+    if (level_index == 0 && !instance_exists(obj_tutorial)) {
+        instance_create_layer(room_width / 2, room_height / 2, "Items", obj_tutorial);
+    }
     has_construction = instance_exists(obj_science_bench);
     if (processing_enabled) processing_level_init();
     else for (var i = 0; i < array_length(dispensers); i++) {
@@ -89,6 +92,7 @@ function recycling_level_tick(_dt) {
 }
 
 function recycling_level_update() {
+    if (instance_exists(obj_tutorial)) return;
     if (phase_state == "playing") {
         recycling_level_tick(max(0, delta_time / 1000000));
         return;
@@ -310,7 +314,7 @@ function recycling_interact(_player, _station_override = noone) {
 }
 
 function recycling_player_step() {
-    if (!instance_exists(obj_recycling_level) || obj_recycling_level.phase_state != "playing") return;
+    if (!instance_exists(obj_recycling_level) || obj_recycling_level.phase_state != "playing" || instance_exists(obj_tutorial)) return;
     if (obj_recycling_level.processing_enabled && stun_remaining > 0) { is_dashing = false; return; }
     var use_arrows = global.game_mode == "coop_local" && playerid == 2;
     var prefix = use_arrows ? "p2_" : "p1_";
@@ -408,6 +412,26 @@ function recycling_player_movement(_dt, _move_x, _move_y, _dash_pressed) {
         is_dashing = true;
         dash_time = dash_time_max;
         dash_cooldown = dash_cooldown_max;
+    }
+    if (character_index == 1) {
+        var animation_x = is_dashing ? lengthdir_x(1, move_dir) : _move_x;
+        var animation_y = is_dashing ? lengthdir_y(1, move_dir) : _move_y;
+        if (animation_x != 0 || animation_y != 0) {
+            if (abs(animation_x) > abs(animation_y)) {
+                sprite_index = spr_leleLado;
+                image_xscale = animation_x < 0 ? -1 : 1;
+            } else if (animation_y < 0) {
+                sprite_index = spr_leleCostas;
+                image_xscale = 1;
+            } else {
+                sprite_index = spr_leleFrente;
+                image_xscale = 1;
+            }
+            image_speed = 0.2;
+        } else {
+            image_speed = 0;
+            image_index = 0;
+        }
     }
     if (is_dashing) {
         array_push(dash_trail_x, x);

@@ -120,7 +120,7 @@ function recycling_draw_hud() {
     frontend_panel(32, 20, 1216, 70, make_color_rgb(255, 252, 235), dark);
     frontend_text(56, 31, "Reciclados: " + string(recycled_total) + " / " + string(minimum_goal), fnt_ui_body,
         recycled_total >= minimum_goal ? make_color_rgb(32, 128, 87) : dark);
-    frontend_text(56, 61, has_construction ? "Robôs: " + string(robot_total) + " / " + string(robot_minimum) : "Separe > leve os sacos > envie o caminhão", fnt_ui_small, dark);
+    frontend_text(56, 61, has_construction ? "Robôs: " + string(robot_total) + " / " + string(robot_minimum) : "Ciclo: pegue > separe > leve o saco > envie o caminhão | Meta: " + string(minimum_goal), fnt_ui_small, dark);
     var seconds_left = ceil(time_remaining);
     var clock = string(floor(seconds_left / 60)) + ":" + string_format(seconds_left mod 60, 2, 0);
     if (seconds_left mod 60 < 10) clock = string(floor(seconds_left / 60)) + ":0" + string(seconds_left mod 60);
@@ -128,7 +128,10 @@ function recycling_draw_hud() {
     var place_names = ["Porto Novo", "Indaiá", "Centro", "Martim de Sá", "Massaguaçu"];
     frontend_text(1220, 32, place_names[level_index], fnt_ui_body, dark, fa_right);
     frontend_text(1220, 62, frontend_key_name(frontend_keybinding("pause")) + ": pausa | F11: tela cheia", fnt_ui_small, dark, fa_right);
-    frontend_text(48, 694, global.game_mode == "coop_local" ? "J1: WASD | Shift: pegar/colocar | Ctrl: cortar/arremessar | Alt: dash   J2: Setas | Shift dir. | Ctrl dir. | Alt Gr: dash" : "WASD: mover | Shift: pegar/colocar | Ctrl: cortar/arremessar | Alt: dash", fnt_ui_small, c_white);
+    if (global.game_mode == "coop_local") {
+        frontend_text(48, 670, frontend_player_controls_hint(1), fnt_ui_small, c_white);
+        frontend_text(48, 694, frontend_player_controls_hint(2), fnt_ui_small, c_white);
+    } else frontend_text(48, 694, frontend_player_controls_hint(1), fnt_ui_small, c_white);
     if (feedback_timer > 0 && phase_state == "playing") {
         var message_width = min(1120, string_length(feedback) * 10 + 32);
         frontend_panel(640 - message_width / 2, 99, message_width, 32, make_color_rgb(255, 252, 235), dark);

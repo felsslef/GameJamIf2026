@@ -89,19 +89,12 @@ function frontend_character_update(_dt) {
     for (var i = 0; i < character_player_count; i++) {
         character_slots[i].flip_timer = max(0, character_slots[i].flip_timer - _dt);
         var use_arrows = i == 1;
-        var solo = character_player_count == 1;
-        var previous = use_arrows ? keyboard_check_pressed(vk_left) : keyboard_check_pressed(ord("A"));
-        var next = use_arrows ? keyboard_check_pressed(vk_right) : keyboard_check_pressed(ord("D"));
-        var flip = use_arrows
-            ? (keyboard_check_pressed(vk_up) || keyboard_check_pressed(vk_down))
-            : (keyboard_check_pressed(ord("W")) || keyboard_check_pressed(ord("S")));
+        var key_prefix = use_arrows ? "p2_" : "p1_";
+        var previous = keyboard_check_pressed(frontend_keybinding(key_prefix + "left"));
+        var next = keyboard_check_pressed(frontend_keybinding(key_prefix + "right"));
+        var flip = keyboard_check_pressed(frontend_keybinding(key_prefix + "up"))
+            || keyboard_check_pressed(frontend_keybinding(key_prefix + "down"));
         var confirm = keyboard_check_pressed(use_arrows ? vk_enter : ord("E"));
-        if (solo) {
-            previous = previous || keyboard_check_pressed(vk_left);
-            next = next || keyboard_check_pressed(vk_right);
-            flip = flip || keyboard_check_pressed(vk_up) || keyboard_check_pressed(vk_down);
-            confirm = confirm || keyboard_check_pressed(vk_enter);
-        }
         var choice_step = next - previous;
         if (choice_step != 0) frontend_character_cycle(i, choice_step);
         if (flip) frontend_character_flip(i);
@@ -172,15 +165,20 @@ function frontend_draw_character_select() {
                 slot.ready ? make_color_rgb(234, 240, 236) : paper, accent);
         }
         frontend_text(center_x, 522, slot.ready ? "Pronto" : scientist.name, font_body, slot.ready ? accent : ink, fa_center);
+        var key_prefix = i == 1 ? "p2_" : "p1_";
+        var key_left = frontend_key_short_name(frontend_keybinding(key_prefix + "left"));
+        var key_right = frontend_key_short_name(frontend_keybinding(key_prefix + "right"));
+        var key_up = frontend_key_short_name(frontend_keybinding(key_prefix + "up"));
+        var key_down = frontend_key_short_name(frontend_keybinding(key_prefix + "down"));
         if (character_player_count == 1) {
-            frontend_text(center_x, 568, "A/D ou setas: escolher | W/S ou cima/baixo: virar", font_small, muted, fa_center);
-            frontend_text(center_x, 594, "E ou Enter: confirmar / desfazer", font_small, muted, fa_center);
+            frontend_text(center_x, 568, key_left + "/" + key_right + ": escolher | " + key_up + "/" + key_down + ": virar", font_small, muted, fa_center);
+            frontend_text(center_x, 594, "E / Enter: confirmar ou desfazer", font_small, muted, fa_center);
         } else if (i == 0) {
-            frontend_text(center_x, 568, "A/D: escolher | W/S: virar", font_small, muted, fa_center);
+            frontend_text(center_x, 568, key_left + "/" + key_right + ": escolher | " + key_up + "/" + key_down + ": virar", font_small, muted, fa_center);
             frontend_text(center_x, 594, "E: confirmar / desfazer", font_small, muted, fa_center);
         } else {
-            frontend_text(center_x, 568, "Esquerda/direita: escolher", font_small, muted, fa_center);
-            frontend_text(center_x, 594, "Cima/baixo: virar | Enter: confirmar", font_small, muted, fa_center);
+            frontend_text(center_x, 568, key_left + "/" + key_right + ": escolher | " + key_up + "/" + key_down + ": virar", font_small, muted, fa_center);
+            frontend_text(center_x, 594, "Enter: confirmar / desfazer", font_small, muted, fa_center);
         }
     }
     var all_ready = frontend_character_all_ready();
