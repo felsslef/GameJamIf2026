@@ -4,6 +4,7 @@ function story_active() {
 }
 
 function story_init() {
+    story_blip = -1;
     story_mode = "none";
     story_age = 0;
     story_line = 0;
@@ -18,7 +19,7 @@ function story_begin(_chapter) {
     story_line = 0;
     switch (_chapter) {
         case "intro": story_lines = [
-            ["Ju", "Olhem a nossa cidade! Os monstros... quer dizer, os humanos... deixaram lixo por toda parte!"],
+            ["Ju", "Depois da temporada, olhem a nossa cidade! Os monstros... quer dizer, os humanos... deixaram lixo por toda parte!"],
             ["Lê", "Esses resíduos estão machucando a natureza. Precisamos cuidar de Caraguá!"],
             ["Manu", "Vamos separar os materiais e dar um destino certo a cada um."],
             ["Maria", "E usar a nossa ciência para construir robôs que ajudem na limpeza. Vamos juntas!"]]; break;
@@ -33,9 +34,11 @@ function story_begin(_chapter) {
             ["Lê", "Nossa inteligência e nossas invenções viraram uma equipe de robôs!"],
             ["Manu", "Agora eles ajudam a manter a praia limpa. Deu tudo certo, meninas!"]]; break;
     }
+    story_prepare_text();
 }
 
 function story_advance() {
+    story_stop_blip();
     story_age = 0;
     if (story_mode == "beach") {
         story_mode = "none";
@@ -48,14 +51,79 @@ function story_advance() {
         if (story_mode == "ending") story_mode = "beach";
         else story_mode = "none";
     }
+    if (story_mode != "none" && story_mode != "beach") story_prepare_text();
+}
+
+function story_stop_blip() {
+    if (variable_instance_exists(id,"story_blip") && story_blip != -1) audio_stop_sound(story_blip);
+    story_blip = -1;
+}
+
+function story_prepare_text() {
+    story_stop_blip();
+    // Wrap the complete sentence first, keeping words stationary as letters appear.
+    var previous_font=draw_get_font();
+    draw_set_font(fnt_ui_body);
+    var words=string_split(story_lines[story_line][1]," ");
+    var row="";
+    story_text="";
+    for(var i=0;i<array_length(words);i++) {
+        var candidate=row==""?words[i]:row+" "+words[i];
+        if(row!="" && string_width(candidate)>864) {
+            story_text+=row+"\n";
+            row=words[i];
+        } else row=candidate;
+    }
+    story_text+=row;
+    draw_set_font(previous_font);
+    story_visible=global.frontend_reduced_motion?string_length(story_text):0;
+    story_type_accumulator=0;
+    story_type_wait=0;
+    story_blip_wait=0;
+}
+
+function story_type_tick(_dt) {
+    if (story_mode=="beach" || story_mode=="none") return;
+    var length=string_length(story_text);
+    if(global.frontend_reduced_motion) { story_visible=length;return; }
+    story_blip_wait=max(0,story_blip_wait-_dt);
+    story_type_wait=max(0,story_type_wait-_dt);
+    if(story_type_wait>0 || story_visible>=length) return;
+    story_type_accumulator+=_dt*42;
+    var audible=false;
+    while(story_type_accumulator>=1 && story_visible<length) {
+        story_type_accumulator--;
+        story_visible++;
+        var letter=string_char_at(story_text,story_visible);
+        if(letter!=" " && letter!="\n" && string_pos(letter,",.!?;:")==0) audible=true;
+        if(string_pos(letter,",.!?;:")>0) {
+            story_type_wait=(letter=="," || letter==";" || letter==":")?0.08:0.16;
+            story_type_accumulator=0;
+            break;
+        }
+    }
+    if(audible && story_blip_wait<=0) {
+        story_stop_blip();
+        story_blip=audio_play_sound(snd_dialogue_blip,1,false);
+        audio_sound_pitch(story_blip,0.95+(story_line mod 4)*0.06);
+        story_blip_wait=0.065;
+    }
+}
+
+function story_continue() {
+    if(story_mode!="beach" && story_visible<string_length(story_text)) {
+        story_visible=string_length(story_text);
+        story_stop_blip();
+    } else story_advance();
 }
 
 function story_update(_dt) {
     if (!story_active()) return false;
     story_age += min(0.1,_dt);
+    story_type_tick(min(0.1,max(0,_dt)));
     var clicked = mouse_check_button_pressed(mb_left) && point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),960,620,1200,676);
     var advance = keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space) || clicked;
-    if (story_age > 0.25 && advance && (story_mode != "beach" || story_age >= 10)) story_advance();
+    if (story_age > 0.25 && advance && (story_mode != "beach" || story_age >= 10)) story_continue();
     return true;
 }
 
@@ -89,17 +157,20 @@ function story_draw() {
         }
     } else {
         draw_set_alpha(0.35);frontend_rect(0,0,1280,720,c_black);draw_set_alpha(1);
-        frontend_panel(64,468,1152,222,make_color_rgb(255,252,235),dark);
+        frontend_panel(64,438,1152,252,make_color_rgb(255,252,235),dark);
         var line = level.story_lines[level.story_line];
         var names = ["Ju","Lê","Manu","Maria"];
         var index = 0;
         for(var i=0;i<4;i++)if(names[i]==line[0])index=i;
-        frontend_scientist(82,490,3,index);
-        frontend_text(230,490,line[0],fnt_ui_title,dark);
+        frontend_scientist(100,504,3,index);
+        draw_set_font(fnt_dialogue_name);
+        var name_width=max(180,string_width(line[0])+48);
+        frontend_panel(244,454,name_width,72,make_color_rgb(222,237,211),make_color_rgb(38,117,104));
+        frontend_text(268,460,line[0],fnt_dialogue_name,dark);
         draw_set_font(fnt_ui_body);draw_set_color(dark);draw_set_halign(fa_left);draw_set_valign(fa_top);
-        draw_text_ext(230,538,line[1],30,900);
+        draw_text_ext(264,548,string_copy(level.story_text,1,level.story_visible),30,864);
         frontend_stone_button(960,620,240,56,true);
-        frontend_text(1080,633,"Continuar",fnt_ui_body,dark,fa_center);
+        frontend_text(1080,633,level.story_visible<string_length(level.story_text)?"Mostrar tudo":"Continuar",fnt_ui_body,dark,fa_center);
     }
     draw_set_alpha(1);draw_set_color(c_white);draw_set_halign(fa_left);draw_set_valign(fa_top);
 }

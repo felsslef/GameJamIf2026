@@ -21,6 +21,7 @@ switch (type) {
             global.online_connected = false;
             global.online_selection.p2_active = false;
             global.online_selection.p2_ready = false;
+            global.online_input = [array_create(7,false),array_create(7,false),array_create(7,false)];
         } else {
             connected = false;
             global.online_connected = false;
@@ -33,6 +34,7 @@ switch (type) {
         buffer_seek(buffer, buffer_seek_start, 0);
         var msg_id = buffer_read(buffer, buffer_u8);
 
+        if (msg_id == 20 || msg_id == 21) { online_receive(msg_id,buffer); break; }
         // Recebe dados do jogador remoto
         if (msg_id == 10 && global.is_host && global.online_selection.p2_active) {
             var choice = buffer_read(buffer, buffer_u8);
@@ -48,6 +50,11 @@ switch (type) {
             }
         }
         else if (msg_id == 11 && !global.is_host) {
+            // A synchronous TCP connect does not emit a client connect event.
+            // The host's first selection packet acknowledges the accepted session.
+            connected = true;
+            global.online_connected = true;
+            global.online_connection_lost = false;
             global.online_selection.p1_choice = buffer_read(buffer, buffer_u8);
             global.online_selection.p1_ready = buffer_read(buffer, buffer_bool);
             global.online_selection.p1_back = buffer_read(buffer, buffer_bool);

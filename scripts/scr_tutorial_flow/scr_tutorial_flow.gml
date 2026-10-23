@@ -160,7 +160,7 @@ function tutorial_draw() {
     }
     frontend_panel(120, 668, 1040, 36, make_color_rgb(255, 252, 235), dark);
     frontend_text(640, 675, tutorial_controls_hint(guide.action, guide.verb), fnt_ui_small, dark, fa_center);
-    if (level.feedback_timer > 0) frontend_text(640, 638, level.feedback, fnt_ui_small, dark, fa_center);
+
     draw_set_color(c_white); draw_set_halign(fa_left); draw_set_font(-1);
 }
 

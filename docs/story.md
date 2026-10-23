@@ -10,7 +10,11 @@ O título e os nomes de exibição das plataformas foram atualizados. O arquivo 
 
 Use Enter, Espaço ou clique em Continuar. As falas aparecem novamente ao repetir essas fases. O cronômetro, o movimento e o processamento ficam suspensos durante a história. Após os diálogos iniciais vem a contagem regressiva normal. O progresso da vitória é salvo antes do encerramento.
 
+As falas aparecem letra por letra (42 caracteres por segundo), com pequenas pausas na pontuação e um som curto de escrita (`snd_dialogue_blip`). O botão mostra “Mostrar tudo” enquanto a fala é escrita: Enter, Espaço ou clique revelam o restante sem avançar. Um segundo comando avança a conversa. A quebra de linhas é calculada antes da animação, evitando que as palavras mudem de posição. Reduzir movimento revela o texto imediatamente, sem os sons de escrita.
+
 Textos e animação: `scripts/scr_story/scr_story.gml`. Os robôs e resíduos da cena usam sprites existentes; a praia é uma nova imagem. A opção de reduzir movimento também se aplica aos robôs da cena.
+
+Os nomes usam a fonte própria `fnt_dialogue_name` (Segoe Print Bold, 24 pt), com atlas PNG incluído no projeto e suporte aos acentos. O nome fica em uma placa verde, separado do retrato e da fala por margens. Para reconstruir somente essa fonte: execute `tools/render-ui-fonts.ps1 -Fonts fnt_dialogue_name`.
 
 ## Dispenser
 

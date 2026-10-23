@@ -1,7 +1,7 @@
 /// Read the editable instances already placed in the room. Never create or reposition furniture.
 function workshop_layout_init() {
-    if (layer_exists("Stations_Solo")) layer_set_visible("Stations_Solo", global.game_mode != "coop_local");
-    if (layer_exists("Stations_Coop")) layer_set_visible("Stations_Coop", global.game_mode == "coop_local");
+    if (layer_exists("Stations_Solo")) layer_set_visible("Stations_Solo", global.game_mode == "solo");
+    if (layer_exists("Stations_Coop")) layer_set_visible("Stations_Coop", global.game_mode != "solo");
     stations = [];
     bins = [];
     dispensers = [];
@@ -20,7 +20,7 @@ function workshop_layout_init() {
         }
     }
     if (array_length(dispensers) > 0) dispenser = dispensers[0];
-    if (level_index == 2) feedback = global.game_mode == "coop_local"
+    if (level_index == 2) feedback = global.game_mode != "solo"
         ? "Coloque o lixo nos blocos para a outra jogadora pegar."
         : "Passe por baixo dos blocos para acessar o outro lado.";
 }

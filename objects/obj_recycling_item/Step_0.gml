@@ -1,3 +1,4 @@
+if (online_game() && !global.is_host) exit;
 var frame_dt = max(0, delta_time / 1000000);
 
 // Age out old trail samples, then add the item's current position while flying.

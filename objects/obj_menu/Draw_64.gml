@@ -44,7 +44,7 @@ else if (menu_state == "lobby_online") {
     draw_text(start_x, create_y, "[ + Criar Nova Sala ]");
 
     if (hover_create && mouse_check_button_pressed(mb_left)) {
-        var input_name = get_string("Nome da sua sala:", "Sala do Gari");
+        var input_name = global.room_name;
         if (input_name != "") {
             global.room_name = input_name;
             global.game_mode = "coop_online";
@@ -53,6 +53,7 @@ else if (menu_state == "lobby_online") {
             if (udp_listener != noone) network_destroy(udp_listener);
             global.server = network_create_server(network_socket_tcp, 6510, 1);
             if (global.server >= 0) session_ui_change_room(rm_character_select);
+            else {lobby_error="Não foi possível criar a sala. A porta 6510 pode estar em uso.";udp_listener=network_create_socket_ext(network_socket_udp,6511);}
         }
     }
 
@@ -81,8 +82,8 @@ else if (menu_state == "lobby_online") {
             frontend_online_selection_start(false);
             if (udp_listener != noone) network_destroy(udp_listener);
             global.client_socket = network_create_socket(network_socket_tcp);
-            network_connect(global.client_socket, global.target_ip, 6510);
-            session_ui_change_room(rm_character_select);
+            if(network_connect(global.client_socket, global.target_ip, 6510)>=0)session_ui_change_room(rm_character_select);
+            else {network_destroy(global.client_socket);global.client_socket=noone;lobby_error="Não foi possível conectar. Tente novamente.";udp_listener=network_create_socket_ext(network_socket_udp,6511);}
         }
     }
 

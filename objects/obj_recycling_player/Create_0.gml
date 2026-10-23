@@ -17,6 +17,7 @@ if (!variable_global_exists("game_mode")) global.game_mode = "solo";
 if (!variable_global_exists("frontend_characters")) global.frontend_characters = [0, 1];
 if (playerid == 2 && global.game_mode != "coop_local" && global.game_mode != "coop_online") { instance_destroy(); exit; }
 is_local = global.game_mode != "coop_online" || (global.is_host ? playerid == 1 : playerid == 2);
+if (global.game_mode == "coop_online") is_local = global.is_host;
 character_index = global.frontend_characters[clamp(playerid - 1, 0, 1)];
 sprite_index = recycling_scientist_sprite(character_index);
 

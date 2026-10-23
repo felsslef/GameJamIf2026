@@ -111,6 +111,7 @@ function recycling_level_tick(_dt) {
 }
 
 function recycling_level_update() {
+    if (online_game() && (!global.is_host || !global.online_connected)) return;
     if (session_ui_transition_active()) return;
     if (story_update(max(0, delta_time / 1000000))) return;
     if (processing_enabled) {
@@ -122,8 +123,7 @@ function recycling_level_update() {
     if (phase_state == "playing" && recycling_start_tick(max(0,delta_time/1000000))) return;
     var reduced = variable_global_exists("frontend_reduced_motion") && global.frontend_reduced_motion;
     var urgent = phase_state == "playing" && !instance_exists(obj_tutorial) && time_remaining <= 15;
-    var beat = 1 - frac(max(0, time_remaining));
-    var shake = urgent && !reduced && beat < 0.16 ? (time_remaining <= 5 ? 3 : 1.5) : 0;
+    var shake = urgent && !reduced ? recycling_urgency_pulse(time_remaining) * (time_remaining <= 5 ? 10 : 6) : 0;
     camera_set_view_pos(view_camera[0], round(camera_base_x + sin(current_time * 0.09) * shake), round(camera_base_y + cos(current_time * 0.11) * shake));
     if (phase_state == "playing") {
         recycling_level_tick(max(0, delta_time / 1000000));
@@ -144,6 +144,10 @@ function recycling_level_update() {
     } else if (keyboard_check_pressed(ord("R")) || (clicked && point_in_rectangle(mx,my,retry_x,470,retry_x+button_width,522))) session_ui_change_room(room);
     else if (keyboard_check_pressed(vk_escape) || (!next_available && keyboard_check_pressed(vk_enter))
         || (clicked && point_in_rectangle(mx,my,map_x,470,map_x+button_width,522))) session_ui_change_room(rm_level_select);
+}
+
+function recycling_urgency_pulse(_seconds) {
+    return max(0,1-(1-frac(max(0,_seconds)))/0.24);
 }
 
 function recycling_result_has_next() {
@@ -376,23 +380,24 @@ function recycling_interact(_player, _station_override = noone) {
 }
 
 function recycling_player_step() {
+    if (online_game() && (!global.is_host || !global.online_connected)) return;
     if (instance_exists(obj_recycling_level) && story_active()) return;
     if (session_ui_transition_active()) return;
     if (instance_exists(obj_recycling_level) && obj_recycling_level.start_countdown > 0) return;
     if (!instance_exists(obj_recycling_level) || obj_recycling_level.phase_state != "playing") return;
     if (obj_recycling_level.processing_enabled && stun_remaining > 0) { is_dashing = false; return; }
-    var use_arrows = global.game_mode == "coop_local" && playerid == 2;
+    var use_arrows = global.game_mode != "solo" && playerid == 2;
     var prefix = use_arrows ? "p2_" : "p1_";
-    var move_x = keyboard_check(frontend_keybinding(prefix + "right")) - keyboard_check(frontend_keybinding(prefix + "left"));
-    var move_y = keyboard_check(frontend_keybinding(prefix + "down")) - keyboard_check(frontend_keybinding(prefix + "up"));
+    var move_x = online_key_held(frontend_keybinding(prefix + "right")) - online_key_held(frontend_keybinding(prefix + "left"));
+    var move_y = online_key_held(frontend_keybinding(prefix + "down")) - online_key_held(frontend_keybinding(prefix + "up"));
     var dt = max(0, delta_time / 1000000);
     var directions = ["up", "down", "left", "right"];
     var tapped_direction = -1;
     for (var direction_index = 0; direction_index < 4; direction_index++) {
-        if (keyboard_check_pressed(frontend_keybinding(prefix + directions[direction_index]))) tapped_direction = direction_index;
+        if (online_key_pressed(frontend_keybinding(prefix + directions[direction_index]))) tapped_direction = direction_index;
     }
     var dash_direction = recycling_player_dash_input(dt, tapped_direction);
-    var dash_pressed = dash_direction >= 0 || keyboard_check_pressed(frontend_keybinding(prefix + "dash"));
+    var dash_pressed = dash_direction >= 0 || online_key_pressed(frontend_keybinding(prefix + "dash"));
     if (dash_direction >= 0) {
         var angles = [90, 270, 180, 0];
         move_x = lengthdir_x(1, angles[dash_direction]);
@@ -400,11 +405,11 @@ function recycling_player_step() {
     }
     recycling_player_movement(min(0.05, dt), move_x, move_y, dash_pressed);
     depth = -y;
-    var interact = keyboard_check_pressed(frontend_keybinding(prefix + "interact"));
-    var interact_held = keyboard_check(frontend_keybinding(prefix + "interact"));
+    var interact = online_key_pressed(frontend_keybinding(prefix + "interact"));
+    var interact_held = online_key_held(frontend_keybinding(prefix + "interact"));
     var action_key = frontend_keybinding(prefix + "action");
-    var action_held = keyboard_check(action_key);
-    var action_released = keyboard_check_released(action_key);
+    var action_held = online_key_held(action_key);
+    var action_released = online_key_released(action_key);
     // Tap to pick up/place, or keep the same button held to work or extinguish.
     if (obj_recycling_level.processing_enabled) processing_player_action(id, interact_held, interact, dt);
     else if (interact) recycling_interact(id);

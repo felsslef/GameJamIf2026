@@ -40,6 +40,10 @@ function frontend_draw_button(_b, _index) {
 
 function frontend_draw() {
     draw_set_alpha(1);
+    if (screen == "options" || screen == "controls") {
+        frontend_draw_settings();
+        return;
+    }
     if (screen == "mode" || screen == "saves") {
         frontend_draw_journey_select();
         return;
@@ -83,6 +87,41 @@ function frontend_draw() {
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
     draw_set_alpha(1);
+}
+
+function frontend_draw_settings() {
+    var controls=screen=="controls";
+    var cream=make_color_rgb(248,240,213);
+    draw_sprite(spr_character_background,0,0,0);
+    if(controls) {
+        frontend_panel(320,26,640,78,cream,teal);
+        frontend_text(640,38,"Configuração de teclas",font_title,ink,fa_center);
+        frontend_panel(32,116,592,380,make_color_rgb(226,239,216),teal);
+        frontend_panel(656,116,592,380,cream,teal);
+        frontend_text(336,128,"Jogadora 1",font_body,ink,fa_center);
+        frontend_text(944,128,"Jogadora 2",font_body,ink,fa_center);
+        frontend_panel(392,502,496,168,cream,teal);
+    } else {
+        draw_sprite_stretched(spr_game_logo,0,480,6,320,112);
+        frontend_panel(408,128,464,80,cream,teal);
+        frontend_text(640,140,"Opções",font_title,ink,fa_center);
+        frontend_panel(376,222,528,232,make_color_rgb(226,239,216),teal);
+        frontend_panel(428,478,424,50,cream,teal);
+        frontend_text(640,491,"F11: alternar tela cheia",font_body,ink,fa_center);
+    }
+    for(var i=0;i<array_length(buttons);i++) {
+        var b=buttons[i];
+        if(controls) {
+            var active=focus==i;
+            frontend_panel(b.x,b.y,b.w,b.h,active?make_color_rgb(193,221,182):cream,active?teal:muted);
+            frontend_text(b.x+b.w/2,b.y+(b.h-22)/2,b.label,font_small,ink,fa_center);
+        } else frontend_draw_button(b,i);
+    }
+    if(controls && notice_timer>0) {
+        frontend_panel(100,674,1080,34,cream,teal);
+        frontend_text(640,680,notice,font_small,ink,fa_center);
+    }
+    draw_set_alpha(1);draw_set_font(-1);draw_set_color(c_white);draw_set_halign(fa_left);draw_set_valign(fa_top);
 }
 
 /// Shared artwork and cards for the two steps before character selection.
@@ -142,13 +181,17 @@ function frontend_draw_journey_select() {
 
 function frontend_draw_lobby() {
     // The original Draw event still handles clicks and discovery. Match its hitboxes.
-    frontend_rect(0, 0, 1280, 720, paper);
-    frontend_text(640, 92, "Co-op Rede", font_title, ink, fa_center);
+    draw_sprite(spr_character_background,0,0,0);
+    draw_sprite_stretched(spr_game_logo,0,480,6,320,112);
+    frontend_panel(380,128,520,80,make_color_rgb(248,240,213),teal);
+    frontend_text(640,140,"Co-op Rede",font_title,ink,fa_center);
+    frontend_panel(400,232,480,390,make_color_rgb(248,240,213),teal);
     if (!instance_exists(obj_menu)) return;
+    if(obj_menu.lobby_error!="")frontend_text(640,584,string_copy(obj_menu.lobby_error,1,65),font_small,coral,fa_center);
     var mx = device_mouse_x_to_gui(0);
     var my = device_mouse_y_to_gui(0);
     var hover_create = point_in_rectangle(mx, my, 540, 265, 740, 295);
-    frontend_panel(540, 265, 200, 30, hover_create ? mint : paper, ink);
+    frontend_stone_button(540,265,200,30,hover_create);
     frontend_text(640, 266, "Criar sala", font_body, ink, fa_center);
     var found_rooms = obj_menu.rooms_list;
     if (array_length(found_rooms) == 0) frontend_text(640, 350, "Nenhuma sala", font_small, muted, fa_center);

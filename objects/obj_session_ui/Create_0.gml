@@ -12,3 +12,5 @@ if (!is_primary) {
 }
 // Keep the overlay above the room while staying inside the 2D depth range.
 depth = -10000;
+music_track = -1;
+music_voices = [];

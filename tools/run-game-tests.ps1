@@ -14,7 +14,7 @@ New-Item -ItemType Directory -Force -Path $buildPath | Out-Null
 & "$runtimePath\bin\igor\windows\x64\Igor.exe" "--project=$projectPath" "--rp=$runtimePath" "--uf=$($licenseFolder.FullName)" "--cache=$buildPath\cache" "--temp=$buildPath\temp" "--of=$buildPath\package\frontend.zip" "--tf=$buildPath\frontend.zip" --runtime=VM -- Windows PackageZip *> "$buildPath\build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$buildPath\build.log" -Tail 60; throw 'GameMaker compilation failed.' }
 if ($Suite -eq 'production') { Write-Output "PRODUCTION_BUILD_PASSED: $buildPath"; return }
-$runner = Get-ChildItem -LiteralPath $buildPath -Filter new_blank.exe -Recurse | Select-Object -First 1
+$runner = Get-ChildItem -LiteralPath (Join-Path $buildPath 'package') -Filter ColetaMaluca.exe | Select-Object -First 1
 if (!$runner) { throw 'Compiled runner not found.' }
 $probe = Start-Process -FilePath $runner.FullName -WorkingDirectory $runner.DirectoryName -WindowStyle Hidden -PassThru -RedirectStandardOutput "$buildPath\probe.log" -RedirectStandardError "$buildPath\probe-errors.log"
 if (!$probe.WaitForExit(45000)) { Stop-Process -Id $probe.Id; throw 'Test timed out. See probe.log.' }

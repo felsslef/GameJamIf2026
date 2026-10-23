@@ -3,6 +3,11 @@ if (!variable_global_exists("online_connected")
     || !variable_global_exists("online_selection")
     || !variable_global_exists("client_socket")) exit;
 
+if (global.is_host) {
+ if(instance_exists(obj_recycling_level)) {global.online_selection.screen="game";global.online_selection.level=obj_recycling_level.level_index;}
+ if(room==rm_level_select) global.online_selection.screen="levels";
+ if(room==rm_character_select) global.online_selection.screen="characters";
+}
 // Host-authoritative character/map state is small and sent continuously for late UI refreshes.
 if (global.is_host && global.online_connected && global.client_socket != noone && global.client_socket >= 0) {
     var state_buf = buffer_create(32, buffer_fixed, 1);
@@ -24,12 +29,14 @@ if (global.is_host && global.online_connected && global.client_socket != noone &
 
 // The client follows the host's phase and starts the selected map at the same time.
 if (!global.is_host && global.online_connected) {
-    if (global.online_selection.screen == "levels" && room == rm_character_select) session_ui_change_room(rm_level_select);
-    if (global.online_selection.screen == "game" && room != rm_tutorial && room != rm_level_01 && room != rm_level_02 && room != rm_level_03 && room != rm_level_04 && room != rm_level_05) {
+    if (global.online_selection.screen == "levels" && room != rm_level_select) session_ui_change_room(rm_level_select);
+    if (global.online_selection.screen == "game" && (!instance_exists(obj_recycling_level) || obj_recycling_level.level_index != global.online_selection.level)) {
         var client_rooms = [rm_level_01, rm_level_02, rm_level_03, rm_level_04, rm_level_05];
         session_ui_change_room(global.online_selection.level == -1 ? rm_tutorial : client_rooms[global.online_selection.level]);
     }
 }
+
+if (instance_exists(obj_recycling_level)) { online_game_update(); exit; }
 
 // Define qual socket usar para envio
 var send_socket = global.is_host ? global.client_socket : global.client_socket;

@@ -1301,6 +1301,30 @@
         "name": "spr_ui_warning",
         "path": "sprites/spr_ui_warning/spr_ui_warning.yy"
       }
+    },
+    {
+      "id": {
+        "name": "mus_coleta_theme",
+        "path": "sounds/mus_coleta_theme/mus_coleta_theme.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "mus_recycling_rush",
+        "path": "sounds/mus_recycling_rush/mus_recycling_rush.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_dialogue_blip",
+        "path": "sounds/snd_dialogue_blip/snd_dialogue_blip.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "fnt_dialogue_name",
+        "path": "fonts/fnt_dialogue_name/fnt_dialogue_name.yy"
+      }
     }
   ],
   "resourceType": "GMProject",

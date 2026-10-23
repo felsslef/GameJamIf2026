@@ -146,11 +146,12 @@ function frontend_character_update(_dt) {
         var local_slot = global.is_host ? 0 : 1;
         var slot = character_slots[local_slot];
         slot.flip_timer = max(0, slot.flip_timer - _dt);
-        var prefix = global.is_host ? "p1_" : "p2_";
+        if (keyboard_check_pressed(vk_escape)) { with(obj_session_ui) session_ui_return_to_title(); return; }
+        var prefix = "p1_";
         var choice_step = keyboard_check_pressed(frontend_keybinding(prefix + "right")) - keyboard_check_pressed(frontend_keybinding(prefix + "left"));
         if (choice_step != 0) frontend_character_cycle(local_slot, choice_step);
         if (keyboard_check_pressed(frontend_keybinding(prefix + "up")) || keyboard_check_pressed(frontend_keybinding(prefix + "down"))) frontend_character_flip(local_slot);
-        if (keyboard_check_pressed(global.is_host ? ord("E") : vk_enter)) frontend_character_toggle_ready(local_slot);
+        if (keyboard_check_pressed(frontend_keybinding("p1_interact")) || keyboard_check_pressed(vk_enter)) frontend_character_toggle_ready(local_slot);
         var mx = device_mouse_x_to_gui(0), my = device_mouse_y_to_gui(0);
         focus = -1;
         for (var b = 0; b < array_length(buttons); b++) if (point_in_rectangle(mx, my, buttons[b].x, buttons[b].y, buttons[b].x + buttons[b].w, buttons[b].y + buttons[b].h)) focus = b;
@@ -236,11 +237,19 @@ function frontend_draw_character_select() {
                 draw_set_font(font_small);
                 draw_set_halign(fa_left);
                 draw_set_color(ink);
-                draw_text_ext(card.x + 24, card.y + 86, scientist.bio, 26, card.w - 48);
+                draw_text_ext(card.x + 24, card.y + 76, scientist.bio, 24, card.w - 48);
             } else {
                 frontend_rect(card.x + 16, card.y + 20, card.w - 32, 252, make_color_rgb(194, 218, 195));
                 frontend_scientist(card.x + 28, card.y + 32, 7, slot.choice);
-                frontend_text(center_x, card.y + 304, scientist.role, font_small, muted, fa_center);
+                frontend_text(center_x, card.y + 278, scientist.role, font_small, muted, fa_center);
+            }
+            // This strip is inside the existing clickable card, so it also flips the card.
+            if (!slot.ready) {
+                var hovering = point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),card.x,card.y,card.x+card.w,card.y+card.h);
+                frontend_panel(card.x+12,card.y+312,card.w-24,30,
+                    hovering || focus==3+i*4 ? make_color_rgb(193,221,182) : make_color_rgb(224,235,211),accent);
+                draw_sprite_ext(spr_ui_arrow,0,card.x+28,card.y+327,0.35,0.35,180,accent,1);
+                frontend_text(center_x+6,card.y+317,show_back?"Clique: ver personagem":"Clique: ver história",font_small,accent,fa_center);
             }
         }
         var first_button = 1 + i * 4;

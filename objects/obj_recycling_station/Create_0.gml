@@ -12,7 +12,7 @@ build_remaining = 0;
 module_ready = false;
 stored_item = undefined;
 depth = -y;
-var coop = variable_global_exists("game_mode") && global.game_mode == "coop_local";
+var coop = variable_global_exists("game_mode") && global.game_mode != "solo";
 if ((mode_only == 1 && !coop) || (mode_only == 2 && coop)) instance_destroy();
 
 // Processing equipment owns one payload at a time.

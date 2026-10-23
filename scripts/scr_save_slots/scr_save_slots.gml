@@ -87,6 +87,21 @@ function save_slot_summary(_slot) {
     return string(count) + "/5 fases | " + string(stars) + " estrelas";
 }
 
+function save_slot_delete(_slot) {
+    if (_slot < 0 || _slot >= 3) return false;
+    try {
+        var filename = save_slot_filename(_slot);
+        if (file_exists(filename)) file_delete(filename);
+        if (file_exists(filename)) return false;
+        // Detach the deleted slot so later autosaves cannot recreate it.
+        if (global.frontend_save_slot == _slot) global.frontend_save_slot = -1;
+        return true;
+    } catch (error) {
+        show_debug_message("Save delete failed: " + string(error));
+        return false;
+    }
+}
+
 function save_slots_buttons() {
     for (var i = 0; i < 3; i++) {
         var occupied = save_slot_exists(i);
@@ -95,7 +110,7 @@ function save_slots_buttons() {
         buttons[array_length(buttons)-1].occupied = occupied;
         buttons[array_length(buttons)-1].summary = save_slot_summary(i);
         frontend_button(208 + i * 312, 512, 240, 48,
-            pending_reset == i ? "Confirmar" : (occupied ? "Novo jogo" : "Criar"), "save_new", i);
+            pending_reset == i ? "Confirmar" : (occupied ? "Excluir" : "Criar"), "save_new", i);
     }
     if (global.frontend_save_slot >= 0) frontend_button(650, 630, 280, 48, "Salvar progresso", "save_write");
     frontend_button(global.frontend_save_slot >= 0 ? 380 : 530, 630, 220, 48, "Voltar", "back");

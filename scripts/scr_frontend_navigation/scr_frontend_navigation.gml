@@ -1,4 +1,8 @@
 function frontend_back() {
+    if (online_game() && (screen=="characters" || (!global.is_host && screen=="levels"))) {
+        with(obj_session_ui)session_ui_return_to_title();
+        return;
+    }
     switch (screen) {
         case "main": break;
         case "mode": session_ui_change_room(rm_main_menu); break;
@@ -63,6 +67,13 @@ function frontend_activate(_button) {
                 notice = "Apagar progresso? Clique em Confirmar.";
                 notice_timer = 5;
                 frontend_build_buttons();
+            } else if (save_slot_exists(_button.value)) {
+                var deleted = save_slot_delete(_button.value);
+                pending_reset = -1;
+                notice = deleted ? "Save excluído." : "Falha ao excluir o save.";
+                notice_timer = 3;
+                frontend_build_buttons();
+                focus = clamp(focus, 0, array_length(buttons)-1);
             } else {
                 if (save_slot_new(_button.value)) session_ui_change_room(rm_character_select);
                 else { notice = "Falha ao salvar."; notice_timer = 3; }

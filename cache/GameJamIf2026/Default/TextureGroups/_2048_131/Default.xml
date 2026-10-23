@@ -4,14 +4,16 @@
   <texture scale="1" mipsToGenerate="0" texwidth="2048" texheight="2048">default_1.bz2</texture>
   <texture scale="1" mipsToGenerate="0" texwidth="2048" texheight="2048">default_2.bz2</texture>
   <texture scale="1" mipsToGenerate="0" texwidth="2048" texheight="2048">default_3.bz2</texture>
+  <texture scale="1" mipsToGenerate="0" texwidth="2048" texheight="1024">default_4.bz2</texture>
   <tpe x="2" y="2" tpage="default_0.bz2">spr_caragua_map_GameJamIf2026_0a8adb04-ccce-427a-ad73-aaa8f0228af1.tpe</tpe>
-  <tpe x="2" y="947" tpage="default_0.bz2">fnt_ui_body_GameJamIf2026_fnt_ui_body.tpe</tpe>
-  <tpe x="2" y="2" tpage="default_1.bz2">fnt_ui_small_GameJamIf2026_fnt_ui_small.tpe</tpe>
-  <tpe x="2" y="2" tpage="default_2.bz2">fnt_ui_title_GameJamIf2026_fnt_ui_title.tpe</tpe>
+  <tpe x="2" y="947" tpage="default_0.bz2">fnt_dialogue_name_GameJamIf2026_fnt_dialogue_name.tpe</tpe>
+  <tpe x="2" y="2" tpage="default_1.bz2">fnt_ui_body_GameJamIf2026_fnt_ui_body.tpe</tpe>
+  <tpe x="2" y="2" tpage="default_2.bz2">fnt_ui_small_GameJamIf2026_fnt_ui_small.tpe</tpe>
+  <tpe x="2" y="2" tpage="default_3.bz2">fnt_ui_title_GameJamIf2026_fnt_ui_title.tpe</tpe>
   <tpe x="2" y="1030" tpage="default_1.bz2">spr_workshop_floor_GameJamIf2026_669ee529-a659-4233-8261-0046a93fc999.tpe</tpe>
   <tpe x="2" y="1030" tpage="default_2.bz2">spr_character_background_GameJamIf2026_2925f749-8567-4d5b-bd6e-003ddd9a8563.tpe</tpe>
-  <tpe x="2" y="2" tpage="default_3.bz2">spr_menu_background_GameJamIf2026_a231cf32-1e93-41b0-8010-4a528fed3e64.tpe</tpe>
-  <tpe x="2" y="726" tpage="default_3.bz2">spr_story_beach_GameJamIf2026_064396ff-585e-481d-b78d-0edb0a3d0ddb.tpe</tpe>
+  <tpe x="2" y="1030" tpage="default_3.bz2">spr_menu_background_GameJamIf2026_a231cf32-1e93-41b0-8010-4a528fed3e64.tpe</tpe>
+  <tpe x="2" y="2" tpage="default_4.bz2">spr_story_beach_GameJamIf2026_064396ff-585e-481d-b78d-0edb0a3d0ddb.tpe</tpe>
   <tpe x="1030" y="947" tpage="default_0.bz2">spr_game_logo_GameJamIf2026_72604393-5bec-48d8-a1dd-7e67e0ef7621.tpe</tpe>
   <tpe x="1030" y="1171" tpage="default_0.bz2">fnt_default_GameJamIf2026_fnt_default.tpe</tpe>
   <tpe x="1290" y="1171" tpage="default_0.bz2">spr_ui_stone_button_GameJamIf2026_54fa5d05-9f34-48d8-94b4-dac9cc1cc63a.tpe</tpe>

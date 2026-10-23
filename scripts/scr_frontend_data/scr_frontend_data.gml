@@ -23,14 +23,14 @@ function frontend_init() {
     font_body = fnt_ui_body;
     font_title = fnt_ui_title;
     scientists = [
-        {name: "Ju", role: "ENGENHARIA AMBIENTAL", color: teal,
-         bio: "Ju transforma resíduos em novas possibilidades. Ela pesquisa soluções para cuidar da água e ajuda a cidade a proteger seus rios e praias."},
-        {name: "Lê", role: "ROBÓTICA", color: coral,
-         bio: "Lê cria robôs para dar uma mão à equipe. Com criatividade e ciência, transforma peças recuperadas em invenções que ajudam a limpar a cidade."},
-        {name: "Manu", role: "BIOLOGIA MARINHA", color: make_color_rgb(68, 125, 168),
-         bio: "Manu estuda a vida no mar e os efeitos do lixo no litoral. Ela compartilha descobertas para que mais pessoas cuidem da nossa biodiversidade."},
-        {name: "Maria", role: "CIÊNCIA DA COMPUTAÇÃO", color: make_color_rgb(129, 102, 161),
-         bio: "Maria programa soluções para desafios da cidade. Ela conecta as ideias da equipe e desenvolve a inteligência das novas robôs de reciclagem."}
+        {name: "Juliana Gregio", role: "EDUCAÇÃO E TECNOLOGIA", color: teal,
+         bio: "Professora do IFSP Caraguatatuba e coordenadora de ADS. Une educação e tecnologia, incentiva projetos e aproxima estudantes dos desafios reais da sociedade."},
+        {name: "Leticia Pacheco", role: "DESENHISTA MESTRE", color: coral,
+         bio: "Leticia é uma desenhista mestre. Na equipe de Coleta Maluca, ela é a nossa Lê!"},
+        {name: "Manuela Otavia", role: "DESENVOLVIMENTO FULLSTACK", color: make_color_rgb(68, 125, 168),
+         bio: "Desenvolvedora fullstack e bicampeã do Hackathon do IFSP Caraguatatuba. Técnica em Informática para Internet e estudante de ADS, transforma desafios em soluções com criatividade e trabalho em equipe."},
+        {name: "Maria Clara", role: "CIENTISTA · LABTECH", color: make_color_rgb(129, 102, 161),
+         bio: "Cientista de Portugal e dona do Labtech. Em Coleta Maluca, Maria Clara faz parte do nosso time de cientistas!"}
     ];
     levels = [
         {name: "Primeiro mutirão", place: "Porto Novo", tag: "01 / RECICLAGEM", difficulty: "Leve", goal: "Separe recicláveis, lave plástico e trate orgânicos.", targets: [3, 5, 7], scene: 0},
@@ -122,6 +122,7 @@ function frontend_online_selection_start(_is_host) {
     };
     global.online_connected = false;
     global.online_connection_lost = false;
+    global.online_input = [array_create(7,false),array_create(7,false),array_create(7,false)];
     global.client_socket = noone;
 }
 

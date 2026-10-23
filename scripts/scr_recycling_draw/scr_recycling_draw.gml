@@ -147,11 +147,7 @@ function recycling_draw_hud() {
     frontend_text(640, 30, clock, fnt_ui_title, time_remaining <= 20 ? make_color_rgb(177, 51, 47) : dark, fa_center);
     var place_names = ["Porto Novo", "Indaiá", "Centro", "Martim de Sá", "Massaguaçu"];
     frontend_text(1220, 32, place_names[level_index], fnt_ui_body, dark, fa_right);
-    if (feedback_timer > 0 && phase_state == "playing") {
-        var message_width = min(1120, string_length(feedback) * 10 + 32);
-        frontend_panel(640 - message_width / 2, 99, message_width, 32, make_color_rgb(255, 252, 235), dark);
-        frontend_text(640, 104, feedback, fnt_ui_small, dark, fa_center);
-    }
+
     if (phase_state != "playing") {
         draw_set_alpha(0.55);
         frontend_rect(0, 0, 1280, 720, c_black);

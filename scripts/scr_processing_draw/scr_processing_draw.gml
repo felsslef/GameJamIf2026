@@ -21,7 +21,7 @@ function processing_draw_warning(_payload, _x, _y, _on_floor) {
     var bob = reduced ? 0 : sin(current_time / 140) * 4;
     var px = (_x - camera_get_view_x(camera)) * 1280 / camera_get_view_width(camera);
     var py = (_y - camera_get_view_y(camera)) * 720 / camera_get_view_height(camera);
-    draw_sprite(spr_ui_warning, 0, round(px), round(py - 54 + bob));
+    draw_sprite(spr_ui_warning, 0, round(px), round(_on_floor ? py-54+bob : max(108,py-94+bob)));
 }
 
 function processing_draw_warnings() {
@@ -143,13 +143,12 @@ function processing_draw_station() {
     draw_set_alpha(1);
     if (station_kind == "handoff") {
         if (!is_undefined(stored_item)) processing_draw_payload(stored_item, x, y - 3, 0.75);
-        if (!is_undefined(stored_item) && stored_item.burning && stored_item.fire_progress > 0)
-            recycling_draw_bar(x-24,y+24,48,stored_item.fire_progress/level.extinguish_duration,make_color_rgb(92,169,204));
+
         return;
     }
     var label = processing_station_name(station_kind);
     if (station_kind == "bin") {
-        if (load > 0) recycling_draw_bar(x - 24, y + 24, 48, load / capacity, recycling_trash_color(trash_type));
+
         if (nearby) frontend_text(x, y + 38, string(load) + "/" + string(capacity), fnt_ui_small, dark, fa_center);
         else if (load >= capacity) frontend_text(x, y + 38, "Cheia", fnt_ui_small, dark, fa_center);
     } else if (station_kind == "intake") {
@@ -165,12 +164,7 @@ function processing_draw_station() {
     } else {
         if (!is_undefined(buffer)) {
             processing_draw_payload(buffer, x, y - 3, 0.75);
-            if (buffer.burning) {
-                label += ": fogo!";
-                if (buffer.fire_progress > 0) recycling_draw_bar(x - 24, y + 24, 48, buffer.fire_progress / level.extinguish_duration, make_color_rgb(92,169,204));
-            } else if (process_status == "processing" || process_status == "loaded") {
-                recycling_draw_bar(x - 24, y + 24, 48, process_duration > 0 ? process_progress / process_duration : 0, make_color_rgb(68,158,120));
-            } else if (process_status == "ready") label += ": pronto";
+
         }
         if (station_kind == "extinguisher_rack" && tool_loaned) label += ": em uso";
 
@@ -181,7 +175,7 @@ function processing_draw_station() {
 function processing_draw_hud() {
     var reduced = variable_global_exists("frontend_reduced_motion") && global.frontend_reduced_motion;
     var urgency = phase_state == "playing" && time_remaining <= 15;
-    var pulse = urgency ? max(0, 1 - (1 - frac(time_remaining)) / 0.24) : 0;
+    var pulse = urgency ? recycling_urgency_pulse(time_remaining) : 0;
     if (pulse > 0 && !reduced) {
         draw_set_alpha(pulse * 0.12);
         frontend_rect(0,0,1280,720,make_color_rgb(230,61,52));
@@ -189,7 +183,7 @@ function processing_draw_hud() {
     }
     var dark = make_color_rgb(35,57,64);
     frontend_panel(32,20,1216,70,make_color_rgb(255,252,235),dark);
-    frontend_text(56,29,"Entregas: "+string(delivered_total)+" / "+string(minimum_goal),fnt_ui_body,dark);
+    frontend_text(56,29,"Entregas: "+string(delivered_total)+" / "+string(processing_delivery_goal()),fnt_ui_body,dark);
     frontend_text(56,59,"Estrelas: "+string(processing_earned_stars())+" / 3",fnt_ui_small,dark);
     var seconds_left=ceil(time_remaining);
     var clock=string(floor(seconds_left/60))+":"+(seconds_left mod 60<10?"0":"")+string(seconds_left mod 60);
@@ -205,10 +199,7 @@ function processing_draw_hud() {
         draw_sprite_ext(spr_ui_star,0,980+goal_index*80,70,0.45,0.45,0,reached?make_color_rgb(233,178,55):make_color_rgb(166,178,171),1);
         frontend_text(994+goal_index*80,59,string(min(delivered_total,star_goals[goal_index]))+"/"+string(star_goals[goal_index]),fnt_ui_small,dark);
     }
-    if(feedback_timer>0 && phase_state=="playing") {
-        frontend_panel(160,612,960,30,make_color_rgb(255,252,235),dark);
-        frontend_text(640,616,feedback,fnt_ui_small,dark,fa_center);
-    }
+
     with(obj_recycling_player) if(stun_remaining>0) frontend_text(x,y-86,"Atordoada "+string(ceil(stun_remaining))+"s",fnt_ui_small,make_color_rgb(177,51,47),fa_center);
     if(phase_state!="playing") {
         var result_age = max(0,(current_time-result_started)/1000);
@@ -226,15 +217,55 @@ function processing_draw_hud() {
         frontend_panel(240,150,800,440,make_color_rgb(255,252,235),dark);
         frontend_text(640,217,phase_state=="won"?"Fase concluída!":"Fim da rodada",fnt_ui_title,dark,fa_center);
         frontend_text(640,296,result_reason,fnt_ui_small,dark,fa_center);
-        frontend_text(640,335,"Entregas: "+string(delivered_total)+" / "+string(minimum_goal),fnt_ui_body,dark,fa_center);
+        frontend_text(640,335,"Entregas: "+string(delivered_total)+" / "+string(processing_delivery_goal()),fnt_ui_body,dark,fa_center);
         for(var i=0;i<3;i++) {
             var star_scale = reduced ? 1 : ui_pop_scale(clamp((result_age-(result_is_timeout?1.25:0)-0.2-i*0.12)/0.35,0,1));
             draw_sprite_ext(spr_ui_star,0,584+i*56,410,star_scale,star_scale,0,i<result_stars?make_color_rgb(233,178,55):make_color_rgb(186,190,177),1);
         }
         recycling_draw_result_buttons();
+        if(online_game() && !global.is_host)frontend_text(640,552,"Aguardando a anfitriã escolher...",fnt_ui_small,dark,fa_center);
         matrix_set(matrix_world,result_matrix);
     }
     draw_set_alpha(1);draw_set_font(-1);draw_set_color(c_white);draw_set_halign(fa_left);draw_set_valign(fa_top);
+}
+
+function processing_delivery_goal() {
+    return star_goals[array_length(star_goals)-1];
+}
+
+/// Draw GUI keeps work, ready-state and bin-fill indicators above world actors.
+function processing_draw_station_overlays() {
+    if (!processing_enabled || phase_state != "playing") return;
+    var camera=view_camera[0];
+    var dark=make_color_rgb(35,57,64);
+    for(var i=0;i<array_length(stations);i++) {
+        var station=stations[i];
+        if(!instance_exists(station) || !station.visible) continue;
+        var payload=station.station_kind=="handoff"?station.stored_item:station.buffer;
+        var ratio=-1;
+        var color=make_color_rgb(68,158,120);
+        if(station.station_kind=="bin" && station.load>0) {
+            ratio=station.load/station.capacity;
+            color=recycling_trash_color(station.trash_type);
+        } else if(!is_undefined(payload)) {
+            if(payload.burning) {
+                if(payload.fire_progress>0) { ratio=payload.fire_progress/extinguish_duration;color=make_color_rgb(92,169,204); }
+            } else if(station.station_kind!="handoff") {
+                if(station.process_status=="ready") ratio=1;
+                else if(station.process_status=="processing" || station.process_status=="loaded") ratio=station.process_duration>0?station.process_progress/station.process_duration:0;
+            }
+        }
+        if(ratio<0) continue;
+        var px=(station.x-camera_get_view_x(camera))*1280/camera_get_view_width(camera);
+        var py=max(100,(station.y-camera_get_view_y(camera))*720/camera_get_view_height(camera)-68);
+        frontend_panel(px-42,py,84,28,make_color_rgb(255,252,235),dark);
+        if(!is_undefined(payload)) {
+            var asset=object_get_sprite(processing_material_object(payload.process_state));
+            var scale=20/max(sprite_get_width(asset),sprite_get_height(asset));
+            draw_sprite_ext(asset,0,px-27,py+14,scale,scale,0,c_white,1);
+        } else draw_sprite_ext(station.sprite_index,0,px-27,py+14,0.28,0.28,0,c_white,1);
+        recycling_draw_bar(px-12,py+9,46,ratio,color);
+    }
 }
 
 function ui_pop_scale(_t) {

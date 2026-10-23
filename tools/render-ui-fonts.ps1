@@ -1,10 +1,10 @@
+param([string[]]$Fonts = @('fnt_ui_small','fnt_ui_body','fnt_ui_title','fnt_dialogue_name'))
 Add-Type -AssemblyName System.Drawing
-foreach ($suffix in @('small','body','title')) {
-    $fontName = "fnt_ui_$suffix"
+foreach ($fontName in $Fonts) {
     $metadataPath = Join-Path $PWD "fonts/$fontName/$fontName.yy"
     $data = [System.IO.File]::ReadAllText($metadataPath) | ConvertFrom-Json
     $style = if ($data.bold) { [System.Drawing.FontStyle]::Bold } else { [System.Drawing.FontStyle]::Regular }
-    $font = [System.Drawing.Font]::new('Trebuchet MS',[single]$data.size,$style,[System.Drawing.GraphicsUnit]::Point)
+    $font = [System.Drawing.Font]::new($data.fontName,[single]$data.size,$style,[System.Drawing.GraphicsUnit]::Point)
     $canvas = [System.Drawing.Bitmap]::new(1024,1024)
     $graphics = [System.Drawing.Graphics]::FromImage($canvas)
     $graphics.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAliasGridFit

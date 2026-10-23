@@ -36,6 +36,17 @@ for(var i=0;i<array_length(level.dispensers);i++)level.dispensers[i].spawn_timer
 var sorting=instance_find(obj_sorting_table,0),washer=instance_find(obj_washer,0),bio=instance_find(obj_biodigester,0),dismantler=instance_find(obj_dismantling_bench,0),press=instance_find(obj_hydraulic_press,0),rack=instance_find(obj_extinguisher_rack,0),trash=instance_find(obj_common_trash,0);
 check(instance_exists(sorting)&&instance_exists(washer)&&instance_exists(bio)&&instance_exists(dismantler)&&!instance_exists(press)&&instance_exists(rack)&&instance_exists(trash),"treatment equipment placed and no press remains");
 if(stage==0){
+ with(obj_session_ui){
+  check(music_track==mus_recycling_rush,"gameplay selects phase soundtrack");
+  check(array_length(music_voices)<=2,"music transition does not stack duplicate tracks");
+ }
+ check(recycling_urgency_pulse(9.99)>0.9 && recycling_urgency_pulse(9.5)==0,"shake and red flash share the countdown pulse");
+ with(level){
+  var original_goals=star_goals;
+  star_goals=[4,6,8];
+  check(processing_delivery_goal()==8,"delivery denominator follows third-star target rather than minimum");
+  star_goals=original_goals;
+ }
  var hazard=processing_payload_new("electronic");
  check(processing_warning_remaining(hazard,false)>2,"fresh electronics do not show urgent warning");
  hazard.exposure_age=level.electronic_overheat_time-1.5;
@@ -48,6 +59,17 @@ if(stage==0){
   var original_index=level_index;
   level_index=0;story_init();
   check(story_mode=="intro"&&array_length(story_lines)==4,"phase one introduces city and scientists");
+  check(string_pos("Depois da temporada",story_lines[0][1])==1,"opening dialogue places story after the season");
+  check(story_visible==0,"dialogue starts with hidden text");
+  story_type_tick(0.1);
+  check(story_visible>0 && story_visible<string_length(story_text),"dialogue reveals letters progressively");
+  check(story_blip!=-1,"typewriter plays short dialogue sound");
+  story_continue();
+  check(story_line==0 && story_visible==string_length(story_text) && story_blip==-1,"first continue reveals line and stops typing sound");
+  story_continue();check(story_line==1 && story_visible==0,"second continue advances and resets typing");
+  global.frontend_reduced_motion=true;story_type_tick(0.1);
+  check(story_visible==string_length(story_text),"reduced motion shows dialogue immediately");
+  global.frontend_reduced_motion=false;story_begin("intro");
   var saved_time=time_remaining;recycling_level_tick(1);
   check(time_remaining==saved_time,"dialogue freezes round timer");
   repeat(4)story_advance();check(!story_active(),"intro returns control after last line");
