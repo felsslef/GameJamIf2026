@@ -162,10 +162,9 @@ function story_draw() {
         var names = ["Ju","Lê","Manu","Maria"];
         var index = 0;
         for(var i=0;i<4;i++)if(names[i]==line[0])index=i;
-        frontend_scientist(100,504,3,index);
-        draw_set_font(fnt_dialogue_name);
-        var name_width=max(180,string_width(line[0])+48);
-        frontend_panel(244,454,name_width,72,make_color_rgb(222,237,211),make_color_rgb(38,117,104));
+        frontend_panel(92,478,136,136,make_color_rgb(239,233,214),dark);
+        var portraits=[spr_portrait_ju,spr_portrait_le,spr_portrait_manu,spr_portrait_maria];
+        draw_sprite_ext(portraits[index],0,160,546,2,2,0,c_white,1);
         frontend_text(268,460,line[0],fnt_dialogue_name,dark);
         draw_set_font(fnt_ui_body);draw_set_color(dark);draw_set_halign(fa_left);draw_set_valign(fa_top);
         draw_text_ext(264,548,string_copy(level.story_text,1,level.story_visible),30,864);

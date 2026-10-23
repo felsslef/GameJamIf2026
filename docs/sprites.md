@@ -1,6 +1,6 @@
 # Sprites do jogo
 
-O projeto possui **77 sprites** registrados no GameMaker.
+O projeto possui **81 sprites** registrados no GameMaker.
 
 Lixeiras, bancadas e máquinas usam módulos quadrados de **64 × 64**. O caminhão ocupa dois módulos. Prensa e fardos de plástico/metal são recursos históricos: não aparecem nas rooms ou tutorial.
 
@@ -63,6 +63,10 @@ A coluna de objetos indica vínculos diretos. Alguns recursos, como as cientista
 | [spr_part_casing](../sprites/spr_part_casing/spr_part_casing.yy) | 32 × 32 | 1 | `obj_part_casing` |
 | [spr_part_circuit](../sprites/spr_part_circuit/spr_part_circuit.yy) | 32 × 32 | 1 | `obj_part_circuit` |
 | [spr_part_motor](../sprites/spr_part_motor/spr_part_motor.yy) | 32 × 32 | 1 | `obj_part_motor` |
+| [spr_portrait_ju](../sprites/spr_portrait_ju/spr_portrait_ju.yy) | 64 × 64 | 1 | — |
+| [spr_portrait_le](../sprites/spr_portrait_le/spr_portrait_le.yy) | 64 × 64 | 1 | — |
+| [spr_portrait_manu](../sprites/spr_portrait_manu/spr_portrait_manu.yy) | 64 × 64 | 1 | — |
+| [spr_portrait_maria](../sprites/spr_portrait_maria/spr_portrait_maria.yy) | 64 × 64 | 1 | — |
 | [spr_robot](../sprites/spr_robot/spr_robot.yy) | 64 × 64 | 1 | `obj_material_robot`, `obj_robot` |
 | [spr_robot_delivery](../sprites/spr_robot_delivery/spr_robot_delivery.yy) | 192 × 96 | 1 | `obj_robot_delivery` |
 | [spr_science_bench](../sprites/spr_science_bench/spr_science_bench.yy) | 64 × 64 | 1 | `obj_science_bench` |

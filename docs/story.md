@@ -14,7 +14,9 @@ As falas aparecem letra por letra (42 caracteres por segundo), com pequenas paus
 
 Textos e animação: `scripts/scr_story/scr_story.gml`. Os robôs e resíduos da cena usam sprites existentes; a praia é uma nova imagem. A opção de reduzir movimento também se aplica aos robôs da cena.
 
-Os nomes usam a fonte própria `fnt_dialogue_name` (Segoe Print Bold, 24 pt), com atlas PNG incluído no projeto e suporte aos acentos. O nome fica em uma placa verde, separado do retrato e da fala por margens. Para reconstruir somente essa fonte: execute `tools/render-ui-fonts.ps1 -Fonts fnt_dialogue_name`.
+Os nomes usam a fonte própria `fnt_dialogue_name` (Segoe Print Bold, 24 pt), com atlas PNG incluído no projeto e suporte aos acentos. O nome aparece diretamente no painel, sem placa verde, separado do retrato e da fala por margens. Para reconstruir somente essa fonte: execute `tools/render-ui-fonts.ps1 -Fonts fnt_dialogue_name`.
+
+Os retratos dos diálogos usam `spr_portrait_ju`, `spr_portrait_le`, `spr_portrait_manu` e `spr_portrait_maria`: PNGs de 64 × 64 recortados das sprites existentes, mostrando só a cabeça em uma moldura quadrada. Podem ser substituídos no editor de sprites sem alterar os desenhos de corpo inteiro usados nas fases.
 
 ## Dispenser
 

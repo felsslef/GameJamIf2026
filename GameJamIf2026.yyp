@@ -1325,6 +1325,30 @@
         "name": "fnt_dialogue_name",
         "path": "fonts/fnt_dialogue_name/fnt_dialogue_name.yy"
       }
+    },
+    {
+      "id": {
+        "name": "spr_portrait_ju",
+        "path": "sprites/spr_portrait_ju/spr_portrait_ju.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_portrait_le",
+        "path": "sprites/spr_portrait_le/spr_portrait_le.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_portrait_manu",
+        "path": "sprites/spr_portrait_manu/spr_portrait_manu.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_portrait_maria",
+        "path": "sprites/spr_portrait_maria/spr_portrait_maria.yy"
+      }
     }
   ],
   "resourceType": "GMProject",

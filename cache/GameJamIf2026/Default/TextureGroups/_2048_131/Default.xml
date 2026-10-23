@@ -90,37 +90,41 @@
   <tpe x="1085" y="1853" tpage="default_0.bz2">spr_juFrente_GameJamIf2026_5ef3cc42-8ebb-42af-acaa-3c13e6edb2ca.tpe</tpe>
   <tpe x="1030" y="1919" tpage="default_0.bz2">spr_juCostas_GameJamIf2026_0071ecf2-9bb0-4a37-935e-0d7cca240cb9.tpe</tpe>
   <tpe x="1030" y="1919" tpage="default_0.bz2">spr_juCostas_GameJamIf2026_b118cc65-88fa-439d-83b2-a69e2391fc17.tpe</tpe>
-  <tpe x="1403" y="1737" tpage="default_0.bz2">spr_testes_GameJamIf2026_492b0928-3e47-4a37-a0b5-c5edbecc5338.tpe</tpe>
+  <tpe x="1566" y="1111" tpage="default_0.bz2">spr_portrait_ju_GameJamIf2026_1594e3eb-aaea-4621-b382-4131cd1e5690.tpe</tpe>
+  <tpe x="1403" y="1737" tpage="default_0.bz2">spr_portrait_le_GameJamIf2026_702deb20-8dc4-4bad-a512-ef59daddd99e.tpe</tpe>
+  <tpe x="1263" y="1740" tpage="default_0.bz2">spr_testes_GameJamIf2026_492b0928-3e47-4a37-a0b5-c5edbecc5338.tpe</tpe>
+  <tpe x="1405" y="1585" tpage="default_0.bz2">spr_portrait_manu_GameJamIf2026_e27f797a-b36f-4264-ba7c-f57dc5815702.tpe</tpe>
+  <tpe x="1565" y="1461" tpage="default_0.bz2">spr_portrait_maria_GameJamIf2026_a73e268e-556d-4874-80c7-0e7d6f6e3ab3.tpe</tpe>
   <tpe x="1634" y="1043" tpage="default_0.bz2">spr_scientist_le_GameJamIf2026_c1f46063-53ad-4895-9439-3ade4de64cee.tpe</tpe>
   <tpe x="1290" y="1251" tpage="default_0.bz2">spr_scientist_ju_GameJamIf2026_db0fe8eb-1d15-4e9b-8d3e-67641a305757.tpe</tpe>
-  <tpe x="1263" y="1740" tpage="default_0.bz2">spr_scientist_manu_GameJamIf2026_dcf25263-e79e-4c7a-bc03-897afa5b7484.tpe</tpe>
-  <tpe x="1405" y="1585" tpage="default_0.bz2">spr_scientist_maria_GameJamIf2026_156f8ce9-cf31-46a5-af94-02341b4fa06a.tpe</tpe>
-  <tpe x="1566" y="1111" tpage="default_0.bz2">spr_leachate_GameJamIf2026_1780b334-efcf-4228-9224-ab1c2dfc2f15.tpe</tpe>
+  <tpe x="1515" y="1392" tpage="default_0.bz2">spr_scientist_manu_GameJamIf2026_dcf25263-e79e-4c7a-bc03-897afa5b7484.tpe</tpe>
+  <tpe x="1196" y="1918" tpage="default_0.bz2">spr_scientist_maria_GameJamIf2026_156f8ce9-cf31-46a5-af94-02341b4fa06a.tpe</tpe>
+  <tpe x="1145" y="1746" tpage="default_0.bz2">spr_leachate_GameJamIf2026_1780b334-efcf-4228-9224-ab1c2dfc2f15.tpe</tpe>
   <tpe x="1290" y="1387" tpage="default_0.bz2">spr_ui_star_GameJamIf2026_9ee0d467-3bdc-432e-84ce-4da673f08f2f.tpe</tpe>
   <tpe x="1166" y="1515" tpage="default_0.bz2">spr_material_fertilizer_GameJamIf2026_34b27d6f-f5dc-4f81-8732-b8f63bc244aa.tpe</tpe>
   <tpe x="1424" y="1319" tpage="default_0.bz2">spr_material_metal_bale_GameJamIf2026_677989ae-3dba-4e46-bc81-d2be080efc4f.tpe</tpe>
-  <tpe x="1145" y="1746" tpage="default_0.bz2">spr_material_plastic_bale_GameJamIf2026_d8535c39-7bb7-40e5-8104-a9812f9483e9.tpe</tpe>
-  <tpe x="1625" y="1457" tpage="default_0.bz2">spr_ui_warning_GameJamIf2026_415ab0c6-2fec-4752-b55b-b26fd1e72e4a.tpe</tpe>
-  <tpe x="1459" y="1524" tpage="default_0.bz2">spr_material_metal_plate_GameJamIf2026_257474ee-5472-43a1-86e1-95cc779912ba.tpe</tpe>
-  <tpe x="1515" y="1392" tpage="default_0.bz2">spr_bag_glass_GameJamIf2026_d3cc17f0-655d-4fc8-bb0c-049aecbf9ac3.tpe</tpe>
-  <tpe x="1196" y="1918" tpage="default_0.bz2">spr_bag_metal_GameJamIf2026_cf72e46c-1fe0-4e57-8af5-69ee162f3ace.tpe</tpe>
-  <tpe x="653" y="1975" tpage="default_0.bz2">spr_bag_paper_GameJamIf2026_ddae3298-cc07-4d9d-aec0-e8ff0bd68370.tpe</tpe>
-  <tpe x="1083" y="1917" tpage="default_0.bz2">spr_bag_plastic_GameJamIf2026_a9d57a30-fd61-4ed3-abb4-5955bc3ae223.tpe</tpe>
-  <tpe x="1449" y="1737" tpage="default_0.bz2">spr_material_raw_waste_GameJamIf2026_6b8d3a8b-e237-43c8-9689-466c25e9f33a.tpe</tpe>
-  <tpe x="1249" y="1804" tpage="default_0.bz2">spr_material_organic_GameJamIf2026_6dc538ed-2d89-46b1-80e5-1a0faafd3e10.tpe</tpe>
+  <tpe x="653" y="1975" tpage="default_0.bz2">spr_material_plastic_bale_GameJamIf2026_d8535c39-7bb7-40e5-8104-a9812f9483e9.tpe</tpe>
+  <tpe x="1083" y="1917" tpage="default_0.bz2">spr_ui_warning_GameJamIf2026_415ab0c6-2fec-4752-b55b-b26fd1e72e4a.tpe</tpe>
+  <tpe x="1630" y="1111" tpage="default_0.bz2">spr_material_metal_plate_GameJamIf2026_257474ee-5472-43a1-86e1-95cc779912ba.tpe</tpe>
+  <tpe x="1400" y="1787" tpage="default_0.bz2">spr_bag_glass_GameJamIf2026_d3cc17f0-655d-4fc8-bb0c-049aecbf9ac3.tpe</tpe>
+  <tpe x="1309" y="1740" tpage="default_0.bz2">spr_bag_metal_GameJamIf2026_cf72e46c-1fe0-4e57-8af5-69ee162f3ace.tpe</tpe>
+  <tpe x="1405" y="1633" tpage="default_0.bz2">spr_bag_paper_GameJamIf2026_ddae3298-cc07-4d9d-aec0-e8ff0bd68370.tpe</tpe>
+  <tpe x="1452" y="1524" tpage="default_0.bz2">spr_bag_plastic_GameJamIf2026_a9d57a30-fd61-4ed3-abb4-5955bc3ae223.tpe</tpe>
+  <tpe x="1467" y="1633" tpage="default_0.bz2">spr_material_raw_waste_GameJamIf2026_6b8d3a8b-e237-43c8-9689-466c25e9f33a.tpe</tpe>
+  <tpe x="1628" y="1457" tpage="default_0.bz2">spr_material_organic_GameJamIf2026_6dc538ed-2d89-46b1-80e5-1a0faafd3e10.tpe</tpe>
   <tpe x="1649" y="1325" tpage="default_0.bz2">spr_material_extinguisher_GameJamIf2026_a3b7d06b-7c4f-4bce-a309-8c1546444ea8.tpe</tpe>
   <tpe x="1348" y="1584" tpage="default_0.bz2">spr_waste_paper_GameJamIf2026_e316c132-520e-4a1c-8dfa-93544bce8fb5.tpe</tpe>
-  <tpe x="1634" y="1108" tpage="default_0.bz2">spr_item_teste_GameJamIf2026_fc195e4f-f069-47a3-8c88-0cb3137ce48e.tpe</tpe>
+  <tpe x="1565" y="1508" tpage="default_0.bz2">spr_item_teste_GameJamIf2026_fc195e4f-f069-47a3-8c88-0cb3137ce48e.tpe</tpe>
   <tpe x="1648" y="947" tpage="default_0.bz2">spr_part_battery_GameJamIf2026_a15a08e3-ec54-4b03-b9e7-0cc8094cb18e.tpe</tpe>
-  <tpe x="1306" y="1740" tpage="default_0.bz2">spr_part_casing_GameJamIf2026_1bb41548-3ead-4839-96aa-5b94c36c172d.tpe</tpe>
-  <tpe x="1448" y="1585" tpage="default_0.bz2">spr_part_circuit_GameJamIf2026_af95c63a-26d9-4a5d-beed-65154d98ee6c.tpe</tpe>
-  <tpe x="1405" y="1646" tpage="default_0.bz2">spr_part_motor_GameJamIf2026_e1dce561-5d9f-42e1-b39a-260dc730274c.tpe</tpe>
+  <tpe x="1239" y="1918" tpage="default_0.bz2">spr_part_casing_GameJamIf2026_1bb41548-3ead-4839-96aa-5b94c36c172d.tpe</tpe>
+  <tpe x="1083" y="1979" tpage="default_0.bz2">spr_part_circuit_GameJamIf2026_af95c63a-26d9-4a5d-beed-65154d98ee6c.tpe</tpe>
+  <tpe x="1202" y="1747" tpage="default_0.bz2">spr_part_motor_GameJamIf2026_e1dce561-5d9f-42e1-b39a-260dc730274c.tpe</tpe>
   <tpe x="1263" y="1677" tpage="default_0.bz2">spr_material_clean_plastic_GameJamIf2026_ba1e9434-0e6a-41ce-a7f3-08525500815e.tpe</tpe>
-  <tpe x="1424" y="1351" tpage="default_0.bz2">spr_material_dirty_plastic_GameJamIf2026_8e94f4d6-4421-4cb5-9dc4-1fcd829eba2e.tpe</tpe>
-  <tpe x="1177" y="1746" tpage="default_0.bz2">spr_waste_metal_GameJamIf2026_73fb8095-288e-4df4-b4dc-2eec834db609.tpe</tpe>
-  <tpe x="1566" y="1147" tpage="default_0.bz2">spr_material_burned_electronic_GameJamIf2026_ef594b5c-5ff4-4ff2-9e1b-8c5efeaad6dc.tpe</tpe>
-  <tpe x="1565" y="1461" tpage="default_0.bz2">spr_material_electronic_GameJamIf2026_cb657e31-0d65-4539-ad8c-d5679fdda3e1.tpe</tpe>
-  <tpe x="1565" y="1489" tpage="default_0.bz2">spr_ui_arrow_GameJamIf2026_256ef57f-aaaa-473d-83fb-2ee26aa4ed26.tpe</tpe>
+  <tpe x="1198" y="1782" tpage="default_0.bz2">spr_material_dirty_plastic_GameJamIf2026_8e94f4d6-4421-4cb5-9dc4-1fcd829eba2e.tpe</tpe>
+  <tpe x="1424" y="1351" tpage="default_0.bz2">spr_waste_metal_GameJamIf2026_73fb8095-288e-4df4-b4dc-2eec834db609.tpe</tpe>
+  <tpe x="685" y="1975" tpage="default_0.bz2">spr_material_burned_electronic_GameJamIf2026_ef594b5c-5ff4-4ff2-9e1b-8c5efeaad6dc.tpe</tpe>
+  <tpe x="1114" y="1917" tpage="default_0.bz2">spr_material_electronic_GameJamIf2026_cb657e31-0d65-4539-ad8c-d5679fdda3e1.tpe</tpe>
+  <tpe x="1630" y="1141" tpage="default_0.bz2">spr_ui_arrow_GameJamIf2026_256ef57f-aaaa-473d-83fb-2ee26aa4ed26.tpe</tpe>
   <tpe x="1212" y="1614" tpage="default_0.bz2">spr_waste_plastic_GameJamIf2026_ed86b436-f4c9-43c8-9aaf-cb034b17aa7a.tpe</tpe>
   <tpe x="1574" y="1326" tpage="default_0.bz2">spr_waste_glass_GameJamIf2026_f27a930d-3e3c-42bd-bd70-23af1a3b271b.tpe</tpe>
   <tpe x="1334" y="1387" tpage="default_0.bz2">spr_ui_fill_GameJamIf2026_d7d41659-1fa8-4dd2-a554-16f8539093ad.tpe</tpe>
