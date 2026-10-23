@@ -1,13 +1,20 @@
+function recycling_item_visual_sprite(_item) {
+    var visual_sprite = _item.sprite_index;
+    if (visual_sprite < 0 || !sprite_exists(visual_sprite)) return spr_material_raw_waste;
+    return visual_sprite;
+}
+
 function recycling_draw_item_trail(_item) {
     var sample_count = array_length(_item.throw_trail_x);
     var mint = make_color_rgb(130, 232, 204);
+    var visual_sprite = recycling_item_visual_sprite(_item);
     for (var i = 0; i < sample_count; i++) {
         var age_alpha = 1 - clamp(_item.throw_trail_age[i] / 0.18, 0, 1);
         var order_alpha = (i + 1) / sample_count;
         var sample_strength = _item.throw_trail_power[i];
-        var trail_scale = (0.62 + 0.34 * sample_strength) * 48 / max(sprite_get_width(_item.sprite_index),sprite_get_height(_item.sprite_index));
+        var trail_scale = (0.62 + 0.34 * sample_strength) * 48 / max(sprite_get_width(visual_sprite),sprite_get_height(visual_sprite));
         var trail_alpha = 0.3 * age_alpha * order_alpha * sample_strength;
-        draw_sprite_ext(_item.sprite_index, _item.image_index,
+        draw_sprite_ext(visual_sprite, _item.image_index,
             _item.throw_trail_x[i], _item.throw_trail_y[i],
             _item.image_xscale * trail_scale, _item.image_yscale * trail_scale,
             _item.image_angle, mint, trail_alpha);
@@ -16,13 +23,14 @@ function recycling_draw_item_trail(_item) {
 
 function recycling_draw_item_visual(_item) {
     recycling_draw_item_trail(_item);
+    var visual_sprite = recycling_item_visual_sprite(_item);
     var speed_ratio = 0;
     if (_item.is_thrown && _item.throw_peak_spd > 0) {
         speed_ratio = clamp(_item.throw_spd / _item.throw_peak_spd, 0, 1);
     }
-    var draw_scale = (1 + 0.24 * speed_ratio) * 48 / max(sprite_get_width(_item.sprite_index),sprite_get_height(_item.sprite_index));
+    var draw_scale = (1 + 0.24 * speed_ratio) * 48 / max(sprite_get_width(visual_sprite),sprite_get_height(visual_sprite));
     var draw_y = _item.y - 18 * speed_ratio;
-    draw_sprite_ext(_item.sprite_index, _item.image_index, _item.x, draw_y,
+    draw_sprite_ext(visual_sprite, _item.image_index, _item.x, draw_y,
         _item.image_xscale * draw_scale, _item.image_yscale * draw_scale,
         _item.image_angle, _item.image_blend, _item.image_alpha);
     return [speed_ratio, draw_scale, draw_y];

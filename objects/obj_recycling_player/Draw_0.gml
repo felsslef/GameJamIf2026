@@ -9,5 +9,6 @@ for (var trail_index = 0; trail_index < array_length(dash_trail_x); trail_index+
 draw_self();
 
 frontend_text(x, y + 8, "J" + string(playerid), fnt_ui_small, make_color_rgb(36,41,40), fa_center);
+processing_draw_station_text_over_player(id);
 draw_set_font(-1);
 draw_set_color(c_white);

@@ -70,7 +70,7 @@ function processing_material_name(_state) {
 
 function processing_payload_new(_state, _amount = 1) {
     return {process_state: _state, amount: _amount, exposure_age: 0, burning: false,
-        fire_progress: 0, fire_work_frame: -1, tool_owner: noone};
+        fire_progress: 0, fire_work_frame: -1, tool_owner: noone, spray_active: false};
 }
 
 function processing_payload_from_item(_item) {
@@ -87,6 +87,7 @@ function processing_give_payload(_player, _payload) {
     item.burning = _payload.burning;
     item.fire_progress = _payload.fire_progress;
     item.tool_owner = _payload.tool_owner;
+    item.spray_active = false;
     item.is_held = true;
     item.holder = _player;
     _player.carried_item = item;
@@ -356,6 +357,7 @@ function processing_fire_data(_target) {
 function processing_extinguish(_player, _dt) {
     if (!instance_exists(_player.carried_item)) return false;
     if (!variable_instance_exists(_player.carried_item,"process_state") || _player.carried_item.process_state != "extinguisher") return false;
+    _player.carried_item.spray_active = false;
     var level = obj_recycling_level;
     var target = noone;
     var closest = 90;
@@ -372,6 +374,7 @@ function processing_extinguish(_player, _dt) {
         }
     }
     if (target == noone) return false;
+    _player.carried_item.spray_active = true;
     var fire_data = processing_fire_data(target);
     if (fire_data.fire_work_frame == level.processing_frame) return true;
     fire_data.fire_work_frame = level.processing_frame;

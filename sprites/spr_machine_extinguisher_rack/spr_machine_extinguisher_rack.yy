@@ -12,14 +12,15 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"d9b50b57-8849-4b85-bce4-5518aead1396","name":"d9b50b57-8849-4b85-bce4-5518aead1396","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"f2bb2def-8643-4e71-84dc-b2a4ed3120e0","name":"f2bb2def-8643-4e71-84dc-b2a4ed3120e0","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"68e04826-fae6-4f78-a6e4-53ecc2ce3309","name":"68e04826-fae6-4f78-a6e4-53ecc2ce3309","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":64,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"4f41ea14-121d-4735-bc61-40b361703615","blendMode":0,"displayName":"default","isLocked":false,"name":"4f41ea14-121d-4735-bc61-40b361703615","opacity":100,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"fc86116c-8cf0-4048-9fc8-37306992b320","blendMode":0,"displayName":"default","isLocked":false,"name":"fc86116c-8cf0-4048-9fc8-37306992b320","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_machine_extinguisher_rack",
   "nineSlice":null,
@@ -39,8 +40,8 @@
     "backdropImageOpacity":0.5,
     "backdropImagePath":"",
     "backdropWidth":1366,
-    "backdropXOffset":0,
-    "backdropYOffset":0,
+    "backdropXOffset":0.0,
+    "backdropYOffset":0.0,
     "events":{
       "$KeyframeStore<MessageEventKeyframe>":"",
       "Keyframes":[],
@@ -49,7 +50,7 @@
     },
     "eventStubScript":null,
     "eventToFunction":{},
-    "length":1,
+    "length":2.0,
     "lockOrigin":false,
     "moments":{
       "$KeyframeStore<MomentsEventKeyframe>":"",
@@ -59,7 +60,7 @@
     },
     "name":"spr_machine_extinguisher_rack",
     "playback":1,
-    "playbackSpeed":0,
+    "playbackSpeed":0.0,
     "playbackSpeedType":0,
     "resourceType":"GMSequence",
     "resourceVersion":"2.0",
@@ -68,11 +69,16 @@
     "timeUnits":1,
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"d9b50b57-8849-4b85-bce4-5518aead1396","path":"sprites/spr_machine_extinguisher_rack/spr_machine_extinguisher_rack.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"1375763f-5e67-43c9-967d-45ca9bc309c6","IsCreationKey":false,"Key":0,"Length":1,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"f2bb2def-8643-4e71-84dc-b2a4ed3120e0","path":"sprites/spr_machine_extinguisher_rack/spr_machine_extinguisher_rack.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"df80d089-ac28-4501-9b7c-5facce2c5965","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"68e04826-fae6-4f78-a6e4-53ecc2ce3309","path":"sprites/spr_machine_extinguisher_rack/spr_machine_extinguisher_rack.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"34ccc8fb-9959-4b6b-9d58-b921d9af16fe","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
-    "volume":1,
+    "volume":1.0,
     "xorigin":32,
     "yorigin":32,
   },

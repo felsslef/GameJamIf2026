@@ -1,2 +1,2 @@
- event_inherited();
+  event_inherited();
 station_kind = "handoff";

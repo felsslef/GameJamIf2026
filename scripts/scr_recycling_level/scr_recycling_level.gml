@@ -486,18 +486,21 @@ function recycling_player_movement(_dt, _move_x, _move_y, _dash_pressed) {
         dash_time = dash_time_max;
         dash_cooldown = dash_cooldown_max;
     }
-    if (character_index == 1) {
+    if (character_index >= 0 && character_index <= 2) {
+        var sprite_side = [spr_juLado, spr_leleLado, spr_manuLado][character_index];
+        var sprite_back = [spr_juCostas, spr_leleCostas, spr_manuCostas][character_index];
+        var sprite_front = [spr_juFrente, spr_leleFrente, spr_manuFrente][character_index];
         var animation_x = is_dashing ? lengthdir_x(1, move_dir) : _move_x;
         var animation_y = is_dashing ? lengthdir_y(1, move_dir) : _move_y;
         if (animation_x != 0 || animation_y != 0) {
             if (abs(animation_x) > abs(animation_y)) {
-                sprite_index = spr_leleLado;
+                sprite_index = sprite_side;
                 image_xscale = animation_x < 0 ? -1 : 1;
             } else if (animation_y < 0) {
-                sprite_index = spr_leleCostas;
+                sprite_index = sprite_back;
                 image_xscale = 1;
             } else {
-                sprite_index = spr_leleFrente;
+                sprite_index = sprite_front;
                 image_xscale = 1;
             }
             image_speed = 0.2;

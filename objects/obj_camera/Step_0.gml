@@ -42,8 +42,10 @@ var cam = view_camera[0];
 var current_w = camera_get_view_width(cam);
 var current_h = camera_get_view_height(cam);
 
-var new_w = lerp(current_w, target_w, 0.08);
-var new_h = lerp(current_h, target_h, 0.08);
+// Pixel art fica deformada quando a câmera usa escala ou posição fracionária.
+// Arredondar a dimensão mantém os dois eixos na mesma proporção 16:9.
+var new_w = round(lerp(current_w, target_w, 0.08));
+var new_h = round(new_w / aspect_ratio);
 
 // Posição com base no centro calculado
 var target_x = center_x - (new_w / 2);
@@ -56,8 +58,8 @@ target_y = clamp(target_y, 0, room_height - new_h);
 var current_x = camera_get_view_x(cam);
 var current_y = camera_get_view_y(cam);
 
-var new_x = lerp(current_x, target_x, 0.08);
-var new_y = lerp(current_y, target_y, 0.08);
+var new_x = round(lerp(current_x, target_x, 0.08));
+var new_y = round(lerp(current_y, target_y, 0.08));
 
 // Aplicar alterações na View
 camera_set_view_size(cam, new_w, new_h);

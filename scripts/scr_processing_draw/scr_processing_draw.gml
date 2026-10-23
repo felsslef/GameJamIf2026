@@ -7,6 +7,23 @@ function processing_draw_payload(_payload, _x, _y, _scale = 1) {
 
 function processing_draw_item() {
     recycling_draw_item_visual(id);
+    if (process_state == "extinguisher" && is_held && variable_instance_exists(id,"spray_active") && spray_active && instance_exists(holder)) {
+        // A short animated plume follows the player's facing direction while a fire is being treated.
+        var spray_dir = holder.move_dir;
+        var flicker = current_time / 55;
+        draw_set_alpha(0.78);
+        for (var i = 0; i < 6; i++) {
+            var progress = (i + 1) / 6;
+            var drift = sin(flicker + i * 1.7) * (3 + progress * 5);
+            var spray_x = x + lengthdir_x(9 + progress * 38, spray_dir) + lengthdir_x(drift, spray_dir + 90);
+            var spray_y = y + lengthdir_y(9 + progress * 38, spray_dir) + lengthdir_y(drift, spray_dir + 90);
+            var radius = 2 + (i mod 3);
+            draw_set_color(i mod 2 == 0 ? make_color_rgb(210, 246, 255) : make_color_rgb(140, 218, 239));
+            draw_circle(spray_x, spray_y, radius, false);
+        }
+        draw_set_alpha(1);
+        draw_set_color(c_white);
+    }
     var level = instance_exists(obj_recycling_level) ? instance_find(obj_recycling_level,0) : noone;
     if (burning) {
         draw_sprite(spr_fire,0,x,y-14);
@@ -39,12 +56,78 @@ function processing_station_near(_station, _range = 58) {
     return nearby;
 }
 
+function processing_draw_text_over_player(_x, _y, _text, _font, _color, _align = fa_center) {
+    // Keep the original label style; only its draw order changes when a character overlaps it.
+    frontend_text(_x, _y, _text, _font, _color, _align);
+}
+
+function processing_draw_station_text_over_player(_player) {
+    if (!instance_exists(_player) || !instance_exists(obj_recycling_level)) return;
+    var level = obj_recycling_level;
+    var processing = level.processing_enabled;
+    var dark = make_color_rgb(35, 57, 64);
+    for (var station_index = 0; station_index < array_length(level.stations); station_index++) {
+        var station = level.stations[station_index];
+        if (!instance_exists(station) || abs(_player.x - station.x) > 95 || abs(_player.y - station.y) > 90) continue;
+        if (!processing) {
+            if (station.station_kind == "bin" && abs(_player.y - (station.y + 56)) < 24) {
+                var bin_full = station.load >= station.capacity;
+                var bin_label = recycling_trash_name(station.trash_type) + " " + string(station.load) + "/" + string(station.capacity) + (bin_full ? " CHEIA" : "");
+                processing_draw_text_over_player(station.x, station.y + 56, bin_label, fnt_ui_small, dark);
+            } else if (station.station_kind == "dispenser" && array_length(station.queue) >= station.capacity
+                && abs(_player.y - (station.y + 72)) < 24) {
+                processing_draw_text_over_player(station.x, station.y + 72, "CHEIO! " + string(max(0, ceil(level.overflow_limit - station.overflow_elapsed))) + "s", fnt_ui_small, make_color_rgb(177, 51, 47));
+            } else if (station.station_kind == "bench" && abs(_player.y - (station.y + 43)) < 24) {
+                var bench_status = station.module_ready ? "Retire o robô" : (station.build_remaining > 0 ? "Montando: " + string(ceil(station.build_remaining)) + "s" : "C + B + M + A");
+                processing_draw_text_over_player(station.x, station.y + 43, bench_status, fnt_ui_small, dark);
+            }
+            continue;
+        }
+        var nearby = recycling_station_distance(_player.x, _player.y, station) <= 58;
+        if (station.station_kind == "intake") {
+            nearby = recycling_station_distance(_player.x, _player.y, station) <= 28;
+            if (!nearby) continue;
+            var count = array_length(station.queue);
+            var full = count >= station.capacity;
+            var accent = full ? make_color_rgb(185, 52, 46) : make_color_rgb(38, 117, 104);
+            var status = "Próximo: " + string(max(0, ceil(station.spawn_timer))) + "s";
+            if (instance_exists(obj_tutorial)) status = count > 0 ? "Retire o item" : "Aguarde a etapa";
+            if (full) status = "Cheia! " + string(max(0, ceil(level.overflow_limit - station.overflow_elapsed))) + "s";
+            if (abs(_player.y - (station.y + 41)) < 24) processing_draw_text_over_player(station.x, station.y + 41, "Caçamba " + string(count) + "/" + string(station.capacity), fnt_ui_small, dark);
+            if (abs(_player.y - (station.y + 63)) < 24) processing_draw_text_over_player(station.x, station.y + 63, status, fnt_ui_small, accent);
+        } else if (station.station_kind == "bin") {
+            if (abs(_player.y - (station.y + 38)) < 24) {
+                if (nearby) processing_draw_text_over_player(station.x, station.y + 38, string(station.load) + "/" + string(station.capacity), fnt_ui_small, dark);
+                else if (station.load >= station.capacity) processing_draw_text_over_player(station.x, station.y + 38, "Cheia", fnt_ui_small, dark);
+            }
+        } else if (station.station_kind == "dispatch") {
+            if ((nearby || station.trip_remaining > 0) && abs(_player.y - (station.y + 40)) < 24) {
+                var truck_status = station.trip_remaining > 0 ? "Voltando: " + string(ceil(station.trip_remaining)) + "s" : "Caminhão " + string(station.load) + "/" + string(station.capacity);
+                processing_draw_text_over_player(station.x, station.y + 40, truck_status, fnt_ui_small, dark);
+            }
+        } else if (nearby && abs(_player.y - (station.y + 38)) < 24) {
+            var label = processing_station_name(station.station_kind);
+            if (!is_undefined(station.buffer)) {
+                if (station.buffer.burning) label += ": fogo!";
+                else if (station.process_status == "ready") label += ": pronto";
+            }
+            if (station.station_kind == "extinguisher_rack" && station.tool_loaned) label += ": em uso";
+            processing_draw_text_over_player(station.x, station.y + 38, label, fnt_ui_small, dark);
+        }
+    }
+    draw_set_color(c_white);
+    draw_set_font(-1);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+}
+
 function processing_draw_station() {
     var dark = make_color_rgb(35, 57, 64);
     var nearby = processing_station_near(id);
     var level = obj_recycling_level;
-    if (station_kind == "extinguisher_rack" && tool_loaned) draw_set_alpha(0.25);
-    if (station_kind == "dispatch") recycling_draw_truck(); else draw_self();
+    if (station_kind == "dispatch") recycling_draw_truck();
+    else if (station_kind == "extinguisher_rack") draw_sprite(sprite_index, tool_loaned ? 1 : 0, x, y);
+    else draw_self();
     draw_set_alpha(1);
     if (station_kind == "handoff") {
         if (!is_undefined(stored_item)) processing_draw_payload(stored_item, x, y - 3, 0.75);
