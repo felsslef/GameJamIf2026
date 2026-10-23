@@ -197,8 +197,13 @@ function frontend_character_arrow(_x, _y, _direction, _color) {
 
 function frontend_draw_character_select() {
     draw_set_alpha(1);
-    frontend_rect(0, 0, 1280, 720, paper);
+    draw_sprite(spr_character_background, 0, 0, 0);
+    frontend_panel(528, 24, 224, 48, make_color_rgb(245, 240, 216), ink);
     frontend_text(640, 38, "Cientistas", font_body, ink, fa_center);
+    // Quiet surfaces keep names and bindings readable over the illustrated floor.
+    frontend_panel(character_player_count == 1 ? 400 : 160, 512,
+        character_player_count == 1 ? 480 : 960, 112, make_color_rgb(232, 241, 224), teal);
+    frontend_panel(400, 638, 480, 42, make_color_rgb(245, 240, 216), teal);
     var back_button = buttons[0];
     frontend_panel(back_button.x, back_button.y, back_button.w, back_button.h,
         focus == 0 ? make_color_rgb(234, 240, 236) : paper, ink);
@@ -216,12 +221,15 @@ function frontend_draw_character_select() {
             frontend_text(center_x, card.y + 160, "jogador entrar na sala", font_small, muted, fa_center);
             continue;
         }
-        if (character_player_count == 2) frontend_text(center_x, 112, "Jogadora " + string(i + 1), font_small, accent, fa_center);
+        if (character_player_count == 2) {
+            frontend_panel(center_x - 100, 104, 200, 32, make_color_rgb(245, 240, 216), accent);
+            frontend_text(center_x, 110, "Jogadora " + string(i + 1), font_small, accent, fa_center);
+        }
         var width_scale = slot.flip_timer > 0 ? max(0.02, abs(slot.flip_timer / 0.1 - 1)) : 1;
         var show_back = slot.flip_timer > 0.1 ? !slot.back : slot.back;
         var card_width = card.w * width_scale;
         frontend_panel(center_x - card_width / 2, card.y, card_width, card.h,
-            slot.ready ? make_color_rgb(239, 246, 239) : paper, slot.ready ? accent : muted);
+            slot.ready ? make_color_rgb(218, 239, 211) : make_color_rgb(248, 240, 213), slot.ready ? accent : muted);
         if (width_scale > 0.9) {
             if (show_back) {
                 frontend_text(center_x, card.y + 28, scientist.name, font_body, accent, fa_center);
@@ -230,7 +238,7 @@ function frontend_draw_character_select() {
                 draw_set_color(ink);
                 draw_text_ext(card.x + 24, card.y + 86, scientist.bio, 26, card.w - 48);
             } else {
-                frontend_rect(card.x + 16, card.y + 20, card.w - 32, 252, make_color_rgb(235, 239, 235));
+                frontend_rect(card.x + 16, card.y + 20, card.w - 32, 252, make_color_rgb(194, 218, 195));
                 frontend_scientist(card.x + 28, card.y + 32, 7, slot.choice);
                 frontend_text(center_x, card.y + 304, scientist.role, font_small, muted, fa_center);
             }
@@ -239,7 +247,8 @@ function frontend_draw_character_select() {
         for (var arrow = 0; arrow < 2; arrow++) {
             var b = buttons[first_button + arrow];
             var color_arrow = slot.ready ? make_color_rgb(188, 195, 190) : accent;
-            if (focus == first_button + arrow && !slot.ready) frontend_rect(b.x, b.y, b.w, b.h, make_color_rgb(239, 244, 240));
+            frontend_panel(b.x, b.y, b.w, b.h,
+                focus == first_button + arrow && !slot.ready ? make_color_rgb(219, 236, 210) : make_color_rgb(245, 240, 216), color_arrow);
             frontend_character_arrow(b.x + b.w / 2, b.y + b.h / 2, arrow == 0 ? -1 : 1, color_arrow);
         }
         var status_button = buttons[first_button + 3];

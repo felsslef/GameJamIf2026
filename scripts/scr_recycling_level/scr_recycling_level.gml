@@ -40,6 +40,7 @@ function recycling_level_init() {
     if (room == rm_tutorial && instance_exists(obj_tutorial)) tutorial_setup();
     // Artwork is the editable background layer; this controller only draws the HUD.
     depth = 50;
+    story_init();
 }
 
 
@@ -73,11 +74,12 @@ function recycling_finish(_won, _reason) {
         save_slots_init();
         global.frontend_level_stars[level_index] = max(global.frontend_level_stars[level_index], result_stars);
         save_slot_write();
+        if (level_index == 4) story_begin("ending");
     }
 }
 
 function recycling_level_tick(_dt) {
-    if (phase_state != "playing") return;
+    if (phase_state != "playing" || story_active()) return;
     if (start_countdown > 0) return;
     if (instance_exists(obj_tutorial)) { tutorial_tick(_dt); return; }
     time_remaining = max(0, time_remaining - _dt);
@@ -110,6 +112,7 @@ function recycling_level_tick(_dt) {
 
 function recycling_level_update() {
     if (session_ui_transition_active()) return;
+    if (story_update(max(0, delta_time / 1000000))) return;
     if (processing_enabled) {
         for (var departure_index=array_length(robot_departures)-1;departure_index>=0;departure_index--) {
             robot_departures[departure_index].age += min(0.05,max(0,delta_time/1000000));
@@ -156,7 +159,7 @@ function recycling_draw_result_buttons() {
     for (var i=0;i<array_length(labels);i++) {
         var bx = start_x+i*(width+20);
         var hover = point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),bx,470,bx+width,522);
-        frontend_panel(bx,470,width,52,hover?make_color_rgb(226,238,222):c_white,dark);
+        frontend_stone_button(bx,470,width,52,hover);
         frontend_text(bx+width/2,482,labels[i],fnt_ui_body,dark,fa_center);
     }
 }
@@ -373,6 +376,7 @@ function recycling_interact(_player, _station_override = noone) {
 }
 
 function recycling_player_step() {
+    if (instance_exists(obj_recycling_level) && story_active()) return;
     if (session_ui_transition_active()) return;
     if (instance_exists(obj_recycling_level) && obj_recycling_level.start_countdown > 0) return;
     if (!instance_exists(obj_recycling_level) || obj_recycling_level.phase_state != "playing") return;

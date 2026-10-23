@@ -33,14 +33,17 @@ function frontend_scientist(_x, _y, _scale, _index) {
 
 function frontend_draw_button(_b, _index) {
     var active = focus == _index;
-    frontend_panel(_b.x, _b.y, _b.w, _b.h,
-        active ? make_color_rgb(234, 240, 236) : paper, active ? teal : ink);
+    frontend_stone_button(_b.x, _b.y, _b.w, _b.h, active);
     frontend_text(_b.x + _b.w / 2, _b.y + (_b.h - 27) / 2,
         _b.label, font_body, ink, fa_center);
 }
 
 function frontend_draw() {
     draw_set_alpha(1);
+    if (screen == "mode" || screen == "saves") {
+        frontend_draw_journey_select();
+        return;
+    }
     if (screen == "levels") {
         frontend_draw_level_map();
         return;
@@ -49,8 +52,9 @@ function frontend_draw() {
         frontend_draw_character_select();
         return;
     }
-    frontend_rect(0, 0, 1280, 720, paper);
-    var title = "Maré da Ciência";
+    if (screen == "main") draw_sprite(spr_menu_background, 0, 0, 0);
+    else frontend_rect(0, 0, 1280, 720, paper);
+    var title = "Coleta Maluca";
     switch (screen) {
         case "mode": title = "Modo de jogo"; break;
         case "saves": title = "Escolha seu save"; break;
@@ -59,7 +63,8 @@ function frontend_draw() {
         case "options": title = "Opções"; break;
         case "controls": title = "Configuração de teclas"; break;
     }
-    frontend_text(640, 92, title, font_title, ink, fa_center);
+    if (screen == "main") draw_sprite(spr_game_logo, 0, 320, 8);
+    else frontend_text(640, 92, title, font_title, ink, fa_center);
 
     if (screen == "controls") {
         frontend_text(336, 132, "Jogador 1", font_body, teal, fa_center);
@@ -78,6 +83,61 @@ function frontend_draw() {
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
     draw_set_alpha(1);
+}
+
+/// Shared artwork and cards for the two steps before character selection.
+function frontend_draw_journey_select() {
+    var saves = screen == "saves";
+    var cream = make_color_rgb(248,240,213);
+    var pale_green = make_color_rgb(224,239,211);
+    draw_sprite(saves ? spr_character_background : spr_menu_background,0,0,0);
+    draw_sprite_stretched(spr_game_logo,0,480,6,320,112);
+    frontend_panel(408,128,464,80,cream,teal);
+    frontend_text(640,136,saves ? "Seu progresso" : "Como vamos jogar?",font_title,ink,fa_center);
+    for (var i=0;i<array_length(buttons);i++) {
+        var b=buttons[i];
+        var active=focus==i;
+        if (b.action=="mode") {
+            frontend_panel(b.x,b.y,b.w,b.h,active?pale_green:cream,active?teal:muted);
+            frontend_panel(b.x+20,b.y+20,b.w-40,136,make_color_rgb(194,218,195),teal);
+            var cx=b.x+b.w/2;
+            if(b.value==0) frontend_scientist(cx-48,b.y+44,3,0);
+            else {
+                frontend_scientist(cx-108,b.y+44,3,b.value==1?0:2);
+                frontend_scientist(cx+12,b.y+44,3,b.value==1?1:3);
+            }
+            frontend_text(cx,b.y+174,b.label,font_body,ink,fa_center);
+            var descriptions=["Uma cientista, muitas ideias","Duas jogadoras no mesmo PC","Duas jogadoras na mesma rede"];
+            frontend_text(cx,b.y+211,descriptions[b.value],font_small,ink,fa_center);
+            frontend_stone_button(b.x+40,b.y+246,b.w-80,36,active);
+            frontend_text(cx,b.y+250,"Escolher",font_small,ink,fa_center);
+        } else if (b.action=="save_load") {
+            var cx=b.x+b.w/2;
+            var selected=global.frontend_save_slot==b.value;
+            frontend_panel(b.x,b.y,b.w,356,active?pale_green:cream,active?teal:muted);
+            frontend_text(cx,b.y+20,"Save "+string(b.value+1),font_body,ink,fa_center);
+            if(selected) frontend_text(cx,b.y+56,"Em uso",font_small,teal,fa_center);
+            if(b.occupied) {
+                draw_sprite_ext(spr_ui_star,0,cx,b.y+101,0.8,0.8,0,gold,1);
+                frontend_text(cx,b.y+141,string_replace_all(b.summary," | ","\n"),font_body,ink,fa_center);
+            } else {
+                draw_sprite_ext(spr_robot,0,cx,b.y+111,1,1,0,c_white,1);
+                frontend_text(cx,b.y+163,"Uma nova jornada",font_small,ink,fa_center);
+            }
+            frontend_stone_button(b.x+24,b.y+218,b.w-48,48,active);
+            frontend_text(cx,b.y+229,b.label,font_body,ink,fa_center);
+        } else {
+            if(b.action=="save_new" && pending_reset==b.value) {
+                frontend_panel(b.x,b.y,b.w,b.h,make_color_rgb(249,207,181),coral);
+                frontend_text(b.x+b.w/2,b.y+10,b.label,font_body,ink,fa_center);
+            } else frontend_draw_button(b,i);
+        }
+    }
+    if(saves && notice_timer>0) {
+        frontend_panel(200,586,880,32,cream,teal);
+        frontend_text(640,591,notice,font_small,ink,fa_center);
+    }
+    draw_set_alpha(1);draw_set_font(-1);draw_set_color(c_white);draw_set_halign(fa_left);draw_set_valign(fa_top);
 }
 
 function frontend_draw_lobby() {

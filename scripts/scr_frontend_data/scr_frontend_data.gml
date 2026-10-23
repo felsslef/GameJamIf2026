@@ -265,8 +265,8 @@ function frontend_build_buttons() {
             break;
         case "mode":
             var labels = ["Solo", "Co-op Local", "Co-op Rede"];
-            for (var i = 0; i < 3; i++) frontend_button(460, 246 + i * 88, 360, 64, labels[i], "mode", i);
-            frontend_button(540, 572, 200, 48, "Voltar", "back");
+            for (var i = 0; i < 3; i++) frontend_button(184 + i * 312, 238, 288, 288, labels[i], "mode", i);
+            frontend_button(520, 630, 240, 48, "Voltar", "back");
             break;
         case "saves":
             save_slots_buttons();

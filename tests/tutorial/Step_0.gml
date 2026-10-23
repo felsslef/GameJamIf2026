@@ -136,7 +136,23 @@ if (stage==21) {
         interact_at(player,level.truck);
         check(level.delivered_total==lesson+1, "processed item fulfills shared truck delivery");
     }
-    check(level.phase_state=="won" && global.frontend_tutorial_completed && !global.frontend_level_completed[0], "tutorial saves separate completion without changing five campaign indices");
+    check(level.phase_state=="playing" && level.tutorial_fire_phase=="warning", "tutorial waits for practical firefighting after seven deliveries");
+    var fire_counter=level.tutorial_fire_counter;
+    check(processing_warning_remaining(fire_counter.stored_item,false)==2,"guided electronic displays warning before fire");
+    guided_tick(1);
+    check(!fire_counter.stored_item.burning,"warning gives time before ignition");
+    guided_tick(1.01);
+    var rack=tutorial_station("extinguisher_rack");
+    check(fire_counter.stored_item.burning && rack.visible && rack.tutorial_unlocked,"guided fire reveals real extinguisher");
+    interact_at(player,rack);
+    check(player.carried_item.process_state=="extinguisher","player collects extinguisher in tutorial");
+    check(approach(player,fire_counter),"tutorial fire is reachable");
+    guided_tick();processing_player_action(player,true,false,level.extinguish_duration/2);
+    check(fire_counter.stored_item.burning && fire_counter.stored_item.fire_progress>0,"holding action progressively extinguishes tutorial fire");
+    guided_tick();processing_player_action(player,true,false,level.extinguish_duration/2+0.01);guided_tick();
+    check(!fire_counter.stored_item.burning && level.tutorial_fire_phase=="return" && level.phase_state=="playing","tutorial requires extinguishing then returning tool");
+    interact_at(player,rack);
+    check(level.phase_state=="won" && global.frontend_tutorial_completed && !global.frontend_level_completed[0], "tutorial saves separate completion after practical firefighting without changing campaign indices");
     stage=3; ticks=0; room_goto(rm_level_select); exit;
 }
 if (stage==4) {

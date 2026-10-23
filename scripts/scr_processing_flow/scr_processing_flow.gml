@@ -246,6 +246,8 @@ function processing_dispatch(_player, _station) {
 }
 
 function processing_handoff(_player, _station) {
+    if (instance_exists(obj_tutorial) && obj_recycling_level.tutorial_fire_phase != "none"
+        && _station == obj_recycling_level.tutorial_fire_counter) return;
     if (instance_exists(_player.carried_item)) {
         if (!is_undefined(_station.stored_item)) { recycling_feedback("Bloco ocupado."); return; }
         _station.stored_item = processing_payload_from_item(_player.carried_item);

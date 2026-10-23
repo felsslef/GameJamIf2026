@@ -11,6 +11,9 @@ function tick(_dt){with(obj_recycling_level)processing_tick(_dt);}
 function frame(){obj_recycling_level.processing_frame++;}
 var level=instance_find(obj_recycling_level,0),player=instance_find(obj_recycling_player,0),partner=instance_find(obj_recycling_player,1);
 if(stage==-2){screen_save(working_directory+"start-countdown.png");check(level.time_remaining==global.countdown_time,"live countdown preserves round clock");level.start_countdown=0;stage=0;ticks=0;exit;}
+if(stage==16){screen_save(working_directory+"story-intro.png");with(level){story_begin("ending");repeat(4)story_advance();}stage=17;ticks=0;exit;}
+if(stage==17){screen_save(working_directory+"story-beach.png");level.story_age=11;stage=18;ticks=0;exit;}
+if(stage==18){screen_save(working_directory+"story-clean-beach.png");with(level)story_advance();show_debug_message(global.probe_failed?"PROCESSING_PROBE_FAILED":"PROCESSING_PROBE_PASSED");game_end();exit;}
 if(stage>=7){
  if(stage==7){with(level){phase_state="lost";time_remaining=0;result_is_timeout=true;result_started=current_time;}stage=8;ticks=0;exit;}
  if(stage==8){screen_save(working_directory+"time-up.png");level.result_started=current_time-1700;stage=9;ticks=0;exit;}
@@ -26,13 +29,35 @@ if(stage>=7){
  if(stage==13){screen_save(working_directory+"truck-returning.png");level.truck.trip_remaining=0;level.delivered_total=level.star_goals[1];stage=14;ticks=0;exit;}
  if(stage==14){screen_save(working_directory+"star-progress.png");with(level){phase_state="won";result_is_timeout=false;result_started=current_time-2000;result_stars=2;result_reason="Meta concluída!";}stage=15;ticks=0;exit;}
  screen_save(working_directory+"large-victory-panel.png");
- show_debug_message(global.probe_failed?"PROCESSING_PROBE_FAILED":"PROCESSING_PROBE_PASSED");game_end();exit;
+ with(level)story_begin("intro");stage=16;ticks=0;exit;
 }
 check(instance_exists(level)&&level.processing_enabled,"processing mode initialized");
 for(var i=0;i<array_length(level.dispensers);i++)level.dispensers[i].spawn_timer=10000;
 var sorting=instance_find(obj_sorting_table,0),washer=instance_find(obj_washer,0),bio=instance_find(obj_biodigester,0),dismantler=instance_find(obj_dismantling_bench,0),press=instance_find(obj_hydraulic_press,0),rack=instance_find(obj_extinguisher_rack,0),trash=instance_find(obj_common_trash,0);
 check(instance_exists(sorting)&&instance_exists(washer)&&instance_exists(bio)&&instance_exists(dismantler)&&!instance_exists(press)&&instance_exists(rack)&&instance_exists(trash),"treatment equipment placed and no press remains");
 if(stage==0){
+ var hazard=processing_payload_new("electronic");
+ check(processing_warning_remaining(hazard,false)>2,"fresh electronics do not show urgent warning");
+ hazard.exposure_age=level.electronic_overheat_time-1.5;
+ check(processing_warning_remaining(hazard,false)==1.5,"station electronics warn in final two seconds");
+ hazard.burning=true;check(processing_warning_remaining(hazard,false)==-1,"fire replaces pre-ignition warning");
+ hazard=processing_payload_new("organic");hazard.floor_age=level.organic_decay_time-1;
+ check(processing_warning_remaining(hazard,true)==1,"floor organics warn before decay");
+ check(processing_warning_remaining(hazard,false)==-1,"stored organics have no false decay warning");
+ with(level){
+  var original_index=level_index;
+  level_index=0;story_init();
+  check(story_mode=="intro"&&array_length(story_lines)==4,"phase one introduces city and scientists");
+  var saved_time=time_remaining;recycling_level_tick(1);
+  check(time_remaining==saved_time,"dialogue freezes round timer");
+  repeat(4)story_advance();check(!story_active(),"intro returns control after last line");
+  level_index=1;story_init();check(story_mode=="robots","robot introduction belongs to phase two");
+  repeat(4)story_advance();
+  story_begin("ending");repeat(4)story_advance();
+  check(story_mode=="beach","final dialogue opens robot beach cutscene");
+  story_age=11;story_advance();check(!story_active()&&!result_is_timeout,"beach returns to final result");
+  level_index=original_index;story_mode="none";
+ }
  if(!variable_global_exists("disposal_verified")){
   global.disposal_verified=true;var disposal_x=player.x,disposal_y=player.y;
   var material_states=["sorted_paper","sorted_plastic","sorted_glass","sorted_metal","bag_paper","bag_plastic","bag_glass","bag_metal","raw_waste","dirty_plastic","clean_plastic","organic","fertilizer","electronic","metal_plate","burned_electronic","extinguisher","robot"];
@@ -145,6 +170,7 @@ if(level.level_index==2){check(array_length(level.dispensers)==2,"split level ha
 if(stage==2)screen_save(working_directory+"processing-room.png");
 var data={stage:stage,stations:[],players:[]};for(var i=0;i<array_length(level.stations);i++){var s=level.stations[i];array_push(data.stations,{kind:s.station_kind,x:s.x,y:s.y,w:s.station_width,h:s.station_height});}with(obj_recycling_player)array_push(data.players,{x:x,y:y});show_debug_message("LAYOUT_DATA:"+json_stringify(data));
 level.delivered_total=level.minimum_goal-1;level.recycled_total=level.delivered_total;level.time_remaining=0;with(level)recycling_level_tick(0);check(level.phase_state=="lost","round requires minimum finished deliveries");level.phase_state="playing";level.delivered_total=level.minimum_goal;level.recycled_total=level.delivered_total;with(level)recycling_level_tick(0);check(level.phase_state=="won"&&level.result_stars==1&&global.frontend_level_completed[level.level_index],"minimum deliveries earn star and save completion state");with(level)check(processing_earned_stars()==1,"live HUD reports first achieved star");
+if(level.level_index==4){check(level.story_mode=="ending","final victory starts ending dialogue");level.story_mode="none";}
 level.phase_state="playing";level.delivered_total=level.star_goals[2];level.recycled_total=level.delivered_total;with(level)recycling_level_tick(0);check(level.result_stars==3,"higher delivery target earns three stars");with(level)check(processing_earned_stars()==3,"live HUD reports all achieved stars");
-with(level){check(recycling_result_has_next()==(level_index<4),"next phase appears only before final campaign stop");phase_state="lost";check(!recycling_result_has_next(),"failed result cannot advance");phase_state="won";}
+level.story_mode="none";with(level){check(recycling_result_has_next()==(level_index<4),"next phase appears only before final campaign stop");phase_state="lost";check(!recycling_result_has_next(),"failed result cannot advance");phase_state="won";}
 stage++;ticks=0;var rooms=[rm_level_01,rm_level_01,rm_level_02,rm_level_03,rm_level_04,rm_level_05,rm_level_03];if(stage<7){if(stage==6)global.game_mode="solo";room_goto(rooms[stage]);}else{room_goto(rm_level_05);}

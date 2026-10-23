@@ -2,6 +2,8 @@
 function tutorial_setup() {
     tutorial_stage = 0;
     tutorial_lesson = 0;
+    tutorial_fire_phase = "none";
+    tutorial_fire_counter = noone;
     tutorial_lessons = [
         {source: "sorted_paper", sorted: "", result: "bag_paper"},
         {source: "sorted_plastic", sorted: "", result: "bag_plastic"},
@@ -44,6 +46,11 @@ function tutorial_tick(_dt) {
     feedback_timer = max(0, feedback_timer - _dt);
     // Guided processing runs the real machine timers, without spawning or hazards.
     processing_tick(_dt, true);
+    if (tutorial_fire_phase != "none") {
+        tutorial_fire_tick(_dt);
+        tutorial_reveal_target(tutorial_guidance().target);
+        return;
+    }
     if (tutorial_stage == 0) {
         var reached = false;
         var source = dispenser;
@@ -53,16 +60,20 @@ function tutorial_tick(_dt) {
     if (delivered_total > tutorial_lesson) {
         tutorial_lesson++;
         if (tutorial_lesson >= array_length(tutorial_lessons)) {
-            recycling_finish(true, "Você aprendeu a separar e tratar os materiais!");
+            tutorial_fire_begin();
             return;
         }
         tutorial_supply();
     }
     var guide = tutorial_guidance();
-    if (instance_exists(guide.target) && variable_instance_exists(guide.target, "station_kind") && !guide.target.tutorial_unlocked) {
-        guide.target.tutorial_unlocked = true;
-        guide.target.visible = true;
-        var revealed_station = guide.target;
+    tutorial_reveal_target(guide.target);
+}
+
+function tutorial_reveal_target(_target) {
+    if (instance_exists(_target) && variable_instance_exists(_target, "station_kind") && !_target.tutorial_unlocked) {
+        _target.tutorial_unlocked = true;
+        _target.visible = true;
+        var revealed_station = _target;
         with (obj_recycling_player) {
             if (recycling_station_distance(x, y, revealed_station) < 15) {
                 var origin_x = x, origin_y = y, moved = false;
@@ -80,6 +91,7 @@ function tutorial_tick(_dt) {
 
 function tutorial_guidance() {
     var level = obj_recycling_level;
+    if (level.tutorial_fire_phase != "none") return tutorial_fire_guidance();
     if (level.tutorial_stage == 0) return {target: level.dispenser, text: "Vá até a caçamba.", action: "move", verb: "andar"};
     var item = noone;
     with (obj_process_item) if (is_held || item == noone) item = id;
@@ -123,6 +135,7 @@ function tutorial_guidance() {
 }
 
 function tutorial_controls_hint(_action, _verb) {
+    if (_action == "observe") return "A exclamação avisa que o material precisa de atenção.";
     if (_action == "wait") return "A máquina trabalha sozinha.";
     if (_action == "move") {
         var movement = frontend_player_movement_hint(1);
@@ -154,8 +167,8 @@ function tutorial_draw() {
 function tutorial_draw_hud() {
     var dark = make_color_rgb(35, 57, 64);
     frontend_panel(32, 20, 1216, 70, make_color_rgb(255, 252, 235), dark);
-    frontend_text(56, 38, "Tutorial: " + string(min(tutorial_lesson + 1, 7)) + " / 7", fnt_ui_body, dark);
-    var lesson_result = tutorial_lessons[min(tutorial_lesson, 6)].result;
+    frontend_text(56, 38, "Tutorial: " + string(min(tutorial_lesson + 1, 8)) + " / 8", fnt_ui_body, dark);
+    var lesson_result = tutorial_fire_phase != "none" ? "extinguisher" : tutorial_lessons[min(tutorial_lesson, 6)].result;
     draw_sprite_ext(object_get_sprite(processing_material_object(lesson_result)), 0, 870, 54, 0.7, 0.7, 0, c_white, 1);
     frontend_text(1220, 38, processing_material_name(lesson_result), fnt_ui_small, dark, fa_right);
     if (phase_state != "playing") {
@@ -167,4 +180,38 @@ function tutorial_draw_hud() {
         recycling_draw_result_buttons();
     }
     draw_set_alpha(1); draw_set_color(c_white); draw_set_halign(fa_left); draw_set_font(-1);
+}
+
+/// A single supervised fire teaches the real extinguisher without enabling random hazards.
+function tutorial_fire_begin() {
+    tutorial_fire_phase = "warning";
+    tutorial_fire_counter = tutorial_station("handoff");
+    tutorial_fire_counter.stored_item = processing_payload_new("electronic");
+    tutorial_fire_counter.stored_item.exposure_age = electronic_overheat_time - 2;
+    dispenser.queue = [];
+}
+
+function tutorial_fire_tick(_dt) {
+    var payload = tutorial_fire_counter.stored_item;
+    if (tutorial_fire_phase == "warning") {
+        payload.exposure_age += _dt;
+        if (payload.exposure_age >= electronic_overheat_time) {
+            processing_ignite_payload(payload);
+            tutorial_fire_phase = "extinguish";
+        }
+    } else if (tutorial_fire_phase == "extinguish" && !payload.burning) tutorial_fire_phase = "return";
+    if (tutorial_fire_phase == "return" && !tutorial_station("extinguisher_rack").tool_loaned) {
+        recycling_finish(true, "Você aprendeu a separar, tratar e apagar incêndios!");
+    }
+}
+
+function tutorial_fire_guidance() {
+    var level = obj_recycling_level;
+    var rack = tutorial_station("extinguisher_rack");
+    if (level.tutorial_fire_phase == "warning") return {target:level.tutorial_fire_counter,text:"Veja a exclamação: o eletrônico vai superaquecer!",action:"observe",verb:""};
+    if (level.tutorial_fire_phase == "return") return {target:rack,text:"Fogo apagado! Devolva o extintor ao suporte.",action:"interact",verb:"devolver"};
+    var tool_held = false;
+    with (obj_recycling_player) if (instance_exists(carried_item) && carried_item.process_state == "extinguisher") tool_held = true;
+    if (tool_held) return {target:level.tutorial_fire_counter,text:"Aproxime-se do fogo e segure o botão de pegar para apagar.",action:"interact",verb:"segurar para apagar"};
+    return {target:rack,text:"Pegou fogo! Busque o extintor no suporte.",action:"interact",verb:"pegar o extintor"};
 }

@@ -90,12 +90,13 @@ function save_slot_summary(_slot) {
 function save_slots_buttons() {
     for (var i = 0; i < 3; i++) {
         var occupied = save_slot_exists(i);
-        var label = "Save " + string(i + 1) + "  |  " + save_slot_summary(i);
-        if (global.frontend_save_slot == i) label = "> " + label;
-        frontend_button(300, 220 + i * 92, 500, 64, label, "save_load", i);
-        frontend_button(820, 220 + i * 92, 160, 64,
+        var label = occupied ? "Continuar" : "Começar";
+        frontend_button(184 + i * 312, 220, 288, 272, label, "save_load", i);
+        buttons[array_length(buttons)-1].occupied = occupied;
+        buttons[array_length(buttons)-1].summary = save_slot_summary(i);
+        frontend_button(208 + i * 312, 512, 240, 48,
             pending_reset == i ? "Confirmar" : (occupied ? "Novo jogo" : "Criar"), "save_new", i);
     }
-    if (global.frontend_save_slot >= 0) frontend_button(660, 572, 240, 48, "Salvar progresso", "save_write");
-    frontend_button(380, 572, 220, 48, "Voltar", "back");
+    if (global.frontend_save_slot >= 0) frontend_button(650, 630, 280, 48, "Salvar progresso", "save_write");
+    frontend_button(global.frontend_save_slot >= 0 ? 380 : 530, 630, 220, 48, "Voltar", "back");
 }
