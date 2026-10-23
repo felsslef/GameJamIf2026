@@ -7,6 +7,7 @@ function frontend_init() {
     if (!variable_global_exists("frontend_level")) global.frontend_level = -1;
     if (!variable_global_exists("frontend_network_entry")) global.frontend_network_entry = false;
     if (!variable_global_exists("frontend_reduced_motion")) global.frontend_reduced_motion = false;
+    frontend_double_tap_dash_init();
     frontend_keybindings_init();
     // Presentation state only. The gameplay result system will populate this later.
     if (!variable_global_exists("frontend_level_completed")) global.frontend_level_completed = array_create(5, false);
@@ -90,6 +91,50 @@ function frontend_keybindings_init() {
         ini_close();
     }
     global.frontend_keybindings_ready = true;
+}
+
+function frontend_double_tap_dash_init() {
+    if (variable_global_exists("frontend_double_tap_dash_ready") && global.frontend_double_tap_dash_ready) return;
+    global.frontend_double_tap_dash = true;
+    if (file_exists("controls.ini")) {
+        ini_open("controls.ini");
+        global.frontend_double_tap_dash = ini_read_real("gameplay", "double_tap_dash", 1) != 0;
+        ini_close();
+    }
+    global.frontend_double_tap_dash_ready = true;
+}
+
+function frontend_double_tap_dash_save() {
+    ini_open("controls.ini");
+    ini_write_real("gameplay", "double_tap_dash", global.frontend_double_tap_dash ? 1 : 0);
+    ini_close();
+}
+
+function frontend_online_selection_start(_is_host) {
+    var characters = global.frontend_characters;
+    var p1 = clamp(characters[0], 0, 3);
+    var p2 = clamp(characters[1], 0, 3);
+    if (p1 == p2) p2 = (p1 + 1) mod 4;
+    global.online_selection = {
+        p1_choice: p1, p1_ready: false, p1_back: false,
+        p2_choice: p2, p2_ready: false, p2_back: false, p2_active: false,
+        screen: "characters", level: -1, seed: _is_host ? irandom(2000000000) : 0
+    };
+    global.online_connected = false;
+    global.online_connection_lost = false;
+    global.client_socket = noone;
+}
+
+function frontend_online_send_p2_selection() {
+    if (global.is_host || !global.online_connected || !variable_global_exists("client_socket")
+        || global.client_socket == noone || global.client_socket < 0) return;
+    var packet = buffer_create(16, buffer_fixed, 1);
+    buffer_write(packet, buffer_u8, 10);
+    buffer_write(packet, buffer_u8, global.online_selection.p2_choice);
+    buffer_write(packet, buffer_bool, global.online_selection.p2_ready);
+    buffer_write(packet, buffer_bool, global.online_selection.p2_back);
+    network_send_packet(global.client_socket, packet, buffer_tell(packet));
+    buffer_delete(packet);
 }
 
 function frontend_keybinding(_name) {
@@ -252,8 +297,9 @@ function frontend_build_buttons() {
                 frontend_button(56, 166 + i * 48, 560, 42, p1_label, "bind_key", p1_name);
                 frontend_button(664, 166 + i * 48, 560, 42, p2_label, "bind_key", p2_name);
             }
-            frontend_button(430, 526, 420, 38, "Pausar — " + frontend_key_name(frontend_keybinding("pause")), "bind_key", "pause");
-            frontend_button(430, 572, 420, 38, "Restaurar teclas padrão", "reset_keys");
+            frontend_button(430, 502, 420, 34, "Pausar — " + frontend_key_name(frontend_keybinding("pause")), "bind_key", "pause");
+            frontend_button(430, 540, 420, 34, global.frontend_double_tap_dash ? "Dash por clique duplo: sim" : "Dash por clique duplo: não", "double_tap_dash");
+            frontend_button(430, 580, 420, 34, "Restaurar teclas padrão", "reset_keys");
             frontend_button(540, 620, 200, 38, "Voltar", "back");
             break;
     }

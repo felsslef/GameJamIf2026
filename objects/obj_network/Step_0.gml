@@ -1,4 +1,35 @@
 if (global.game_mode != "coop_online") exit;
+if (!variable_global_exists("online_connected")
+    || !variable_global_exists("online_selection")
+    || !variable_global_exists("client_socket")) exit;
+
+// Host-authoritative character/map state is small and sent continuously for late UI refreshes.
+if (global.is_host && global.online_connected && global.client_socket != noone && global.client_socket >= 0) {
+    var state_buf = buffer_create(32, buffer_fixed, 1);
+    buffer_write(state_buf, buffer_u8, 11);
+    buffer_write(state_buf, buffer_u8, global.online_selection.p1_choice);
+    buffer_write(state_buf, buffer_bool, global.online_selection.p1_ready);
+    buffer_write(state_buf, buffer_bool, global.online_selection.p1_back);
+    buffer_write(state_buf, buffer_u8, global.online_selection.p2_choice);
+    buffer_write(state_buf, buffer_bool, global.online_selection.p2_ready);
+    buffer_write(state_buf, buffer_bool, global.online_selection.p2_back);
+    buffer_write(state_buf, buffer_bool, global.online_selection.p2_active);
+    var screen_code = global.online_selection.screen == "characters" ? 0 : (global.online_selection.screen == "levels" ? 1 : 2);
+    buffer_write(state_buf, buffer_u8, screen_code);
+    buffer_write(state_buf, buffer_s8, global.online_selection.level);
+    buffer_write(state_buf, buffer_u32, global.online_selection.seed);
+    network_send_packet(global.client_socket, state_buf, buffer_tell(state_buf));
+    buffer_delete(state_buf);
+}
+
+// The client follows the host's phase and starts the selected map at the same time.
+if (!global.is_host && global.online_connected) {
+    if (global.online_selection.screen == "levels" && room == rm_character_select) session_ui_change_room(rm_level_select);
+    if (global.online_selection.screen == "game" && room != rm_tutorial && room != rm_level_01 && room != rm_level_02 && room != rm_level_03 && room != rm_level_04 && room != rm_level_05) {
+        var client_rooms = [rm_level_01, rm_level_02, rm_level_03, rm_level_04, rm_level_05];
+        session_ui_change_room(global.online_selection.level == -1 ? rm_tutorial : client_rooms[global.online_selection.level]);
+    }
+}
 
 // Define qual socket usar para envio
 var send_socket = global.is_host ? global.client_socket : global.client_socket;

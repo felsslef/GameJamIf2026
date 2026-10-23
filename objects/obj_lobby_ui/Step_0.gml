@@ -6,8 +6,9 @@ if (keyboard_check_pressed(vk_escape)) {
             udp_listener = noone;
         }
     }
-    room_goto(rm_level_select);
+    global.frontend_mode = "coop_online";
+    room_goto(rm_game_mode);
     exit;
 }
 // The original Voltar action closes the listener before returning to main.
-if (instance_exists(obj_menu) && obj_menu.menu_state == "main") room_goto(rm_level_select);
+if (instance_exists(obj_menu) && obj_menu.menu_state == "main") room_goto(rm_game_mode);

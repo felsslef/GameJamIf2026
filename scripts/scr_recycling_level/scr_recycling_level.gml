@@ -1,6 +1,8 @@
 /// Offline levels use editor-placed room instances and stay isolated from the LAN prototype.
 function recycling_level_init() {
     display_set_gui_size(1280, 720);
+    // Keep pixel-art textures crisp even after other UI/map drawing code changes the sampler.
+    gpu_set_texfilter(false);
     if (!layer_exists("Items")) layer_create(-1, "Items");
     if (!variable_global_exists("recycling_rng_ready")) { randomize(); global.recycling_rng_ready = true; }
     if (!variable_global_exists("game_mode")) global.game_mode = "solo";
@@ -119,7 +121,7 @@ function recycling_level_update() {
     var urgent = phase_state == "playing" && !instance_exists(obj_tutorial) && time_remaining <= 15;
     var beat = 1 - frac(max(0, time_remaining));
     var shake = urgent && !reduced && beat < 0.16 ? (time_remaining <= 5 ? 3 : 1.5) : 0;
-    camera_set_view_pos(view_camera[0], camera_base_x + sin(current_time * 0.09) * shake, camera_base_y + cos(current_time * 0.11) * shake);
+    camera_set_view_pos(view_camera[0], round(camera_base_x + sin(current_time * 0.09) * shake), round(camera_base_y + cos(current_time * 0.11) * shake));
     if (phase_state == "playing") {
         recycling_level_tick(max(0, delta_time / 1000000));
         return;
@@ -431,6 +433,11 @@ function recycling_player_step() {
 
 // Track each player's taps independently, using their configured movement keys.
 function recycling_player_dash_input(_dt, _direction) {
+    if (!global.frontend_double_tap_dash) {
+        last_tap_direction = -1;
+        last_tap_elapsed = double_tap_window + 1;
+        return -1;
+    }
     last_tap_elapsed += _dt;
     if (_direction < 0) return -1;
     var repeated = _direction == last_tap_direction && last_tap_elapsed <= double_tap_window;
@@ -486,10 +493,10 @@ function recycling_player_movement(_dt, _move_x, _move_y, _dash_pressed) {
         dash_time = dash_time_max;
         dash_cooldown = dash_cooldown_max;
     }
-    if (character_index >= 0 && character_index <= 2) {
-        var sprite_side = [spr_juLado, spr_leleLado, spr_manuLado][character_index];
-        var sprite_back = [spr_juCostas, spr_leleCostas, spr_manuCostas][character_index];
-        var sprite_front = [spr_juFrente, spr_leleFrente, spr_manuFrente][character_index];
+    if (character_index >= 0 && character_index <= 3) {
+        var sprite_side = [spr_juLado, spr_leleLado, spr_manuLado, spr_mariaLado][character_index];
+        var sprite_back = [spr_juCostas, spr_leleCostas, spr_manuCostas, spr_mariaCostas][character_index];
+        var sprite_front = [spr_juFrente, spr_leleFrente, spr_manuFrente, spr_mariaFrente][character_index];
         var animation_x = is_dashing ? lengthdir_x(1, move_dir) : _move_x;
         var animation_y = is_dashing ? lengthdir_y(1, move_dir) : _move_y;
         if (animation_x != 0 || animation_y != 0) {

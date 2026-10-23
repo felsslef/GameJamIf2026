@@ -1,6 +1,6 @@
 /// Replace the spr_* resources in the Sprite Editor; artwork is never rebuilt at runtime.
 function recycling_scientist_sprite(_type) {
-    return [spr_juFrente, spr_leleFrente, spr_manuFrente, spr_scientist_maria][clamp(_type,0,3)];
+    return [spr_juFrente, spr_leleFrente, spr_manuFrente, spr_mariaFrente][clamp(_type,0,3)];
 }
 function recycling_waste_sprite(_type) {
     return object_get_sprite([obj_waste_paper, obj_waste_plastic, obj_waste_glass, obj_waste_metal][clamp(_type,0,3)]);

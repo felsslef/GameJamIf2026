@@ -49,8 +49,10 @@ else if (menu_state == "lobby_online") {
             global.room_name = input_name;
             global.game_mode = "coop_online";
             global.is_host = true;
+            frontend_online_selection_start(true);
             if (udp_listener != noone) network_destroy(udp_listener);
-            room_goto_next();
+            global.server = network_create_server(network_socket_tcp, 6510, 1);
+            if (global.server >= 0) session_ui_change_room(rm_character_select);
         }
     }
 
@@ -76,8 +78,11 @@ else if (menu_state == "lobby_online") {
             global.target_ip = room_item.ip;
             global.game_mode = "coop_online";
             global.is_host = false;
+            frontend_online_selection_start(false);
             if (udp_listener != noone) network_destroy(udp_listener);
-            room_goto_next();
+            global.client_socket = network_create_socket(network_socket_tcp);
+            network_connect(global.client_socket, global.target_ip, 6510);
+            session_ui_change_room(rm_character_select);
         }
     }
 

@@ -1,12 +1,24 @@
 /// Independent UI slots. LAN remains a local selection and does not change network packets.
 function frontend_character_init() {
-    character_player_count = global.frontend_mode == "coop_local" ? 2 : 1;
+    character_player_count = (global.frontend_mode == "coop_local" || global.frontend_mode == "coop_online") ? 2 : 1;
     character_slots = [];
     character_starting = false;
     for (var i = 0; i < character_player_count; i++) {
         var choice = clamp(global.frontend_characters[i], 0, array_length(scientists) - 1);
         if (i == 1 && choice == character_slots[0].choice) choice = (choice + 1) mod array_length(scientists);
-        array_push(character_slots, {choice: choice, ready: false, back: false, flip_timer: 0});
+        var is_online_remote = global.frontend_mode == "coop_online" && i == (global.is_host ? 1 : 0);
+        array_push(character_slots, {choice: choice, ready: false, back: false, flip_timer: 0, active: !is_online_remote});
+    }
+    if (global.frontend_mode == "coop_online" && variable_global_exists("online_selection")) {
+        var state = global.online_selection;
+        character_slots[0].choice = state.p1_choice;
+        character_slots[0].ready = state.p1_ready;
+        character_slots[0].back = state.p1_back;
+        character_slots[0].active = global.is_host || state.p2_active;
+        character_slots[1].choice = state.p2_choice;
+        character_slots[1].ready = state.p2_ready;
+        character_slots[1].back = state.p2_back;
+        character_slots[1].active = !global.is_host || state.p2_active;
     }
 }
 
@@ -27,6 +39,10 @@ function frontend_character_build_buttons() {
 }
 
 function frontend_character_is_claimed(_player, _choice) {
+    if (global.frontend_mode == "coop_online") {
+        var other_choice = _player == 0 ? global.online_selection.p2_choice : global.online_selection.p1_choice;
+        return other_choice == _choice;
+    }
     for (var i = 0; i < character_player_count; i++) {
         if (i != _player && character_slots[i].ready && character_slots[i].choice == _choice) return true;
     }
@@ -35,7 +51,8 @@ function frontend_character_is_claimed(_player, _choice) {
 
 function frontend_character_cycle(_player, _direction) {
     var slot = character_slots[_player];
-    if (slot.ready) return;
+    if (slot.ready || !slot.active) return;
+    if (global.frontend_mode == "coop_online" && ((_player == 0) != global.is_host)) return;
     var count = array_length(scientists);
     var choice = slot.choice;
     repeat (count) {
@@ -45,19 +62,36 @@ function frontend_character_cycle(_player, _direction) {
     slot.choice = choice;
     slot.back = false;
     slot.flip_timer = 0;
+    if (global.frontend_mode == "coop_online") {
+        if (_player == 0) global.online_selection.p1_choice = slot.choice;
+        else global.online_selection.p2_choice = slot.choice;
+        frontend_online_send_p2_selection();
+    }
 }
 
 function frontend_character_flip(_player) {
     var slot = character_slots[_player];
+    if (!slot.active || (global.frontend_mode == "coop_online" && ((_player == 0) != global.is_host))) return;
     if (slot.flip_timer > 0) return;
     slot.back = !slot.back;
     slot.flip_timer = global.frontend_reduced_motion ? 0 : 0.2;
+    if (global.frontend_mode == "coop_online") {
+        if (_player == 0) global.online_selection.p1_back = slot.back;
+        else global.online_selection.p2_back = slot.back;
+        frontend_online_send_p2_selection();
+    }
 }
 
 function frontend_character_toggle_ready(_player) {
     var slot = character_slots[_player];
+    if (!slot.active || (global.frontend_mode == "coop_online" && ((_player == 0) != global.is_host))) return;
     if (slot.ready) {
         slot.ready = false;
+        if (global.frontend_mode == "coop_online") {
+            if (_player == 0) global.online_selection.p1_ready = false;
+            else global.online_selection.p2_ready = false;
+            frontend_online_send_p2_selection();
+        }
         return;
     }
     if (frontend_character_is_claimed(_player, slot.choice)) {
@@ -66,10 +100,18 @@ function frontend_character_toggle_ready(_player) {
         return;
     }
     slot.ready = true;
+    if (global.frontend_mode == "coop_online") {
+        if (_player == 0) global.online_selection.p1_ready = slot.ready;
+        else global.online_selection.p2_ready = slot.ready;
+        frontend_online_send_p2_selection();
+        if (global.is_host && frontend_character_all_ready()) frontend_character_continue();
+        return;
+    }
     if (frontend_character_all_ready()) frontend_character_continue();
 }
 
 function frontend_character_all_ready() {
+    if (global.frontend_mode == "coop_online") return global.online_selection.p2_active && global.online_selection.p1_ready && global.online_selection.p2_ready;
     for (var i = 0; i < character_player_count; i++) {
         if (!character_slots[i].ready) return false;
     }
@@ -77,13 +119,44 @@ function frontend_character_all_ready() {
 }
 
 function frontend_character_continue() {
+    if (global.frontend_mode == "coop_online" && !global.is_host) return;
     if (character_starting || !frontend_character_all_ready()) return;
     character_starting = true;
-    for (var i = 0; i < character_player_count; i++) global.frontend_characters[i] = character_slots[i].choice;
+    if (global.frontend_mode == "coop_online") {
+        global.frontend_characters[0] = global.online_selection.p1_choice;
+        global.frontend_characters[1] = global.online_selection.p2_choice;
+        global.online_selection.screen = "levels";
+        global.online_selection.level = global.frontend_level;
+    } else {
+        for (var i = 0; i < character_player_count; i++) global.frontend_characters[i] = character_slots[i].choice;
+    }
     session_ui_change_room(rm_level_select);
 }
 
 function frontend_character_update(_dt) {
+    if (global.frontend_mode == "coop_online") {
+        character_slots[0].choice = global.online_selection.p1_choice;
+        character_slots[0].ready = global.online_selection.p1_ready;
+        character_slots[0].back = global.online_selection.p1_back;
+        character_slots[0].active = global.is_host || global.online_selection.p2_active;
+        character_slots[1].choice = global.online_selection.p2_choice;
+        character_slots[1].ready = global.online_selection.p2_ready;
+        character_slots[1].back = global.online_selection.p2_back;
+        character_slots[1].active = !global.is_host || global.online_selection.p2_active;
+        var local_slot = global.is_host ? 0 : 1;
+        var slot = character_slots[local_slot];
+        slot.flip_timer = max(0, slot.flip_timer - _dt);
+        var prefix = global.is_host ? "p1_" : "p2_";
+        var choice_step = keyboard_check_pressed(frontend_keybinding(prefix + "right")) - keyboard_check_pressed(frontend_keybinding(prefix + "left"));
+        if (choice_step != 0) frontend_character_cycle(local_slot, choice_step);
+        if (keyboard_check_pressed(frontend_keybinding(prefix + "up")) || keyboard_check_pressed(frontend_keybinding(prefix + "down"))) frontend_character_flip(local_slot);
+        if (keyboard_check_pressed(global.is_host ? ord("E") : vk_enter)) frontend_character_toggle_ready(local_slot);
+        var mx = device_mouse_x_to_gui(0), my = device_mouse_y_to_gui(0);
+        focus = -1;
+        for (var b = 0; b < array_length(buttons); b++) if (point_in_rectangle(mx, my, buttons[b].x, buttons[b].y, buttons[b].x + buttons[b].w, buttons[b].y + buttons[b].h)) focus = b;
+        if (mouse_check_button_pressed(mb_left) && focus >= 0) frontend_activate(buttons[focus]);
+        return;
+    }
     if (keyboard_check_pressed(vk_escape)) {
         frontend_back();
         return;
@@ -137,6 +210,12 @@ function frontend_draw_character_select() {
         var scientist = scientists[slot.choice];
         var center_x = card.x + card.w / 2;
         var accent = i == 0 ? teal : make_color_rgb(75, 108, 168);
+        if (!slot.active) {
+            frontend_panel(card.x, card.y, card.w, card.h, make_color_rgb(229, 232, 230), muted);
+            frontend_text(center_x, card.y + 125, "Aguardando outro", font_body, muted, fa_center);
+            frontend_text(center_x, card.y + 160, "jogador entrar na sala", font_small, muted, fa_center);
+            continue;
+        }
         if (character_player_count == 2) frontend_text(center_x, 112, "Jogadora " + string(i + 1), font_small, accent, fa_center);
         var width_scale = slot.flip_timer > 0 ? max(0.02, abs(slot.flip_timer / 0.1 - 1)) : 1;
         var show_back = slot.flip_timer > 0.1 ? !slot.back : slot.back;

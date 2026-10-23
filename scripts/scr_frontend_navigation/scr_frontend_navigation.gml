@@ -47,7 +47,11 @@ function frontend_activate(_button) {
         case "mode":
             var modes = ["solo", "coop_local", "coop_online"];
             global.frontend_mode = modes[_button.value];
-            session_ui_change_room(rm_save_select);
+            if (global.frontend_mode == "coop_online") {
+                global.frontend_network_entry = true;
+                global.game_mode = "coop_online";
+                session_ui_change_room(rm_menu);
+            } else session_ui_change_room(rm_save_select);
             break;
         case "save_load":
             if (save_slot_load(_button.value)) session_ui_change_room(rm_character_select);
@@ -75,23 +79,27 @@ function frontend_activate(_button) {
         case "character_ready": frontend_character_toggle_ready(_button.value); break;
         case "character_continue": frontend_character_continue(); break;
         case "level":
+            if (global.frontend_mode == "coop_online" && !global.is_host) break;
             selected_level = _button.value;
             global.frontend_level = selected_level;
+            if (global.frontend_mode == "coop_online" && global.is_host && variable_global_exists("online_selection")) global.online_selection.level = selected_level;
             break;
         case "start":
+            if (global.frontend_mode == "coop_online" && !global.is_host) break;
             if (!frontend_level_is_available(selected_level)) {
                 notice = "Conclua a fase anterior.";
                 notice_timer = 2;
                 break;
             }
             global.frontend_level = selected_level;
-            // The first offline stop has its own playable level. LAN keeps its original prototype.
             if (global.frontend_mode == "coop_online") {
-                global.frontend_network_entry = true;
-                global.game_mode = "solo";
-                // The legacy room stays directly before rm_teste in RoomOrderNodes.
-                // Its original room_goto_next() and network events remain untouched.
-                session_ui_change_room(rm_menu);
+                global.game_mode = "coop_online";
+                global.online_selection.screen = "game";
+                global.online_selection.level = selected_level;
+                global.online_selection.p1_choice = global.frontend_characters[0];
+                global.online_selection.p2_choice = global.frontend_characters[1];
+                var online_rooms = [rm_level_01, rm_level_02, rm_level_03, rm_level_04, rm_level_05];
+                session_ui_change_room(selected_level == -1 ? rm_tutorial : online_rooms[selected_level]);
             } else {
                 global.game_mode = global.frontend_mode;
                 var offline_rooms = [rm_level_01, rm_level_02, rm_level_03, rm_level_04, rm_level_05];
@@ -102,7 +110,36 @@ function frontend_activate(_button) {
             global.frontend_reduced_motion = !global.frontend_reduced_motion;
             frontend_build_buttons();
             break;
+        case "double_tap_dash":
+            global.frontend_double_tap_dash = !global.frontend_double_tap_dash;
+            frontend_double_tap_dash_save();
+            frontend_build_buttons();
+            break;
     }
+}
+
+function frontend_controls_move_focus(_dx, _dy) {
+    if (_dx == 0 && _dy == 0) return;
+    var current = buttons[focus];
+    var current_x = current.x + current.w * 0.5;
+    var current_y = current.y + current.h * 0.5;
+    var best = -1;
+    var best_score = 1000000000;
+    for (var i = 0; i < array_length(buttons); i++) {
+        if (i == focus) continue;
+        var candidate = buttons[i];
+        var dx = candidate.x + candidate.w * 0.5 - current_x;
+        var dy = candidate.y + candidate.h * 0.5 - current_y;
+        var forward = _dx != 0 ? dx * _dx : dy * _dy;
+        if (forward <= 0) continue;
+        var sideways = _dx != 0 ? abs(dy) : abs(dx);
+        var candidate_score = forward + sideways * 2;
+        if (candidate_score < best_score) {
+            best_score = candidate_score;
+            best = i;
+        }
+    }
+    if (best >= 0) focus = best;
 }
 
 function frontend_update() {
@@ -152,11 +189,26 @@ function frontend_update() {
         } else if (point_in_rectangle(mx, my, b.x, b.y, b.x + b.w, b.y + b.h)) hovered = i;
     }
     if (mouse_moved && hovered >= 0) focus = hovered;
-    var previous = keyboard_check_pressed(vk_up) || keyboard_check_pressed(vk_left) || keyboard_check_pressed(ord("W")) || keyboard_check_pressed(ord("A"));
-    var next = keyboard_check_pressed(vk_down) || keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("S")) || keyboard_check_pressed(ord("D")) || keyboard_check_pressed(vk_tab);
-    if (previous) focus = (focus + array_length(buttons) - 1) mod array_length(buttons);
-    if (next) focus = (focus + 1) mod array_length(buttons);
-    if (screen == "levels" && buttons[focus].action == "level") selected_level = buttons[focus].value;
+    if (screen == "controls") {
+        var nav_x = (keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("D")))
+            - (keyboard_check_pressed(vk_left) || keyboard_check_pressed(ord("A")));
+        var nav_y = (keyboard_check_pressed(vk_down) || keyboard_check_pressed(ord("S")))
+            - (keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W")));
+        if (nav_x != 0) frontend_controls_move_focus(nav_x, 0);
+        else if (nav_y != 0) frontend_controls_move_focus(0, nav_y);
+    } else {
+        var previous = keyboard_check_pressed(vk_up) || keyboard_check_pressed(vk_left) || keyboard_check_pressed(ord("W")) || keyboard_check_pressed(ord("A"));
+        var next = keyboard_check_pressed(vk_down) || keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("S")) || keyboard_check_pressed(ord("D")) || keyboard_check_pressed(vk_tab);
+        if (previous) focus = (focus + array_length(buttons) - 1) mod array_length(buttons);
+        if (next) focus = (focus + 1) mod array_length(buttons);
+    }
+    if (screen == "levels" && global.frontend_mode == "coop_online" && !global.is_host) {
+        selected_level = global.frontend_level;
+        focus = clamp(selected_level + 1, 0, 5);
+    } else if (screen == "levels" && buttons[focus].action == "level") {
+        selected_level = buttons[focus].value;
+        if (global.frontend_mode == "coop_online" && global.is_host) global.online_selection.level = selected_level;
+    }
     if (keyboard_check_pressed(vk_escape)) {
         if (screen == "saves" && pending_reset >= 0) { pending_reset = -1; frontend_build_buttons(); return; }
         frontend_back(); return;

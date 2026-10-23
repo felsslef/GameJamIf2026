@@ -25,8 +25,10 @@ function frontend_panel(_x, _y, _w, _h, _fill, _border) {
 }
 
 function frontend_scientist(_x, _y, _scale, _index) {
-    draw_sprite_ext(recycling_scientist_sprite(_index), 0, _x + 16 * _scale, _y + 30 * _scale,
-        _scale / 2, _scale / 2, 0, c_white, draw_get_alpha());
+    var scientist_sprite = recycling_scientist_sprite(_index);
+    var sprite_scale = max(1, round(_scale / 2));
+    draw_sprite_ext(scientist_sprite, 0, _x + 16 * _scale, _y + 30 * _scale,
+        sprite_scale, sprite_scale, 0, c_white, draw_get_alpha());
 }
 
 function frontend_draw_button(_b, _index) {

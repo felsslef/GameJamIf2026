@@ -15,7 +15,7 @@ function recycling_draw_item_trail(_item) {
         var trail_scale = (0.62 + 0.34 * sample_strength) * 48 / max(sprite_get_width(visual_sprite),sprite_get_height(visual_sprite));
         var trail_alpha = 0.3 * age_alpha * order_alpha * sample_strength;
         draw_sprite_ext(visual_sprite, _item.image_index,
-            _item.throw_trail_x[i], _item.throw_trail_y[i],
+            round(_item.throw_trail_x[i]), round(_item.throw_trail_y[i]),
             _item.image_xscale * trail_scale, _item.image_yscale * trail_scale,
             _item.image_angle, mint, trail_alpha);
     }
@@ -30,7 +30,7 @@ function recycling_draw_item_visual(_item) {
     }
     var draw_scale = (1 + 0.24 * speed_ratio) * 48 / max(sprite_get_width(visual_sprite),sprite_get_height(visual_sprite));
     var draw_y = _item.y - 18 * speed_ratio;
-    draw_sprite_ext(visual_sprite, _item.image_index, _item.x, draw_y,
+    draw_sprite_ext(visual_sprite, _item.image_index, round(_item.x), round(draw_y),
         _item.image_xscale * draw_scale, _item.image_yscale * draw_scale,
         _item.image_angle, _item.image_blend, _item.image_alpha);
     return [speed_ratio, draw_scale, draw_y];
