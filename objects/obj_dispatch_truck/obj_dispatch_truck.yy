@@ -38,8 +38,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_machine_dispatch",
-    "path":"sprites/spr_machine_dispatch/spr_machine_dispatch.yy",
+    "name":"spr_cami85",
+    "path":"sprites/spr_cami85/spr_cami85.yy",
   },
   "spriteMaskId":null,
   "visible":true,

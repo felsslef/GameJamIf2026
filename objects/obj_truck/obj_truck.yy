@@ -38,8 +38,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_truck",
-    "path":"sprites/spr_truck/spr_truck.yy",
+    "name":"spr_cami85",
+    "path":"sprites/spr_cami85/spr_cami85.yy",
   },
   "spriteMaskId":null,
   "visible":true,

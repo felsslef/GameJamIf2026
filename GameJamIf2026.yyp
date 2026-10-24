@@ -38,7 +38,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2026.0.0.16",
+    "IDEVersion":"2024.14.4.222",
   },
   "name":"GameJamIf2026",
   "resources":[
@@ -160,6 +160,8 @@
     {"id":{"name":"spr_bin_metal","path":"sprites/spr_bin_metal/spr_bin_metal.yy",},},
     {"id":{"name":"spr_bin_paper","path":"sprites/spr_bin_paper/spr_bin_paper.yy",},},
     {"id":{"name":"spr_bin_plastic","path":"sprites/spr_bin_plastic/spr_bin_plastic.yy",},},
+    {"id":{"name":"spr_cami","path":"sprites/spr_cami/spr_cami.yy",},},
+    {"id":{"name":"spr_cami85","path":"sprites/spr_cami85/spr_cami85.yy",},},
     {"id":{"name":"spr_caragua_map","path":"sprites/spr_caragua_map/spr_caragua_map.yy",},},
     {"id":{"name":"spr_character_background","path":"sprites/spr_character_background/spr_character_background.yy",},},
     {"id":{"name":"spr_counter","path":"sprites/spr_counter/spr_counter.yy",},},
@@ -209,6 +211,7 @@
     {"id":{"name":"spr_portrait_le","path":"sprites/spr_portrait_le/spr_portrait_le.yy",},},
     {"id":{"name":"spr_portrait_manu","path":"sprites/spr_portrait_manu/spr_portrait_manu.yy",},},
     {"id":{"name":"spr_portrait_maria","path":"sprites/spr_portrait_maria/spr_portrait_maria.yy",},},
+    {"id":{"name":"spr_praia","path":"sprites/spr_praia/spr_praia.yy",},},
     {"id":{"name":"spr_robot_delivery","path":"sprites/spr_robot_delivery/spr_robot_delivery.yy",},},
     {"id":{"name":"spr_robot","path":"sprites/spr_robot/spr_robot.yy",},},
     {"id":{"name":"spr_science_bench","path":"sprites/spr_science_bench/spr_science_bench.yy",},},
@@ -226,6 +229,7 @@
     {"id":{"name":"spr_ui_star","path":"sprites/spr_ui_star/spr_ui_star.yy",},},
     {"id":{"name":"spr_ui_stone_button","path":"sprites/spr_ui_stone_button/spr_ui_stone_button.yy",},},
     {"id":{"name":"spr_ui_timeout","path":"sprites/spr_ui_timeout/spr_ui_timeout.yy",},},
+    {"id":{"name":"spr_ui_timeout83","path":"sprites/spr_ui_timeout83/spr_ui_timeout83.yy",},},
     {"id":{"name":"spr_ui_warning","path":"sprites/spr_ui_warning/spr_ui_warning.yy",},},
     {"id":{"name":"spr_wall","path":"sprites/spr_wall/spr_wall.yy",},},
     {"id":{"name":"spr_waste_glass","path":"sprites/spr_waste_glass/spr_waste_glass.yy",},},
