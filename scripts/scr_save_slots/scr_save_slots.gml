@@ -1,7 +1,46 @@
 ﻿function save_slots_init() {
+    if (!variable_global_exists("frontend_difficulty")) global.frontend_difficulty = "easy";
     if (!variable_global_exists("frontend_tutorial_completed")) global.frontend_tutorial_completed = false;
     if (!variable_global_exists("frontend_save_slot")) global.frontend_save_slot = -1;
     if (!variable_global_exists("frontend_level_stars")) global.frontend_level_stars = array_create(5, 0);
+}
+
+function save_difficulty_valid(_difficulty) {
+    return _difficulty == "easy" || _difficulty == "medium" || _difficulty == "hard";
+}
+
+function save_difficulty_name(_difficulty) {
+    switch (_difficulty) {
+        case "medium": return "Médio";
+        case "hard": return "Difícil";
+        default: return "Fácil";
+    }
+}
+
+function save_active_difficulty() {
+    save_slots_init();
+    if (online_game() && !global.is_host && variable_global_exists("frontend_network_difficulty")) return global.frontend_network_difficulty;
+    return global.frontend_difficulty;
+}
+
+function save_difficulty_target(_goal, _difficulty) {
+    var multiplier = _difficulty == "hard" ? 2 : (_difficulty == "medium" ? 1.5 : 1);
+    return ceil(_goal * multiplier);
+}
+
+function save_slot_difficulty(_slot) {
+    if (!save_slot_exists(_slot)) return "easy";
+    ini_open(save_slot_filename(_slot));
+    var difficulty = ini_read_string("save", "difficulty", "easy");
+    ini_close();
+    return save_difficulty_valid(difficulty) ? difficulty : "easy";
+}
+
+function frontend_begin_save_creation(_slot) {
+    if (_slot < 0 || _slot >= 3 || save_slot_exists(_slot)) return;
+    pending_new_slot = _slot;
+    focus = 0;
+    session_ui_change_screen("difficulty");
 }
 
 function save_slot_filename(_slot) {
@@ -17,8 +56,11 @@ function save_slot_write() {
     var slot = global.frontend_save_slot;
     if (slot < 0 || slot >= 3) return false;
     try {
+        // Existing saves own their difficulty; autosaves cannot change it.
+        if (save_slot_exists(slot)) global.frontend_difficulty = save_slot_difficulty(slot);
         ini_open(save_slot_filename(slot));
-        ini_write_real("save", "version", 2);
+        ini_write_real("save", "version", 3);
+        ini_write_string("save", "difficulty", global.frontend_difficulty);
         ini_write_real("save", "tutorial_completed", global.frontend_tutorial_completed ? 1 : 0);
         for (var i = 0; i < 5; i++) {
             ini_write_real("completed", string(i), global.frontend_level_completed[i] ? 1 : 0);
@@ -36,7 +78,7 @@ function save_slot_write() {
 function save_slot_load(_slot) {
     save_slots_init();
     if (_slot < 0 || _slot >= 3) return false;
-    if (!save_slot_exists(_slot)) return save_slot_new(_slot);
+    if (!save_slot_exists(_slot)) return false;
     try {
         ini_open(save_slot_filename(_slot));
         var completed = array_create(5, false);
@@ -49,6 +91,7 @@ function save_slot_load(_slot) {
         var tutorial_completed = ini_read_real("save", "tutorial_completed", 0) == 1;
         ini_close();
         global.frontend_save_slot = _slot;
+        global.frontend_difficulty = save_slot_difficulty(_slot);
         global.frontend_level_completed = completed;
         global.frontend_level_stars = stars;
         global.frontend_tutorial_completed = tutorial_completed;
@@ -61,9 +104,10 @@ function save_slot_load(_slot) {
     }
 }
 
-function save_slot_new(_slot) {
-    if (_slot < 0 || _slot >= 3) return false;
+function save_slot_new(_slot, _difficulty) {
+    if (_slot < 0 || _slot >= 3 || save_slot_exists(_slot) || !save_difficulty_valid(_difficulty)) return false;
     global.frontend_save_slot = _slot;
+    global.frontend_difficulty = _difficulty;
     global.frontend_level_completed = array_create(5, false);
     global.frontend_level_stars = array_create(5, 0);
     global.frontend_level = -1;
@@ -109,6 +153,7 @@ function save_slots_buttons() {
         frontend_button(184 + i * 312, 220, 288, 272, label, "save_load", i);
         buttons[array_length(buttons)-1].occupied = occupied;
         buttons[array_length(buttons)-1].summary = save_slot_summary(i);
+        buttons[array_length(buttons)-1].difficulty = save_slot_difficulty(i);
         frontend_button(208 + i * 312, 512, 240, 48,
             pending_reset == i ? "Confirmar" : (occupied ? "Excluir" : "Criar"), "save_new", i);
     }

@@ -20,7 +20,9 @@ three outlined buttons (Jogar, Opções, Sair). The other menus stay minimal. Th
 - `rm_game_mode`: Solo, Co-op Local, Co-op Rede.
 - `rm_character_select`: one card in solo/LAN, two independent simultaneous cards in local co-op. Turn a card to read its biography and confirm to show Pronto. See `docs/character-select.md`.
 - `rm_level_select`: cartoon Caraguá map, connected stops, padlocks and Jogar/Voltar. See `docs/level-map.md`.
-- `rm_options`: menu-animation preference for this session.
+- `rm_options`: master, music and effects volume sliders (persisted in `audio.ini`), animation preference and key configuration.
+- Empty save slots open a difficulty screen before creating the file. Easy uses the original goals; Medium uses 1.5× rounded up; Hard uses 2×. Difficulty stays fixed for that save. Existing saves without difficulty load as Easy.
+- Settings include a persisted colorblind option with matching shapes and abbreviations on bins and materials, also accessible during pause.
 - `rm_tutorial`: separate guided introduction, selectable as T on the map. See [tutorial.md](tutorial.md).
 - `rm_level_01`: simple two-minute Porto Novo phase with one intake, paper/plastic bins, two support counters and a truck. Workstations use square 64×64 modules.
 - `rm_menu`: existing LAN lobby with a minimal visual overlay. Original discovery,
@@ -34,7 +36,7 @@ three outlined buttons (Jogar, Opções, Sair). The other menus stay minimal. Th
 - Esc returns to the previous screen, including the LAN lobby. Returning from the map restores the simultaneous cards.
 - F11 toggles fullscreen in every room, including gameplay and the pause menu.
 - Fullscreen is controlled only with F11; there is no fullscreen button.
-- Esc during gameplay opens a menu with Continuar and Tela inicial. Esc again
+- Esc during gameplay opens a menu with Continuar, Configurações and Tela inicial. Esc again
   resumes; Tela inicial leaves the current session and returns to the title.
 
 ## Gameplay menu
@@ -47,6 +49,9 @@ the gameplay menu above the other UI.
 Solo and local co-op pause by deactivating the other room instances and drawing
 a cached application-surface frame. Closing the menu restores the instances.
 The menu tolerates a lost snapshot surface, including fullscreen changes.
+Configurações reuses the regular settings interface inside the pause overlay,
+including volume sliders and key configuration. Returning from settings goes
+back to the pause menu; it preserves the room, timer and frozen instances.
 
 In LAN mode the menu does not stop the shared game or network controller.
 Only the local player's input behavior is temporarily replaced, then restored;
@@ -83,6 +88,12 @@ over LAN. Scientist specialties and biographies are fictional placeholders for
 the real biographies. No final character sprites were created. The level map uses a generated background asset; its source and prompt are recorded in `docs/map-art.md`.
 
 ## Validation
+
+`tools/run-game-tests.ps1 -Suite ui` checks solo/co-op selection, duplicate
+confirmation, persistent audio settings, mouse/keyboard volume controls, the
+ten-second urgency boundary, pause settings, key-capture cancellation and resume.
+The script detects installed runtimes (including LTS2026), compiles a VM build
+and runs it with the installed runner. Test settings use isolated filenames.
 
 The project compiles/packages with runtime 2024.14.4.268. An isolated temporary
 runtime probe uses controlled keyboard input to exercise Esc navigation, F11 in

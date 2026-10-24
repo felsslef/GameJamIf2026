@@ -1,0 +1,17 @@
+ticks = 0;
+stage = 0;
+global.game_mode = "solo";
+global.frontend_mode = "solo";
+global.frontend_characters = [0, 1];
+global.frontend_save_slot = -1;
+global.frontend_reduced_motion = true;
+global.probe_failed = false;
+global.keys_held = [];
+global.keys_pressed = [];
+global.probe_mouse_x = -100;
+global.probe_mouse_y = -100;
+global.probe_mouse_pressed = false;
+global.probe_mouse_down = false;
+global.probe_held = function(_key) { return array_contains(global.keys_held, _key); };
+global.probe_pressed = function(_key) { return array_contains(global.keys_pressed, _key); };
+room_goto(rm_character_select);

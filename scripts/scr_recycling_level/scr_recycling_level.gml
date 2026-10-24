@@ -1,6 +1,7 @@
 /// Offline levels use editor-placed room instances and stay isolated from the LAN prototype.
 function recycling_level_init() {
     display_set_gui_size(1280, 720);
+    frontend_accessibility_init();
     // Keep pixel-art textures crisp even after other UI/map drawing code changes the sampler.
     gpu_set_texfilter(false);
     if (!layer_exists("Items")) layer_create(-1, "Items");
@@ -17,6 +18,11 @@ function recycling_level_init() {
     result_reason = "";
     time_remaining = level_duration;
     star_goals = [minimum_goal, star_goal_two, star_goal_three];
+    difficulty = save_active_difficulty();
+    if (level_index >= 0) {
+        for (var goal_index = 0; goal_index < 3; goal_index++) star_goals[goal_index] = save_difficulty_target(star_goals[goal_index], difficulty);
+        minimum_goal = star_goals[0];
+    }
     robot_star_goals = [robot_minimum, robot_star_two, robot_star_three];
     result_stars = 0;
     result_started = current_time;
@@ -122,7 +128,7 @@ function recycling_level_update() {
     }
     if (phase_state == "playing" && recycling_start_tick(max(0,delta_time/1000000))) return;
     var reduced = variable_global_exists("frontend_reduced_motion") && global.frontend_reduced_motion;
-    var urgent = phase_state == "playing" && !instance_exists(obj_tutorial) && time_remaining <= 15;
+    var urgent = recycling_time_is_urgent();
     var shake = urgent && !reduced ? recycling_urgency_pulse(time_remaining) * (time_remaining <= 5 ? 10 : 6) : 0;
     camera_set_view_pos(view_camera[0], round(camera_base_x + sin(current_time * 0.09) * shake), round(camera_base_y + cos(current_time * 0.11) * shake));
     if (phase_state == "playing") {
@@ -150,6 +156,10 @@ function recycling_urgency_pulse(_seconds) {
     return max(0,1-(1-frac(max(0,_seconds)))/0.24);
 }
 
+function recycling_time_is_urgent() {
+    return phase_state == "playing" && !instance_exists(obj_tutorial) && time_remaining > 0 && time_remaining <= 10;
+}
+
 function recycling_result_has_next() {
     return phase_state == "won" && level_index >= -1 && level_index < 4;
 }
@@ -163,8 +173,11 @@ function recycling_draw_result_buttons() {
     for (var i=0;i<array_length(labels);i++) {
         var bx = start_x+i*(width+20);
         var hover = point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),bx,470,bx+width,522);
-        frontend_stone_button(bx,470,width,52,hover);
-        frontend_text(bx+width/2,482,labels[i],fnt_ui_body,dark,fa_center);
+        var primary = next_available ? i == 2 : i == 1;
+        var accent = make_color_rgb(18,113,105);
+        frontend_panel(bx,470,width,52,primary ? (hover ? make_color_rgb(37,139,123) : accent)
+            : (hover ? make_color_rgb(218,235,213) : make_color_rgb(255,252,235)),accent);
+        frontend_text(bx+width/2,482,labels[i],fnt_ui_body,primary ? c_white : dark,fa_center);
     }
 }
 
@@ -483,6 +496,7 @@ function recycling_next_entry(_source = noone) {
 
 // Reuse the inherited dash speed, duration and cooldown (60 Hz frame units).
 function recycling_player_movement(_dt, _move_x, _move_y, _dash_pressed) {
+    var before_x = x, before_y = y, started_dash = false;
     dash_cooldown = max(0, dash_cooldown - _dt * 60);
     // Fade old afterimages and capture the player's position while dashing.
     for (var trail_index = array_length(dash_trail_age) - 1; trail_index >= 0; trail_index--) {
@@ -499,6 +513,7 @@ function recycling_player_movement(_dt, _move_x, _move_y, _dash_pressed) {
     }
     if (_dash_pressed && !is_dashing && dash_cooldown <= 0) {
         is_dashing = true;
+        started_dash = true;
         dash_time = dash_time_max;
         dash_cooldown = dash_cooldown_max;
     }
@@ -552,6 +567,7 @@ function recycling_player_movement(_dt, _move_x, _move_y, _dash_pressed) {
         }
     }
     if (is_dashing) {
+        if (started_dash && point_distance(before_x, before_y, x, y) > 1 && instance_exists(obj_tutorial)) obj_recycling_level.tutorial_dash_done = true;
         dash_time = max(0, dash_time - _dt * 60);
         if (dash_time <= 0) is_dashing = false;
     }

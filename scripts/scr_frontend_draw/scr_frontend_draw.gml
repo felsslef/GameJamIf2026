@@ -40,6 +40,7 @@ function frontend_draw_button(_b, _index) {
 
 function frontend_draw() {
     draw_set_alpha(1);
+    if (screen == "difficulty") { frontend_draw_difficulty(); return; }
     if (screen == "options" || screen == "controls") {
         frontend_draw_settings();
         return;
@@ -102,15 +103,28 @@ function frontend_draw_settings() {
         frontend_text(944,128,"Jogadora 2",font_body,ink,fa_center);
         frontend_panel(392,502,496,168,cream,teal);
     } else {
-        draw_sprite_stretched(spr_game_logo,0,480,6,320,112);
-        frontend_panel(408,128,464,80,cream,teal);
-        frontend_text(640,140,"Opções",font_title,ink,fa_center);
-        frontend_panel(376,222,528,232,make_color_rgb(226,239,216),teal);
-        frontend_panel(428,478,424,50,cream,teal);
-        frontend_text(640,491,"F11: alternar tela cheia",font_body,ink,fa_center);
+        frontend_panel(344,24,592,678,cream,teal);
+        frontend_text(640,40,"Configurações",font_title,ink,fa_center);
+        frontend_text(640,110,"Áudio",font_body,teal,fa_center);
+        var labels = ["Volume geral", "Música", "Efeitos sonoros"];
+        for (var row = 0; row < 3; row++) {
+            frontend_text(416,174+row*88,labels[row],font_body,ink);
+        }
+        frontend_text(640,436,"Arraste as barras ou use as setas para ajustar",font_small,muted,fa_center);
+        frontend_text(640,610,"Daltonismo: formas e siglas nos materiais",font_small,muted,fa_center);
+        frontend_text(640,632,"F11: tela cheia | Esc: voltar",font_small,muted,fa_center);
     }
     for(var i=0;i<array_length(buttons);i++) {
         var b=buttons[i];
+        if (b.action == "volume") {
+            var gain = variable_struct_get(global.frontend_audio, b.value);
+            frontend_panel(b.x,b.y,b.w,b.h,focus==i?make_color_rgb(193,221,182):paper,focus==i?teal:muted);
+            frontend_rect(b.x+12,b.y+17,b.w-24,6,make_color_rgb(199,210,197));
+            frontend_rect(b.x+12,b.y+17,(b.w-24)*gain,6,teal);
+            frontend_panel(b.x+8+(b.w-24)*gain,b.y+10,8,20,paper,teal);
+            frontend_text(864,b.y-32,string(round(gain*100))+"%",font_body,teal,fa_right);
+            continue;
+        }
         if(controls) {
             var active=focus==i;
             frontend_panel(b.x,b.y,b.w,b.h,active?make_color_rgb(193,221,182):cream,active?teal:muted);
@@ -122,6 +136,31 @@ function frontend_draw_settings() {
         frontend_text(640,680,notice,font_small,ink,fa_center);
     }
     draw_set_alpha(1);draw_set_font(-1);draw_set_color(c_white);draw_set_halign(fa_left);draw_set_valign(fa_top);
+}
+
+function frontend_draw_difficulty() {
+    draw_sprite(spr_character_background,0,0,0);
+    var cream = make_color_rgb(255,250,229);
+    frontend_panel(280,28,720,124,cream,teal);
+    frontend_text(640,44,"Escolha a dificuldade",font_title,ink,fa_center);
+    frontend_text(640,108,"Novo save " + string(pending_new_slot+1) + " · a escolha fica fixa neste save",font_small,teal,fa_center);
+    for (var i = 0; i < 3; i++) {
+        var b = buttons[i];
+        var selected = focus == i;
+        frontend_panel(b.x,b.y,b.w,b.h,selected?make_color_rgb(222,239,211):cream,selected?teal:muted);
+        for (var star = 0; star <= i; star++) draw_sprite_ext(spr_ui_star,0,b.x+b.w/2+(star-i/2)*48,b.y+54,1.1,1.1,0,gold,1);
+        frontend_text(b.x+b.w/2,b.y+102,b.label,font_title,teal,fa_center);
+        var descriptions = ["Metas atuais", "Metas 50% maiores", "Metas dobradas"];
+        frontend_text(b.x+b.w/2,b.y+166,descriptions[i],font_body,ink,fa_center);
+        frontend_text(b.x+b.w/2,b.y+205,"Na primeira fase: " + string(save_difficulty_target(3,b.value)*100) + " pontos",font_small,muted,fa_center);
+        frontend_panel(b.x+28,b.y+252,b.w-56,40,selected?teal:paper,teal);
+        frontend_text(b.x+b.w/2,b.y+259,"Criar save",font_body,selected?c_white:teal,fa_center);
+    }
+    frontend_panel(272,568,736,40,cream,teal);
+    frontend_text(640,578,"O tutorial ensina as mesmas ações nas três dificuldades.",font_small,ink,fa_center);
+    frontend_draw_button(buttons[3],3);
+    if (notice_timer>0) frontend_text(640,180,notice,font_small,coral,fa_center);
+    draw_set_font(-1);draw_set_color(c_white);draw_set_halign(fa_left);draw_set_alpha(1);
 }
 
 /// Shared artwork and cards for the two steps before character selection.
@@ -154,8 +193,8 @@ function frontend_draw_journey_select() {
             var cx=b.x+b.w/2;
             var selected=global.frontend_save_slot==b.value;
             frontend_panel(b.x,b.y,b.w,356,active?pale_green:cream,active?teal:muted);
-            frontend_text(cx,b.y+20,"Save "+string(b.value+1),font_body,ink,fa_center);
-            if(selected) frontend_text(cx,b.y+56,"Em uso",font_small,teal,fa_center);
+            frontend_text(cx,b.y+20,"Save "+string(b.value+1)+(selected?" · Em uso":""),font_body,ink,fa_center);
+            if(b.occupied) frontend_text(cx,b.y+56,save_difficulty_name(b.difficulty),font_body,teal,fa_center);
             if(b.occupied) {
                 draw_sprite_ext(spr_ui_star,0,cx,b.y+101,0.8,0.8,0,gold,1);
                 frontend_text(cx,b.y+141,string_replace_all(b.summary," | ","\n"),font_body,ink,fa_center);

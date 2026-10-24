@@ -43,6 +43,7 @@
     {"$GMObjectProperty":"v2","%Name":"electronic_overheat_time","filters":[],"listItems":[],"multiselect":false,"name":"electronic_overheat_time","rangeEnabled":false,"rangeMax":10000,"rangeMin":0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"5","varType":0,},
     {"$GMObjectProperty":"v2","%Name":"slip_stun_duration","filters":[],"listItems":[],"multiselect":false,"name":"slip_stun_duration","rangeEnabled":false,"rangeMax":10000,"rangeMin":0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"2","varType":0,},
     {"$GMObjectProperty":"v2","%Name":"extinguish_duration","filters":[],"listItems":[],"multiselect":false,"name":"extinguish_duration","rangeEnabled":false,"rangeMax":10000,"rangeMin":0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1","varType":0,},
+    {"$GMObjectProperty":"v2","%Name":"fire_failure_time","filters":[],"listItems":[],"multiselect":false,"name":"fire_failure_time","rangeEnabled":true,"rangeMax":120,"rangeMin":5,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"20","varType":0,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

@@ -4,6 +4,7 @@ global.is_host=true;
 for(var arg_index=1;arg_index<=parameter_count();arg_index++)if(string_pos("online-client",parameter_string(arg_index))>0)global.is_host=false;
 global.frontend_characters=[0,1];
 frontend_online_selection_start(global.is_host);
+global.frontend_difficulty=global.is_host?"medium":"easy";
 global.online_selection.screen="game";global.online_selection.level=1;
 global.keys_pressed=[];global.keys_released=[];global.keys_held=[];
 global.probe_pressed=function(_key){return false;};global.probe_released=function(_key){return false;};

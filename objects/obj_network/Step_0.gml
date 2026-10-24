@@ -23,6 +23,8 @@ if (global.is_host && global.online_connected && global.client_socket != noone &
     buffer_write(state_buf, buffer_u8, screen_code);
     buffer_write(state_buf, buffer_s8, global.online_selection.level);
     buffer_write(state_buf, buffer_u32, global.online_selection.seed);
+    var difficulty = save_active_difficulty();
+    buffer_write(state_buf, buffer_u8, difficulty == "hard" ? 2 : (difficulty == "medium" ? 1 : 0));
     network_send_packet(global.client_socket, state_buf, buffer_tell(state_buf));
     buffer_delete(state_buf);
 }

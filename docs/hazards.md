@@ -10,7 +10,13 @@ Nos dois segundos finais antes de estragar ou queimar, o material recebe uma exc
 
 O ícone oscila quatro pixels para cima e para baixo. Com Reduzir movimento, ele fica parado. A função `processing_warning_remaining` usa os mesmos limites do processamento real; não altera os tempos dos materiais.
 
-O tutorial agora tem oito etapas. Após as sete entregas guiadas, um eletrônico fica em uma bancada de apoio e mostra o alerta por dois segundos. Um incêndio controlado começa, o suporte do extintor aparece e o jogador precisa buscar a ferramenta, aproximar-se do fogo, segurar o botão de pegar para apagá-lo e devolver o extintor. Só então o tutorial é concluído e salvo. Os demais riscos e o cronômetro continuam desativados nessa fase de aprendizado.
+O tutorial tem dez etapas, incluindo a prática do dash e o despacho manual do caminhão depois da primeira entrega. Após as sete entregas guiadas, um eletrônico fica em uma bancada de apoio e mostra o alerta por dois segundos. A orientação explica o limite do fogo antes da ignição. O suporte do extintor aparece e o jogador precisa buscar a ferramenta, aproximar-se do fogo, segurar o botão de pegar para apagá-lo e devolver o extintor. Só então o tutorial é concluído e salvo.
+
+Cada foco ativo causa derrota ao completar 20 segundos, tanto nas fases quanto no tutorial. A propriedade `fire_failure_time` de `obj_recycling_level` permite ajustar esse prazo pelo editor. Um aviso fixo mostra a contagem desde o início, indica como apagar e fica vermelho nos últimos cinco segundos. Havendo mais de um foco, vale o prazo do mais antigo; apagar um foco não reinicia os demais. A pausa local suspende o prazo. A idade de cada foco e os campos do aviso são sincronizados no modo de rede.
+
+`tools/run-game-tests.ps1 -Suite incidents` cobre ignição no chão e em máquinas, múltiplos focos, extinção, pausa, limite exato de derrota, progresso preservado na derrota, sincronização e incêndio no tutorial. A suíte `tutorial` verifica o percurso completo em Solo e Co-op Local.
+
+Prévia: [aviso de derrota por incêndio](previews/fire-countdown.png).
 
 ## Sprite
 

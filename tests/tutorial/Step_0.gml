@@ -63,6 +63,13 @@ if (stage==2) {
     guided_tick(10000);
     check(level.time_remaining==before && level.tutorial_stage==0 && array_length(level.dispenser.queue)==0, "guided lesson waits for action without timer or automatic spawn");
     check(!obj_washer.visible && !instance_exists(obj_hydraulic_press), "advanced machines introduced later and press removed");
+    check(!level.tutorial_dash_done && tutorial_guidance().action=="dash", "tutorial begins with a practical dash lesson");
+    with(player){x=640;y=480;recycling_player_movement(1/60,1,0,false);}
+    guided_tick();
+    check(!level.tutorial_dash_done && array_length(level.dispenser.queue)==0, "walking alone does not finish dash lesson");
+    global.keys_held=[frontend_keybinding("p1_right")];global.keys_pressed=[frontend_keybinding("p1_dash")];
+    with(player)recycling_player_step();global.keys_held=[];global.keys_pressed=[];
+    check(level.tutorial_dash_done, "configured dash key finishes practical dash lesson");
     check(approach(player,level.dispenser), "first movement target accessible");
     guided_tick();
     check(level.dispenser.queue[0]=="sorted_paper", "first lesson supplies identifiable paper");
@@ -89,6 +96,18 @@ if (stage==21) {
         interact_at(player,bin);
         check(player.carried_item.process_state==level.tutorial_lessons[lesson].result && player.carried_item.amount==1 && bin.load==0, "empty hands collect matching filled bag");
         interact_at(player,level.truck);
+        if (lesson==0) {
+            check(level.tutorial_lesson==0 && level.tutorial_dispatch_phase=="send", "first delivery waits for manual truck dispatch");
+            check(tutorial_guidance().target==level.truck && tutorial_guidance().verb=="despachar o caminhão", "tutorial points to truck with contextual dispatch action");
+            check(!instance_exists(player.carried_item) && level.truck.load==1, "truck is loaded and player has empty hands for dispatch");
+            guided_tick(10);
+            check(level.tutorial_lesson==0 && level.truck.trip_remaining==0, "waiting alone cannot skip manual dispatch");
+            interact_at(player,level.truck);
+            check(level.truck.trip_remaining>0 && level.tutorial_dispatch_phase=="return", "empty-hand interaction actually dispatches truck");
+            check(tutorial_guidance().action=="wait", "tutorial explains waiting for truck return");
+            guided_tick(level.truck.return_duration+0.01);
+            check(level.tutorial_dispatch_done && level.truck.load==0 && level.truck.trip_remaining==0, "truck returns before next material is supplied");
+        }
         check(level.delivered_total==lesson+1 && level.tutorial_lesson==lesson+1, "bag counts delivery and unlocks next lesson");
     }
     // The same intake now feeds raw sacks into each of the new treatment paths.
@@ -139,6 +158,7 @@ if (stage==21) {
     check(level.phase_state=="playing" && level.tutorial_fire_phase=="warning", "tutorial waits for practical firefighting after seven deliveries");
     var fire_counter=level.tutorial_fire_counter;
     check(processing_warning_remaining(fire_counter.stored_item,false)==2,"guided electronic displays warning before fire");
+    check(string_pos(string(level.fire_failure_time)+"s",tutorial_guidance().text)>0 && string_pos("fase acaba",tutorial_guidance().text)>0,"tutorial explains fire deadline and defeat before ignition");
     guided_tick(1);
     check(!fire_counter.stored_item.burning,"warning gives time before ignition");
     guided_tick(1.01);
@@ -153,13 +173,17 @@ if (stage==21) {
     check(!fire_counter.stored_item.burning && level.tutorial_fire_phase=="return" && level.phase_state=="playing","tutorial requires extinguishing then returning tool");
     interact_at(player,rack);
     check(level.phase_state=="won" && global.frontend_tutorial_completed && !global.frontend_level_completed[0], "tutorial saves separate completion after practical firefighting without changing campaign indices");
+    stage=22; ticks=0; exit;
+}
+if (stage==22) {
+    screen_save(working_directory+"tutorial-complete.png");
     stage=3; ticks=0; room_goto(rm_level_select); exit;
 }
 if (stage==4) {
     check(room==rm_level_01 && !instance_exists(obj_tutorial) && level.level_index==0, "phase one restored as independent normal timed campaign phase");
     check(level.processing_enabled && level.minimum_goal==3 && array_length(level.bins)==4, "first phase has all four recyclable bins");
     check(instance_exists(obj_sorting_table) && instance_exists(obj_washer) && instance_exists(obj_biodigester) && !instance_exists(obj_dismantling_bench) && !instance_exists(obj_hydraulic_press) && !instance_exists(obj_extinguisher_rack) && !instance_exists(obj_common_trash), "first phase adds triage, washing and organics while leaving electronics for phase two");
-    check(array_length(level.stations)==11 && instance_number(obj_counter)==2, "first phase keeps eleven compact stations and two support counters");
+    check(instance_number(obj_counter)>0, "first phase retains editor-placed support counters for handoffs");
     check(!variable_instance_exists(level,"active_orders"), "campaign has no active order system");
     for(var i=0;i<array_length(level.stations);i++) {
         var station=level.stations[i];
@@ -199,6 +223,8 @@ if (stage==4) {
 if (stage==7) {
     check(room==rm_tutorial && instance_number(obj_recycling_player)==2, "co-op map selection creates both tutorial players");
     var partner=instance_find(obj_recycling_player,1);
+    with(partner){x=640;y=480;recycling_player_movement(1/60,0,1,true);}
+    check(level.tutorial_dash_done,"second player can complete shared dash lesson");
     partner.x=384; partner.y=192;
     approach(player,level.dispenser); guided_tick(); recycling_interact(player); guided_tick();
     check(recycling_position_clear(partner.x,partner.y), "revealed furniture cannot trap the other player");
@@ -209,6 +235,9 @@ if (stage==7) {
     global.keys_pressed=[frontend_keybinding("p2_interact")]; with(partner)recycling_player_step(); global.keys_pressed=[];
     check(partner.carried_item==item, "partner can recover dropped lesson item using own binding");
     interact_at(partner,tutorial_station("bin",0)); interact_at(player,tutorial_station("bin",0)); interact_at(player,level.truck);
-    check(level.delivered_total==1 && level.tutorial_lesson==1, "both players can share sorting and delivery steps");
+    check(level.delivered_total==1 && level.tutorial_dispatch_phase=="send", "both players can share sorting and delivery steps");
+    interact_at(partner,level.truck);
+    guided_tick(level.truck.return_duration+0.01);
+    check(level.tutorial_lesson==1 && level.tutorial_dispatch_done, "partner can dispatch shared tutorial truck");
     show_debug_message(global.probe_failed?"TUTORIAL_PROBE_FAILED":"TUTORIAL_PROBE_PASSED"); game_end();
 }

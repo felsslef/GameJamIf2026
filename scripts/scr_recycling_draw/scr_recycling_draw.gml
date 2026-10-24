@@ -37,9 +37,37 @@ function recycling_draw_item_visual(_item) {
 }
 
 function recycling_trash_color(_type) {
+    if (variable_global_exists("frontend_colorblind") && global.frontend_colorblind) {
+        return [make_color_rgb(0,114,178),make_color_rgb(230,159,0),make_color_rgb(204,121,167),make_color_rgb(0,158,115)][_type];
+    }
     var colors = [make_color_rgb(62, 125, 193), make_color_rgb(206, 79, 73),
         make_color_rgb(50, 144, 98), make_color_rgb(230, 181, 52)];
     return colors[_type];
+}
+
+function recycling_material_type(_state) {
+    var types = ["paper", "plastic", "glass", "metal"];
+    for (var i=0;i<4;i++) if (_state=="sorted_"+types[i] || _state=="bag_"+types[i]) return i;
+    return -1;
+}
+
+function recycling_draw_material_marker(_type,_x,_y,_scale=1) {
+    if (_type<0 || !variable_global_exists("frontend_colorblind") || !global.frontend_colorblind) return;
+    var ink = make_color_rgb(35,57,64);
+    frontend_panel(_x-34*_scale,_y-13*_scale,68*_scale,26*_scale,make_color_rgb(255,252,235),ink);
+    var sx=_x-22*_scale, radius=6*_scale;
+    draw_set_color(ink);
+    switch(_type) {
+        case 0: draw_circle(sx,_y,radius,false); break;
+        case 1: draw_triangle(sx,_y-radius,sx-radius,_y+radius,sx+radius,_y+radius,false); break;
+        case 2:
+            draw_triangle(sx,_y-radius,sx-radius,_y,sx+radius,_y,false);
+            draw_triangle(sx,_y+radius,sx-radius,_y,sx+radius,_y,false); break;
+        case 3: draw_rectangle(sx-radius,_y-radius,sx+radius,_y+radius,false); break;
+    }
+    draw_set_font(fnt_ui_small);draw_set_halign(fa_left);draw_set_valign(fa_top);draw_set_color(ink);
+    draw_text_transformed(_x-10*_scale,_y-11*_scale,["PAP","PLA","VID","MET"][_type],_scale,_scale,0);
+    draw_set_font(-1);draw_set_color(c_white);draw_set_halign(fa_left);
 }
 
 function recycling_trash_name(_type) {
@@ -149,22 +177,7 @@ function recycling_draw_hud() {
     frontend_text(1220, 32, place_names[level_index], fnt_ui_body, dark, fa_right);
 
     if (phase_state != "playing") {
-        draw_set_alpha(0.55);
-        frontend_rect(0, 0, 1280, 720, c_black);
-        draw_set_alpha(1);
-        frontend_panel(240, 150, 800, 440, make_color_rgb(255, 252, 235), dark);
-        frontend_text(640, 217, phase_state == "won" ? "Fase concluída!" : "Fim da rodada", fnt_ui_title, dark, fa_center);
-        frontend_text(640, 296, result_reason, fnt_ui_small, dark, fa_center);
-        frontend_text(640, 335, "Reciclados: " + string(recycled_total) + " / " + string(minimum_goal), fnt_ui_body, dark, fa_center);
-        if (has_construction) frontend_text(640, 370, "Robôs: " + string(robot_total) + " / " + string(robot_minimum), fnt_ui_small, dark, fa_center);
-        for (var i = 0; i < 3; i++) recycling_draw_star(584 + i * 56, 410,
-            i < result_stars ? make_color_rgb(233, 178, 55) : make_color_rgb(186, 190, 177));
-        var mx = device_mouse_x_to_gui(0);
-        var my = device_mouse_y_to_gui(0);
-        frontend_panel(400, 470, 220, 52, point_in_rectangle(mx, my, 400, 470, 620, 522) ? make_color_rgb(226, 238, 222) : c_white, dark);
-        frontend_panel(660, 470, 220, 52, point_in_rectangle(mx, my, 660, 470, 880, 522) ? make_color_rgb(226, 238, 222) : c_white, dark);
-        frontend_text(510, 482, "Tentar de novo", fnt_ui_body, dark, fa_center);
-        frontend_text(770, 482, "Mapa", fnt_ui_body, dark, fa_center);
+        recycling_draw_result();
     }
     draw_set_alpha(1);
     draw_set_font(-1);
@@ -183,6 +196,7 @@ function recycling_draw_inventory() {
             var icon = carried_item.sprite_index;
             var scale = 40 / max(sprite_get_width(icon),sprite_get_height(icon));
             draw_sprite_ext(icon,0,slot_x+24,52,scale,scale,0,c_white,1);
+            if (variable_instance_exists(carried_item,"process_state")) recycling_draw_material_marker(recycling_material_type(carried_item.process_state),slot_x+24,67,0.55);
         }
     }
     draw_set_halign(fa_left);draw_set_color(c_white);draw_set_font(-1);

@@ -15,7 +15,7 @@ if(global.is_host){
  }
 }else {
  global.keys_held=ticks<220?[frontend_keybinding("p1_right")]:[];
- if(ticks>150 && level.delivered_total==2 && !verified) {
+ if(ticks>150 && level.delivered_total==2 && level.difficulty=="medium" && level.minimum_goal==6 && level.star_goals[2]==12 && global.frontend_difficulty=="easy" && global.frontend_network_difficulty=="medium" && !verified) {
   var sorting=instance_find(obj_sorting_table,0);
   if(!is_undefined(sorting.buffer) && sorting.process_progress==1 && instance_number(obj_recycling_player)==2){verified=true;show_debug_message("ONLINE_CLIENT_STATE_PASSED");}
  }

@@ -8,7 +8,11 @@ A caçamba mostra ocupação, fila, barra de chegada e segundos até o próximo 
 
 O caminhão sai pela direita ao enviar a carga e retorna à doca no fim do tempo de viagem. Cada trecho dura até 0,8 segundo, com aceleração e desaceleração suaves. A animação usa o sprite existente e acompanha `trip_remaining`, inclusive durante pausas. A doca e sua colisão permanecem no lugar. Com animações reduzidas, o caminhão desaparece e reaparece suavemente sem deslocamento.
 
-Nos últimos 15 segundos, o cronômetro pulsa junto de um tremor curto da câmera e um pulso vermelho suave. Nos últimos 5 segundos o tremor aumenta levemente. A opção de reduzir animações desativa tremor, pulsos e saltos.
+Nos últimos 10 segundos, o cronômetro pulsa junto de um tremor curto da câmera e um pulso vermelho suave. Nos últimos 5 segundos o tremor aumenta levemente. A opção de reduzir animações desativa tremor, pulsos e saltos.
+
+A tela de resultado compartilha o mesmo cartão nas fases e no tutorial: faixa com nome do bairro, estrelas grandes com metas, resumo de entregas, robôs e pontos, e destaque para a próxima fase. A entrada do painel, as estrelas e os confetes respeitam a opção de reduzir animações. As teclas Enter, R e Esc e os botões de próxima fase, repetição e mapa continuam disponíveis. A derrota por incêndio mostra a causa e permite tentar novamente.
+
+A opção Daltonismo fica nas configurações do menu inicial e da pausa. É salva em `controls.ini`, seção `accessibility`, chave `colorblind`. Ela acrescenta marcadores de alto contraste às lixeiras, materiais separados, sacos e inventário: círculo/PAP, triângulo/PLA, losango/VID e quadrado/MET. As barras de materiais também recebem uma paleta alternativa. As instruções do tutorial usam as mesmas siglas quando a opção está ativa. [Prévia](previews/colorblind-gameplay.png).
 
 Quando o relógio zera, `spr_ui_timeout` entra com um salto e mostra “Tempo esgotado!” por 1,25 segundo. Depois, o painel de resultado desliza e as estrelas aparecem em sequência. Os botões do resultado ficam disponíveis após o aviso. Derrota por caçamba cheia abre o resultado sem mostrar um aviso falso de tempo esgotado.
 

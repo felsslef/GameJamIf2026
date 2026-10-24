@@ -20,12 +20,16 @@ the bindings configured in Options. Esc and the upper-left arrow return to save 
 F11 remains the only fullscreen control.
 
 With the mouse, use each card's arrows to choose, click the card to turn it,
-and click the name/status underneath to confirm or undo.
+and click the explicit Confirmar personagem / Pronta! Desfazer button underneath.
+The scientist's name stays on the card above the portrait or biography. Four dots
+show the current scientist, and the footer explains when the other player still
+needs to confirm. The biography strip is always visible for the local player,
+including after confirmation.
 
 ## Card states
 
-- An unconfirmed card shows the scientist's name underneath.
-- Confirmation changes that text to `Pronto` and locks character cycling.
+- An unconfirmed card shows a `Confirmar personagem` button.
+- Confirmation changes that button to `Pronta! Desfazer` and locks character cycling.
 - A ready card can still turn to show the biography.
 - Confirming again removes readiness and allows cycling.
 - Each player has separate choice, readiness, card side and flip timer.

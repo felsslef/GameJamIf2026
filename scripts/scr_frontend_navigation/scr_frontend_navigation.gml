@@ -6,14 +6,24 @@ function frontend_back() {
     switch (screen) {
         case "main": break;
         case "mode": session_ui_change_room(rm_main_menu); break;
-        case "options": session_ui_change_room(rm_main_menu); break;
+        case "options":
+            frontend_audio_save();
+            audio_drag_channel = "";
+            if (settings_in_pause) pause_settings = false;
+            else session_ui_change_room(rm_main_menu);
+            break;
         case "controls":
             global.frontend_rebinding = "";
-            session_ui_change_screen("options");
+            if (settings_in_pause) screen = "options";
+            else session_ui_change_screen("options");
             focus = 0;
             frontend_build_buttons();
             break;
         case "saves": session_ui_change_room(rm_game_mode); break;
+        case "difficulty":
+            pending_new_slot = -1;
+            session_ui_change_screen("saves");
+            break;
         case "characters": session_ui_change_room(rm_save_select); break;
         case "levels":
             global.frontend_level = selected_level;
@@ -27,7 +37,8 @@ function frontend_activate(_button) {
         case "play": session_ui_change_room(rm_game_mode); break;
         case "options": session_ui_change_room(rm_options); break;
         case "controls":
-            session_ui_change_screen("controls");
+            if (settings_in_pause) screen = "controls";
+            else session_ui_change_screen("controls");
             global.frontend_rebinding = "";
             focus = 0;
             frontend_build_buttons();
@@ -58,7 +69,8 @@ function frontend_activate(_button) {
             } else session_ui_change_room(rm_save_select);
             break;
         case "save_load":
-            if (save_slot_load(_button.value)) session_ui_change_room(rm_character_select);
+            if (!save_slot_exists(_button.value)) frontend_begin_save_creation(_button.value);
+            else if (save_slot_load(_button.value)) session_ui_change_room(rm_character_select);
             else { notice = "Falha ao abrir o save."; notice_timer = 3; }
             break;
         case "save_new":
@@ -75,9 +87,15 @@ function frontend_activate(_button) {
                 frontend_build_buttons();
                 focus = clamp(focus, 0, array_length(buttons)-1);
             } else {
-                if (save_slot_new(_button.value)) session_ui_change_room(rm_character_select);
-                else { notice = "Falha ao salvar."; notice_timer = 3; }
+                frontend_begin_save_creation(_button.value);
             }
+            break;
+        case "choose_difficulty":
+            if (screen != "difficulty" || pending_new_slot < 0) break;
+            if (save_slot_new(pending_new_slot, _button.value)) {
+                pending_new_slot = -1;
+                session_ui_change_room(rm_character_select);
+            } else { notice = "Não foi possível criar o save."; notice_timer = 3; }
             break;
         case "save_write":
             notice = save_slot_write() ? "Progresso salvo." : "Escolha um slot primeiro.";
@@ -120,6 +138,17 @@ function frontend_activate(_button) {
         case "motion":
             global.frontend_reduced_motion = !global.frontend_reduced_motion;
             frontend_build_buttons();
+            break;
+        case "colorblind":
+            global.frontend_colorblind = !global.frontend_colorblind;
+            frontend_accessibility_save();
+            frontend_build_buttons();
+            break;
+        case "volume":
+        case "volume_up":
+        case "volume_down":
+            frontend_audio_set(_button.value, variable_struct_get(global.frontend_audio, _button.value)
+                + (_button.action == "volume_down" ? -0.05 : 0.05));
             break;
         case "double_tap_dash":
             global.frontend_double_tap_dash = !global.frontend_double_tap_dash;
@@ -192,6 +221,15 @@ function frontend_update() {
     var mouse_moved = abs(mx - pointer_x) + abs(my - pointer_y) > 1;
     pointer_x = mx;
     pointer_y = my;
+    if (screen == "options" && audio_drag_channel != "") {
+        if (mouse_check_button(mb_left)) {
+            frontend_audio_set(audio_drag_channel, (mx - 488) / 304, false);
+        } else {
+            frontend_audio_save();
+            audio_drag_channel = "";
+        }
+        return;
+    }
     var hovered = -1;
     for (var i = 0; i < array_length(buttons); i++) {
         var b = buttons[i];
@@ -200,13 +238,17 @@ function frontend_update() {
         } else if (point_in_rectangle(mx, my, b.x, b.y, b.x + b.w, b.y + b.h)) hovered = i;
     }
     if (mouse_moved && hovered >= 0) focus = hovered;
-    if (screen == "controls") {
+    if (screen == "controls" || screen == "options") {
         var nav_x = (keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("D")))
             - (keyboard_check_pressed(vk_left) || keyboard_check_pressed(ord("A")));
         var nav_y = (keyboard_check_pressed(vk_down) || keyboard_check_pressed(ord("S")))
             - (keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W")));
-        if (nav_x != 0) frontend_controls_move_focus(nav_x, 0);
+        if (nav_x != 0 && buttons[focus].action == "volume") {
+            var channel = buttons[focus].value;
+            frontend_audio_set(channel, variable_struct_get(global.frontend_audio, channel) + nav_x * 0.05);
+        } else if (nav_x != 0) frontend_controls_move_focus(nav_x, 0);
         else if (nav_y != 0) frontend_controls_move_focus(0, nav_y);
+        if (keyboard_check_pressed(vk_tab)) focus = (focus + 1) mod array_length(buttons);
     } else {
         var previous = keyboard_check_pressed(vk_up) || keyboard_check_pressed(vk_left) || keyboard_check_pressed(ord("W")) || keyboard_check_pressed(ord("A"));
         var next = keyboard_check_pressed(vk_down) || keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("S")) || keyboard_check_pressed(ord("D")) || keyboard_check_pressed(vk_tab);
@@ -226,6 +268,11 @@ function frontend_update() {
     }
     if (mouse_check_button_pressed(mb_left) && hovered >= 0) {
         focus = hovered;
+        if (buttons[hovered].action == "volume") {
+            audio_drag_channel = buttons[hovered].value;
+            frontend_audio_set(audio_drag_channel, (mx - buttons[hovered].x - 12) / (buttons[hovered].w - 24), false);
+            return;
+        }
         frontend_activate(buttons[hovered]);
         return;
     }

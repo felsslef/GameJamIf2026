@@ -16,10 +16,10 @@ Arquivos de áudio:
 
 São WAVs estéreo, 44,1 kHz, 16 bits. O GameMaker os comprime na compilação. Pico de áudio limitado a 0,88, sem clipping. A composição e a síntese podem ser reproduzidas com `node tools/compose-music.mjs`.
 
-`session_music_update`, em `scr_session_ui`, administra as faixas no controlador persistente: troca suave entre menus e fases, redução de volume durante diálogos e pausa, preservação da música entre telas do mesmo tipo e encerramento dos canais antigos. Os efeitos sonoros continuam independentes.
+`session_music_update`, em `scr_session_ui`, administra as faixas no controlador persistente: troca suave entre menus e fases, redução de volume durante diálogos e pausa, preservação da música entre telas do mesmo tipo e encerramento dos canais antigos. As configurações oferecem volumes geral, de música e de efeitos entre 0% e 100%, aplicados imediatamente e salvos em `audio.ini`. Os efeitos preservam a proporção original do mix. As mesmas opções estão disponíveis pelo menu de pausa.
 
 ## Urgência e história
 
-O tremor e o flash vermelho usam `recycling_urgency_pulse`, com pulsos de 0,24 s nos últimos 15 segundos. A amplitude máxima passou de 1,5/3 para 6/10 pixels, ficando mais intensa nos cinco segundos finais. Reduzir movimento mantém o tremor desativado.
+O tremor e o flash vermelho usam `recycling_urgency_pulse`, com pulsos de 0,24 s nos últimos 10 segundos. A amplitude máxima passou de 1,5/3 para 6/10 pixels, ficando mais intensa nos cinco segundos finais. Reduzir movimento mantém o tremor desativado.
 
 A primeira fala de Ju começa com “Depois da temporada”.

@@ -1,4 +1,5 @@
 pause_open = false;
+pause_settings = false;
 pause_snapshot = -1;
 pause_focus = 0;
 pause_pointer_x = device_mouse_x_to_gui(0);

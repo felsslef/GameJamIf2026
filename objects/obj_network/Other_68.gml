@@ -65,6 +65,7 @@ switch (type) {
             var remote_screen = buffer_read(buffer, buffer_u8);
             global.online_selection.level = buffer_read(buffer, buffer_s8);
             global.online_selection.seed = buffer_read(buffer, buffer_u32);
+            global.frontend_network_difficulty = ["easy","medium","hard"][clamp(buffer_read(buffer,buffer_u8),0,2)];
             global.frontend_characters[0] = global.online_selection.p1_choice;
             global.frontend_characters[1] = global.online_selection.p2_choice;
             global.frontend_level = global.online_selection.level;

@@ -33,7 +33,7 @@ function frontend_character_build_buttons() {
         frontend_button(card.x - 72, card.y + 150, 48, 48, "", "character_previous", i);
         frontend_button(card.x + card.w + 24, card.y + 150, 48, 48, "", "character_next", i);
         frontend_button(card.x, card.y, card.w, card.h, "", "character_flip", i);
-        frontend_button(card.x + 40, 516, 200, 40, "", "character_ready", i);
+        frontend_button(card.x - 12, 546, card.w + 24, 48, "", "character_ready", i);
     }
 
 }
@@ -196,15 +196,22 @@ function frontend_character_arrow(_x, _y, _direction, _color) {
     draw_sprite_ext(spr_ui_arrow, 0, _x, _y, _direction, 1, 0, _color, draw_get_alpha());
 }
 
+function frontend_character_confirm_hint(_player) {
+    if (global.frontend_mode == "coop_online") return frontend_key_short_name(frontend_keybinding("p1_interact")) + " / Enter";
+    return _player == 1 ? "Enter" : (character_player_count == 1 ? "E / Enter" : "E");
+}
+
 function frontend_draw_character_select() {
     draw_set_alpha(1);
     draw_sprite(spr_character_background, 0, 0, 0);
-    frontend_panel(528, 24, 224, 48, make_color_rgb(245, 240, 216), ink);
-    frontend_text(640, 38, "Cientistas", font_body, ink, fa_center);
+    frontend_panel(400, 20, 480, 54, make_color_rgb(245, 240, 216), ink);
+    frontend_text(640, 32, "Escolha sua cientista", font_body, ink, fa_center);
+    frontend_panel(264, 82, 752, 30, make_color_rgb(245, 240, 216), teal);
+    frontend_text(640, 87, "1. Use as setas para escolher    2. Confirme para abrir o mapa", font_small, ink, fa_center);
     // Quiet surfaces keep names and bindings readable over the illustrated floor.
-    frontend_panel(character_player_count == 1 ? 400 : 160, 512,
-        character_player_count == 1 ? 480 : 960, 112, make_color_rgb(232, 241, 224), teal);
-    frontend_panel(400, 638, 480, 42, make_color_rgb(245, 240, 216), teal);
+    frontend_panel(character_player_count == 1 ? 400 : 160, 536,
+        character_player_count == 1 ? 480 : 960, 124, make_color_rgb(232, 241, 224), teal);
+    frontend_panel(280, 674, 720, 32, make_color_rgb(245, 240, 216), teal);
     var back_button = buttons[0];
     frontend_panel(back_button.x, back_button.y, back_button.w, back_button.h,
         focus == 0 ? make_color_rgb(234, 240, 236) : paper, ink);
@@ -216,6 +223,7 @@ function frontend_draw_character_select() {
         var scientist = scientists[slot.choice];
         var center_x = card.x + card.w / 2;
         var accent = i == 0 ? teal : make_color_rgb(75, 108, 168);
+        var local_card = global.frontend_mode != "coop_online" || ((i == 0) == global.is_host);
         if (!slot.active) {
             frontend_panel(card.x, card.y, card.w, card.h, make_color_rgb(229, 232, 230), muted);
             frontend_text(center_x, card.y + 125, "Aguardando outro", font_body, muted, fa_center);
@@ -223,8 +231,8 @@ function frontend_draw_character_select() {
             continue;
         }
         if (character_player_count == 2) {
-            frontend_panel(center_x - 100, 104, 200, 32, make_color_rgb(245, 240, 216), accent);
-            frontend_text(center_x, 110, "Jogadora " + string(i + 1), font_small, accent, fa_center);
+            frontend_panel(center_x - 112, 116, 224, 28, make_color_rgb(245, 240, 216), accent);
+            frontend_text(center_x, 120, "Jogadora " + string(i + 1) + (local_card ? "" : " · remota"), font_small, accent, fa_center);
         }
         var width_scale = slot.flip_timer > 0 ? max(0.02, abs(slot.flip_timer / 0.1 - 1)) : 1;
         var show_back = slot.flip_timer > 0.1 ? !slot.back : slot.back;
@@ -232,58 +240,68 @@ function frontend_draw_character_select() {
         frontend_panel(center_x - card_width / 2, card.y, card_width, card.h,
             slot.ready ? make_color_rgb(218, 239, 211) : make_color_rgb(248, 240, 213), slot.ready ? accent : muted);
         if (width_scale > 0.9) {
+            frontend_text(center_x, card.y + 14, scientist.name, font_body, accent, fa_center);
             if (show_back) {
-                frontend_text(center_x, card.y + 28, scientist.name, font_body, accent, fa_center);
                 draw_set_font(font_small);
                 draw_set_halign(fa_left);
                 draw_set_color(ink);
-                draw_text_ext(card.x + 24, card.y + 76, scientist.bio, 24, card.w - 48);
+                draw_text_ext(card.x + 20, card.y + 58, scientist.bio, 22, card.w - 40);
             } else {
-                frontend_rect(card.x + 16, card.y + 20, card.w - 32, 252, make_color_rgb(194, 218, 195));
-                frontend_scientist(card.x + 28, card.y + 32, 7, slot.choice);
-                frontend_text(center_x, card.y + 278, scientist.role, font_small, muted, fa_center);
+                frontend_rect(card.x + 16, card.y + 52, card.w - 32, 206, make_color_rgb(194, 218, 195));
+                frontend_scientist(card.x + 44, card.y + 52, 6, slot.choice);
+                draw_set_font(font_small);
+                draw_set_halign(fa_center);
+                draw_set_color(muted);
+                draw_text_ext(center_x, card.y + 266, scientist.role, 20, card.w - 28);
             }
             // This strip is inside the existing clickable card, so it also flips the card.
-            if (!slot.ready) {
+            if (local_card) {
                 var hovering = point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),card.x,card.y,card.x+card.w,card.y+card.h);
                 frontend_panel(card.x+12,card.y+312,card.w-24,30,
                     hovering || focus==3+i*4 ? make_color_rgb(193,221,182) : make_color_rgb(224,235,211),accent);
                 draw_sprite_ext(spr_ui_arrow,0,card.x+28,card.y+327,0.35,0.35,180,accent,1);
-                frontend_text(center_x+6,card.y+317,show_back?"Clique: ver personagem":"Clique: ver história",font_small,accent,fa_center);
+                frontend_text(center_x+6,card.y+317,show_back?"Ver personagem":"Ver história",font_small,accent,fa_center);
             }
         }
         var first_button = 1 + i * 4;
         for (var arrow = 0; arrow < 2; arrow++) {
             var b = buttons[first_button + arrow];
-            var color_arrow = slot.ready ? make_color_rgb(188, 195, 190) : accent;
+            var color_arrow = slot.ready || !local_card ? make_color_rgb(188, 195, 190) : accent;
             frontend_panel(b.x, b.y, b.w, b.h,
                 focus == first_button + arrow && !slot.ready ? make_color_rgb(219, 236, 210) : make_color_rgb(245, 240, 216), color_arrow);
             frontend_character_arrow(b.x + b.w / 2, b.y + b.h / 2, arrow == 0 ? -1 : 1, color_arrow);
         }
-        var status_button = buttons[first_button + 3];
-        if (slot.ready || focus == first_button + 3) {
-            frontend_panel(status_button.x, status_button.y, status_button.w, status_button.h,
-                slot.ready ? make_color_rgb(234, 240, 236) : paper, accent);
+        for (var dot = 0; dot < array_length(scientists); dot++) {
+            draw_set_color(dot == slot.choice ? accent : make_color_rgb(238, 234, 213));
+            draw_circle(center_x - 36 + dot * 24, 518, dot == slot.choice ? 6 : 4, false);
         }
-        frontend_text(center_x, 522, slot.ready ? "Pronto" : scientist.name, font_body, slot.ready ? accent : ink, fa_center);
-        var key_prefix = i == 1 ? "p2_" : "p1_";
+        var status_button = buttons[first_button + 3];
+        frontend_panel(status_button.x, status_button.y, status_button.w, status_button.h,
+            slot.ready ? make_color_rgb(193, 221, 182) : (focus == first_button + 3 ? mint : paper), accent);
+        frontend_text(center_x, status_button.y + 10,
+            !local_card ? (slot.ready ? "Pronta!" : "Aguardando escolha") : (slot.ready ? "Pronta! Desfazer" : "Confirmar personagem"),
+            font_body, accent, fa_center);
+        var key_prefix = global.frontend_mode == "coop_online" || i == 0 ? "p1_" : "p2_";
         var key_left = frontend_key_short_name(frontend_keybinding(key_prefix + "left"));
         var key_right = frontend_key_short_name(frontend_keybinding(key_prefix + "right"));
         var key_up = frontend_key_short_name(frontend_keybinding(key_prefix + "up"));
         var key_down = frontend_key_short_name(frontend_keybinding(key_prefix + "down"));
-        if (character_player_count == 1) {
-            frontend_text(center_x, 568, key_left + "/" + key_right + ": escolher | " + key_up + "/" + key_down + ": virar", font_small, muted, fa_center);
-            frontend_text(center_x, 594, "E / Enter: selecionar", font_small, muted, fa_center);
-        } else if (i == 0) {
-            frontend_text(center_x, 568, key_left + "/" + key_right + ": escolher | " + key_up + "/" + key_down + ": virar", font_small, muted, fa_center);
-            frontend_text(center_x, 594, "E: confirmar / desfazer", font_small, muted, fa_center);
+        if (!local_card) {
+            frontend_text(center_x, 606, "Controlada no outro computador", font_small, muted, fa_center);
         } else {
-            frontend_text(center_x, 568, key_left + "/" + key_right + ": escolher | " + key_up + "/" + key_down + ": virar", font_small, muted, fa_center);
-            frontend_text(center_x, 594, "Enter: confirmar / desfazer", font_small, muted, fa_center);
+            frontend_text(center_x, 604, key_left + "/" + key_right + ": escolher | " + key_up + "/" + key_down + ": história", font_small, muted, fa_center);
+            frontend_text(center_x, 632, frontend_character_confirm_hint(i) + ": " + (slot.ready ? "desfazer" : "confirmar"), font_small, accent, fa_center);
         }
     }
-    frontend_text(640, 650, character_player_count == 2 ? "Escolham suas personagens" : "Escolha sua personagem", font_small, muted, fa_center);
-    if (notice_timer > 0) frontend_text(640, 76, notice, font_small, coral, fa_center);
+    var waiting = false;
+    for (var i = 0; i < character_player_count; i++) if (character_slots[i].ready) waiting = true;
+    frontend_text(640, 680, character_player_count == 2
+        ? (waiting ? "Aguardando a outra jogadora confirmar para abrir o mapa" : "Cada jogadora escolhe uma cientista diferente e confirma")
+        : "Confirme sua personagem para escolher uma fase no mapa", font_small, muted, fa_center);
+    if (notice_timer > 0) {
+        frontend_panel(320, 82, 640, 30, paper, coral);
+        frontend_text(640, 87, notice, font_small, coral, fa_center);
+    }
     draw_set_font(-1);
     draw_set_color(c_white);
     draw_set_halign(fa_left);

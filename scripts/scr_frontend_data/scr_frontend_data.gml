@@ -9,6 +9,10 @@ function frontend_init() {
     if (!variable_global_exists("frontend_reduced_motion")) global.frontend_reduced_motion = false;
     frontend_double_tap_dash_init();
     frontend_keybindings_init();
+    frontend_accessibility_init();
+    frontend_audio_init();
+    settings_in_pause = false;
+    audio_drag_channel = "";
     // Presentation state only. The gameplay result system will populate this later.
     if (!variable_global_exists("frontend_level_completed")) global.frontend_level_completed = array_create(5, false);
     save_slots_init();
@@ -26,11 +30,11 @@ function frontend_init() {
         {name: "Juliana Gregio", role: "EDUCAÇÃO E TECNOLOGIA", color: teal,
          bio: "Professora do IFSP Caraguatatuba e coordenadora de ADS. Une educação e tecnologia, incentiva projetos e aproxima estudantes dos desafios reais da sociedade."},
         {name: "Leticia Pacheco", role: "DESENHISTA MESTRE", color: coral,
-         bio: "Leticia é uma desenhista mestre. Na equipe de Coleta Maluca, ela é a nossa Lê!"},
-        {name: "Manuela Otavia", role: "DESENVOLVIMENTO FULLSTACK", color: make_color_rgb(68, 125, 168),
+         bio: "Leticia é uma desenhista mestre. Faz desenhos como ninguém, que se tornam tatuagens incríveis. Na equipe de Coleta Maluca, ela é a nossa Lê!"},
+        {name: "Manuela Otavio", role: "DESENVOLVIMENTO FULLSTACK", color: make_color_rgb(68, 125, 168),
          bio: "Desenvolvedora fullstack e bicampeã do Hackathon do IFSP Caraguatatuba. Técnica em Informática para Internet e estudante de ADS, transforma desafios em soluções com criatividade e trabalho em equipe."},
-        {name: "Maria Clara", role: "CIENTISTA · LABTECH", color: make_color_rgb(129, 102, 161),
-         bio: "Cientista de Portugal e dona do Labtech. Em Coleta Maluca, Maria Clara faz parte do nosso time de cientistas!"}
+        {name: "Maria Klara", role: "CIENTISTA · LABTECH", color: make_color_rgb(129, 102, 161),
+         bio: "Cientista de Portugal e dona do Labtech. Em Coleta Maluca, Maria Klara faz parte do nosso time de cientistas, criando diversas coisas em impressão 3D!"}
     ];
     levels = [
         {name: "Primeiro mutirão", place: "Porto Novo", tag: "01 / RECICLAGEM", difficulty: "Leve", goal: "Separe recicláveis, lave plástico e trate orgânicos.", targets: [3, 5, 7], scene: 0},
@@ -55,6 +59,7 @@ function frontend_init() {
     notice = "";
     notice_timer = 0;
     pending_reset = -1;
+    pending_new_slot = -1;
     if (!variable_global_exists("frontend_rebinding")) global.frontend_rebinding = "";
     buttons = [];
     if (screen == "characters") frontend_character_init();
@@ -62,9 +67,78 @@ function frontend_init() {
     if (screen == "levels") focus = selected_level + 1;
 }
 
+function frontend_accessibility_init() {
+    if (variable_global_exists("frontend_accessibility_ready") && global.frontend_accessibility_ready) return;
+    global.frontend_colorblind = false;
+    if (file_exists("controls.ini")) {
+        ini_open("controls.ini");
+        global.frontend_colorblind = ini_read_real("accessibility", "colorblind", 0) != 0;
+        ini_close();
+    }
+    global.frontend_accessibility_ready = true;
+}
+
+function frontend_accessibility_save() {
+    ini_open("controls.ini");
+    ini_write_real("accessibility", "colorblind", global.frontend_colorblind ? 1 : 0);
+    ini_close();
+}
+
 function frontend_keybinding_names() {
     return ["p1_up", "p1_down", "p1_left", "p1_right", "p1_interact", "p1_action", "p1_dash",
         "p2_up", "p2_down", "p2_left", "p2_right", "p2_interact", "p2_action", "p2_dash", "pause"];
+}
+
+function frontend_audio_init() {
+    if (variable_global_exists("frontend_audio_ready") && global.frontend_audio_ready) return;
+    if (!variable_global_exists("frontend_audio_effects")) {
+        global.frontend_audio_effects = [
+            {sound: snd_dialogue_blip, gain: audio_sound_get_gain(snd_dialogue_blip)},
+            {sound: snd_delivery_success, gain: audio_sound_get_gain(snd_delivery_success)}
+        ];
+    }
+    global.frontend_audio = {master: 1, music: 1, effects: 1};
+    if (file_exists("audio.ini")) {
+        ini_open("audio.ini");
+        var channels = ["master", "music", "effects"];
+        for (var i = 0; i < array_length(channels); i++) {
+            var channel = channels[i];
+            variable_struct_set(global.frontend_audio, channel, clamp(ini_read_real("volume", channel, 1), 0, 1));
+        }
+        ini_close();
+    }
+    global.frontend_audio_ready = true;
+    frontend_audio_apply();
+}
+
+function frontend_audio_apply() {
+    audio_master_gain(global.frontend_audio.master);
+    for (var i = 0; i < array_length(global.frontend_audio_effects); i++) {
+        var effect = global.frontend_audio_effects[i];
+        audio_sound_gain(effect.sound, effect.gain * global.frontend_audio.effects, 0);
+    }
+    // Apply a music change immediately, including while the game is paused.
+    with (obj_session_ui) {
+        for (var i = 0; i < array_length(music_voices); i++) {
+            var entry = music_voices[i];
+            audio_sound_gain(entry.handle, entry.gain * global.frontend_audio.music, 0);
+        }
+    }
+}
+
+function frontend_audio_set(_channel, _value, _save = true) {
+    variable_struct_set(global.frontend_audio, _channel, round(clamp(_value, 0, 1) * 100) / 100);
+    frontend_audio_apply();
+    if (_save) frontend_audio_save();
+}
+
+function frontend_audio_save() {
+    ini_open("audio.ini");
+    var channels = ["master", "music", "effects"];
+    for (var i = 0; i < array_length(channels); i++) {
+        ini_write_real("volume", channels[i], variable_struct_get(global.frontend_audio, channels[i]));
+    }
+    ini_close();
 }
 
 function frontend_keybindings_defaults() {
@@ -111,6 +185,7 @@ function frontend_double_tap_dash_save() {
 }
 
 function frontend_online_selection_start(_is_host) {
+    global.frontend_network_difficulty = "easy";
     var characters = global.frontend_characters;
     var p1 = clamp(characters[0], 0, 3);
     var p2 = clamp(characters[1], 0, 3);
@@ -272,6 +347,12 @@ function frontend_build_buttons() {
         case "saves":
             save_slots_buttons();
             break;
+        case "difficulty":
+            if (pending_new_slot < 0) { screen = "saves"; save_slots_buttons(); break; }
+            var ids = ["easy", "medium", "hard"];
+            for (var i = 0; i < 3; i++) frontend_button(172+i*320, 230, 296, 310, save_difficulty_name(ids[i]), "choose_difficulty", ids[i]);
+            frontend_button(530, 632, 220, 48, "Voltar", "back");
+            break;
         case "characters":
             frontend_character_build_buttons();
             break;
@@ -282,9 +363,17 @@ function frontend_build_buttons() {
             frontend_button(1032, 624, 184, 48, "Jogar", "start");
             break;
         case "options":
-            frontend_button(420, 246, 440, 64, global.frontend_reduced_motion ? "Animações: não" : "Animações: sim", "motion");
-            frontend_button(420, 334, 440, 64, "Configurar teclas", "controls");
-            frontend_button(540, 572, 200, 48, "Voltar", "back");
+            var channels = ["master", "music", "effects"];
+            for (var i = 0; i < 3; i++) {
+                var by = 206 + i * 88;
+                frontend_button(416, by, 44, 40, "-", "volume_down", channels[i]);
+                frontend_button(476, by, 328, 40, "", "volume", channels[i]);
+                frontend_button(820, by, 44, 40, "+", "volume_up", channels[i]);
+            }
+            frontend_button(420, 466, 440, 40, global.frontend_reduced_motion ? "Animações: não" : "Animações: sim", "motion");
+            frontend_button(420, 514, 440, 40, "Daltonismo: " + (global.frontend_colorblind ? "sim" : "não"), "colorblind");
+            frontend_button(420, 562, 440, 40, "Configurar teclas", "controls");
+            frontend_button(540, 652, 200, 36, "Voltar", "back");
             break;
         case "controls":
             var commands = ["up", "down", "left", "right", "interact", "action", "dash"];

@@ -6,6 +6,8 @@ function processing_level_init() {
     delivered_total = 0;
     robot_departures = [];
     material_bag = [];
+    fire_count = 0;
+    fire_remaining = -1;
     processing_build_recipe_pools();
     for (var i = 0; i < array_length(dispensers); i++) {
         var source = dispensers[i];
@@ -69,13 +71,13 @@ function processing_material_name(_state) {
 }
 
 function processing_payload_new(_state, _amount = 1) {
-    return {process_state: _state, amount: _amount, exposure_age: 0, burning: false,
+    return {process_state: _state, amount: _amount, exposure_age: 0, burning: false, burning_age: 0,
         fire_progress: 0, fire_work_frame: -1, tool_owner: noone, spray_active: false};
 }
 
 function processing_payload_from_item(_item) {
     return {process_state: _item.process_state, amount: _item.amount, exposure_age: _item.exposure_age,
-        burning: _item.burning, fire_progress: _item.fire_progress,
+        burning: _item.burning, burning_age: _item.burning_age, fire_progress: _item.fire_progress,
         fire_work_frame: -1, tool_owner: _item.tool_owner};
 }
 
@@ -85,6 +87,7 @@ function processing_give_payload(_player, _payload) {
     item.amount = _payload.amount;
     item.exposure_age = _payload.exposure_age;
     item.burning = _payload.burning;
+    item.burning_age = _payload.burning_age;
     item.fire_progress = _payload.fire_progress;
     item.tool_owner = _payload.tool_owner;
     item.spray_active = false;
@@ -383,6 +386,7 @@ function processing_extinguish(_player, _dt) {
     fire_data.fire_progress += _dt;
     if (fire_data.fire_progress >= level.extinguish_duration) {
         fire_data.burning = false;
+        fire_data.burning_age = 0;
         if (!variable_instance_exists(target,"process_state") && target.station_kind != "handoff") target.process_status = "ready";
         recycling_feedback("Fogo apagado. Recupere o eletrônico na desmontagem.");
     }
@@ -406,12 +410,25 @@ function processing_player_action(_player, _held, _pressed, _dt) {
 function processing_ignite_payload(_payload) {
     _payload.process_state = "burned_electronic";
     _payload.burning = true;
+    _payload.burning_age = 0;
     _payload.fire_progress = 0;
     _payload.fire_work_frame = -1;
 }
 
+function processing_track_fire(_payload, _dt) {
+    if (is_undefined(_payload) || !_payload.burning) return;
+    var level = obj_recycling_level;
+    _payload.burning_age += max(0, _dt);
+    var remaining = max(0, level.fire_failure_time - _payload.burning_age);
+    level.fire_count++;
+    level.fire_remaining = level.fire_remaining < 0 ? remaining : min(level.fire_remaining, remaining);
+}
+
 function processing_tick(_dt, _guided = false) {
+    if (phase_state != "playing") return;
     var level = id;
+    fire_count = 0;
+    fire_remaining = -1;
     processing_frame++;
     truck.trip_remaining = max(0, truck.trip_remaining - _dt);
     overflow_elapsed = 0;
@@ -432,16 +449,20 @@ function processing_tick(_dt, _guided = false) {
             if (station.process_remaining <= 0) processing_station_finish(station);
         }
         var payload = station.station_kind == "handoff" ? station.stored_item : station.buffer;
+        var fire_dt = _dt;
         if (!_guided && !is_undefined(payload) && payload.process_state == "electronic") {
             if (station.work_frame >= processing_frame-1 && station.station_kind == "dismantler") payload.exposure_age = 0;
             else payload.exposure_age += _dt;
             if (payload.exposure_age >= electronic_overheat_time) {
                 processing_ignite_payload(payload);
+                fire_dt = max(0, payload.exposure_age - electronic_overheat_time);
                 if (station.station_kind != "handoff") { station.process_status = "burning"; station.process_progress = 0; }
             }
         }
+        processing_track_fire(payload, fire_dt);
     }
     with (obj_process_item) {
+        var fire_dt = _dt;
         if (is_held) { floor_age = 0; exposure_age = 0; }
         else if (!_guided) {
             if (process_state == "organic") {
@@ -454,16 +475,22 @@ function processing_tick(_dt, _guided = false) {
                 exposure_age += _dt;
                 if (exposure_age >= level.electronic_overheat_time) {
                     processing_ignite_payload(id);
+                    fire_dt = max(0, exposure_age - level.electronic_overheat_time);
                     sprite_index = object_get_sprite(obj_material_burned_electronic);
                 }
             }
         }
+        if (instance_exists(id)) processing_track_fire(id, fire_dt);
     }
     with (obj_recycling_player) {
         stun_remaining = max(0,stun_remaining-_dt);
         processing_check_puddle(id);
     }
-    if (!_guided && overflow_elapsed >= overflow_limit) recycling_finish(false,"A caçamba ficou cheia por muito tempo.");
+    if (fire_count > 0 && fire_remaining <= 0) {
+        recycling_finish(false,"O incêndio ficou fora de controle. Apague o fogo antes de " + string(fire_failure_time) + " segundos.");
+        result_is_timeout = false;
+    }
+    else if (!_guided && overflow_elapsed >= overflow_limit) recycling_finish(false,"A caçamba ficou cheia por muito tempo.");
     else if (!_guided && time_remaining <= 0) recycling_finish(delivered_total>=minimum_goal,
         delivered_total>=minimum_goal ? "Mutirão concluído!" : "A meta de entregas não foi atingida.");
 }

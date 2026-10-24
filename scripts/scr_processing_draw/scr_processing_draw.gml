@@ -3,6 +3,7 @@ function processing_draw_payload(_payload, _x, _y, _scale = 1) {
     var payload_scale = 52 * _scale / max(sprite_get_width(asset),sprite_get_height(asset));
     draw_sprite_ext(asset,0,_x,_y,payload_scale,payload_scale,0,c_white,1);
     if (_payload.burning) draw_sprite(spr_fire,0,_x,_y-14);
+    recycling_draw_material_marker(recycling_material_type(_payload.process_state),_x,_y-28*_scale,0.7);
 }
 
 function processing_warning_remaining(_payload, _on_floor) {
@@ -36,6 +37,7 @@ function processing_draw_warnings() {
 
 function processing_draw_item() {
     recycling_draw_item_visual(id);
+    recycling_draw_material_marker(recycling_material_type(process_state),x,y-30,0.7);
     if (process_state == "extinguisher" && is_held && variable_instance_exists(id,"spray_active") && spray_active && instance_exists(holder)) {
         // A short animated plume follows the player's facing direction while a fire is being treated.
         var spray_dir = holder.move_dir;
@@ -140,6 +142,7 @@ function processing_draw_station() {
     if (station_kind == "dispatch") recycling_draw_truck();
     else if (station_kind == "extinguisher_rack") draw_sprite(sprite_index, tool_loaned ? 1 : 0, x, y);
     else draw_self();
+    if (station_kind == "bin") recycling_draw_material_marker(trash_type,x,y-48,1);
     draw_set_alpha(1);
     if (station_kind == "handoff") {
         if (!is_undefined(stored_item)) processing_draw_payload(stored_item, x, y - 3, 0.75);
@@ -172,9 +175,20 @@ function processing_draw_station() {
     draw_set_alpha(1); draw_set_font(-1); draw_set_color(c_white); draw_set_halign(fa_left);
 }
 
+function processing_draw_fire_alert() {
+    if (phase_state != "playing" || fire_count <= 0) return;
+    var urgent = fire_remaining <= 5;
+    var accent = urgent ? make_color_rgb(174, 52, 43) : make_color_rgb(153, 91, 30);
+    var by = instance_exists(obj_tutorial) ? 150 : 104;
+    frontend_panel(232, by, 816, 68, make_color_rgb(255, 241, 211), accent);
+    draw_sprite_ext(spr_fire, 0, 266, by + 34, 0.75, 0.75, 0, c_white, 1);
+    frontend_text(640, by + 8, "INCÊNDIO ATIVO · " + string(ceil(fire_remaining)) + "s PARA EVITAR A DERROTA", fnt_ui_body, accent, fa_center);
+    frontend_text(640, by + 39, "Pegue o extintor e segure o botão de pegar perto do fogo.", fnt_ui_small, accent, fa_center);
+}
+
 function processing_draw_hud() {
     var reduced = variable_global_exists("frontend_reduced_motion") && global.frontend_reduced_motion;
-    var urgency = phase_state == "playing" && time_remaining <= 15;
+    var urgency = recycling_time_is_urgent();
     var pulse = urgency ? recycling_urgency_pulse(time_remaining) : 0;
     if (pulse > 0 && !reduced) {
         draw_set_alpha(pulse * 0.12);
@@ -184,7 +198,7 @@ function processing_draw_hud() {
     var dark = make_color_rgb(35,57,64);
     frontend_panel(32,20,1216,70,make_color_rgb(255,252,235),dark);
     frontend_text(56,29,"Entregas: "+string(delivered_total)+" / "+string(processing_delivery_goal()),fnt_ui_body,dark);
-    frontend_text(56,59,"Estrelas: "+string(processing_earned_stars())+" / 3",fnt_ui_small,dark);
+    frontend_text(56,59,"Pontos: "+string(points_total)+" / "+string(minimum_goal*100)+" · "+save_difficulty_name(difficulty),fnt_ui_small,dark);
     var seconds_left=ceil(time_remaining);
     var clock=string(floor(seconds_left/60))+":"+(seconds_left mod 60<10?"0":"")+string(seconds_left mod 60);
     var clock_scale = reduced ? 1 : 1 + pulse * 0.13;
@@ -201,32 +215,79 @@ function processing_draw_hud() {
     }
 
     with(obj_recycling_player) if(stun_remaining>0) frontend_text(x,y-86,"Atordoada "+string(ceil(stun_remaining))+"s",fnt_ui_small,make_color_rgb(177,51,47),fa_center);
-    if(phase_state!="playing") {
-        var result_age = max(0,(current_time-result_started)/1000);
-        if (result_is_timeout && result_age < 1.25) {
-            draw_set_alpha(0.5 * min(1,result_age/0.15));frontend_rect(0,0,1280,720,c_black);draw_set_alpha(1);
-            var pop = reduced ? 1 : ui_pop_scale(min(1,result_age/0.45));
-            draw_sprite_ext(spr_ui_timeout,0,640,300,pop*2,pop*2,0,c_white,1);
-            frontend_text(640,420,"Tempo esgotado!",fnt_ui_title,make_color_rgb(255,252,235),fa_center);
-            return;
-        }
-        var entry = reduced ? 1 : clamp((result_age-(result_is_timeout?1.25:0))/0.4,0,1);
-        var result_matrix = matrix_get(matrix_world);
-        draw_set_alpha(0.55*entry);frontend_rect(0,0,1280,720,c_black);draw_set_alpha(1);
-        matrix_set(matrix_world,matrix_build(0,(1-entry)*(1-entry)*80,0,0,0,0,1,1,1));
-        frontend_panel(240,150,800,440,make_color_rgb(255,252,235),dark);
-        frontend_text(640,217,phase_state=="won"?"Fase concluída!":"Fim da rodada",fnt_ui_title,dark,fa_center);
-        frontend_text(640,296,result_reason,fnt_ui_small,dark,fa_center);
-        frontend_text(640,335,"Entregas: "+string(delivered_total)+" / "+string(processing_delivery_goal()),fnt_ui_body,dark,fa_center);
-        for(var i=0;i<3;i++) {
-            var star_scale = reduced ? 1 : ui_pop_scale(clamp((result_age-(result_is_timeout?1.25:0)-0.2-i*0.12)/0.35,0,1));
-            draw_sprite_ext(spr_ui_star,0,584+i*56,410,star_scale,star_scale,0,i<result_stars?make_color_rgb(233,178,55):make_color_rgb(186,190,177),1);
-        }
-        recycling_draw_result_buttons();
-        if(online_game() && !global.is_host)frontend_text(640,552,"Aguardando a anfitriã escolher...",fnt_ui_small,dark,fa_center);
-        matrix_set(matrix_world,result_matrix);
-    }
+    processing_draw_fire_alert();
+    if(phase_state!="playing") recycling_draw_result();
     draw_set_alpha(1);draw_set_font(-1);draw_set_color(c_white);draw_set_halign(fa_left);draw_set_valign(fa_top);
+}
+
+/// Shared result card for campaign, tutorial and failures; button hitboxes stay fixed.
+function recycling_draw_result() {
+    var won = phase_state == "won";
+    var training = level_index == -1;
+    var reduced = global.frontend_reduced_motion;
+    var age = max(0, (current_time - result_started) / 1000);
+    var cream = make_color_rgb(255, 250, 229);
+    var ink = make_color_rgb(35, 57, 64);
+    var teal = make_color_rgb(18, 113, 105);
+    var gold = make_color_rgb(239, 179, 65);
+    var accent = won ? teal : make_color_rgb(172, 68, 50);
+    if (result_is_timeout && age < 1.25) {
+        draw_set_alpha(0.55); frontend_rect(0,0,1280,720,c_black); draw_set_alpha(1);
+        var pop = reduced ? 1 : ui_pop_scale(min(1,age/0.45));
+        draw_sprite_ext(spr_ui_timeout,0,640,300,pop*2,pop*2,0,c_white,1);
+        frontend_text(640,420,"Tempo esgotado!",fnt_ui_title,cream,fa_center);
+        return;
+    }
+    var elapsed = max(0, age - (result_is_timeout ? 1.25 : 0));
+    var entry = reduced ? 1 : clamp(elapsed / 0.4, 0, 1);
+    draw_set_alpha(0.65 * entry); frontend_rect(0,0,1280,720,ink); draw_set_alpha(1);
+    var previous_matrix = matrix_get(matrix_world);
+    matrix_set(matrix_world,matrix_build(0,(1-entry)*(1-entry)*64,0,0,0,0,1,1,1));
+    frontend_panel(168,110,944,520,cream,accent);
+    frontend_panel(184,126,912,42,accent,accent);
+    var places = ["Porto Novo", "Indaiá", "Centro", "Martim de Sá", "Massaguaçu"];
+    var label = training ? "ACADEMIA DA RECICLAGEM" : "FASE " + string(level_index + 1) + " · " + string_upper(places[level_index]);
+    if (!training) label += " · " + string_upper(save_difficulty_name(difficulty));
+    frontend_text(640,135,label,fnt_ui_small,cream,fa_center);
+    frontend_text(640,184,won ? (training ? "Tutorial concluído!" : "Fase concluída!") : "Vamos tentar de novo?",fnt_ui_title,accent,fa_center);
+    draw_set_font(fnt_ui_small); draw_set_halign(fa_center); draw_set_color(ink);
+    draw_text_ext(640,246,result_reason,22,800);
+    for (var i = 0; i < 3; i++) {
+        var sx = 512 + i * 128;
+        var earned = i < result_stars;
+        var star_pop = reduced ? 1 : ui_pop_scale(clamp((elapsed-0.15-i*0.13)/0.35,0,1));
+        draw_set_color(earned ? make_color_rgb(250,229,174) : make_color_rgb(228,229,212));
+        draw_circle(sx,326,44,false);
+        draw_sprite_ext(spr_ui_star,0,sx,326,star_pop*2.2,star_pop*2.2,0,earned?gold:make_color_rgb(166,176,163),1);
+        var captions = ["Separar", "Despachar", "Apagar fogo"];
+        frontend_text(sx,378,training ? captions[i] : string(star_goals[i])+" entregas",fnt_ui_small,earned?teal:ink,fa_center);
+    }
+    var values = [string(processing_enabled ? delivered_total : recycled_total), string(robot_total), string(processing_enabled ? points_total : recycled_total*100)];
+    var captions = ["ENTREGAS", "ROBÔS NA CIDADE", "PONTOS"];
+    for (var i = 0; i < 3; i++) {
+        var sx = 320 + i * 220;
+        frontend_panel(sx,408,200,48,make_color_rgb(232,240,219),make_color_rgb(184,207,174));
+        frontend_text(sx+100,410,captions[i],fnt_ui_small,teal,fa_center);
+        frontend_text(sx+100,430,values[i],fnt_ui_body,ink,fa_center);
+    }
+    // Confetti stays in the margins so the result and the controls remain readable.
+    if (won && !reduced && elapsed < 3) {
+        for (var i = 0; i < 20; i++) {
+            var cx = i mod 2 == 0 ? 208+(i*17 mod 82) : 988+(i*19 mod 82);
+            var cy = 186 + ((i*41+elapsed*58) mod 270);
+            draw_set_alpha(max(0,1-elapsed/3));
+            frontend_rect(cx,cy,5,10,i mod 3 == 0 ? gold : (i mod 3 == 1 ? teal : make_color_rgb(221,128,95)));
+        }
+        draw_set_alpha(1);
+    }
+    recycling_draw_result_buttons();
+    var next = recycling_result_has_next();
+    var footer = won ? (next ? (training ? "Treino completo! Comece sua jornada em Porto Novo." : "Próxima fase liberada. A cidade conta com você!") : "Parabéns! Você cuidou de todos os bairros.") : "Reorganize o trabalho e cuide dos incidentes para continuar.";
+    frontend_text(640,550,footer,fnt_ui_small,accent,fa_center);
+    frontend_text(640,588,online_game() && !global.is_host ? "Aguardando a anfitriã escolher..."
+        : (next ? "Enter: próxima fase   |   R: repetir   |   Esc: mapa" : "Enter / Esc: mapa   |   R: tentar de novo"),fnt_ui_small,ink,fa_center);
+    matrix_set(matrix_world,previous_matrix);
+    draw_set_alpha(1); draw_set_color(c_white); draw_set_font(-1); draw_set_halign(fa_left);
 }
 
 function processing_delivery_goal() {
@@ -257,7 +318,8 @@ function processing_draw_station_overlays() {
         }
         if(ratio<0) continue;
         var px=(station.x-camera_get_view_x(camera))*1280/camera_get_view_width(camera);
-        var py=max(100,(station.y-camera_get_view_y(camera))*720/camera_get_view_height(camera)-68);
+        var marker_offset = station.station_kind=="bin" && global.frontend_colorblind ? 100 : 68;
+        var py=max(100,(station.y-camera_get_view_y(camera))*720/camera_get_view_height(camera)-marker_offset);
         frontend_panel(px-42,py,84,28,make_color_rgb(255,252,235),dark);
         if(!is_undefined(payload)) {
             var asset=object_get_sprite(processing_material_object(payload.process_state));

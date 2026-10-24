@@ -1,0 +1,14 @@
+ticks=0;stage=0;
+global.game_mode="solo";global.frontend_mode="solo";
+global.frontend_characters=[0,1];global.frontend_save_slot=-1;
+global.frontend_difficulty="easy";global.frontend_reduced_motion=true;
+global.probe_failed=false;global.keys_held=[];global.keys_pressed=[];
+global.probe_mouse_x=-100;global.probe_mouse_y=-100;
+global.probe_mouse_pressed=false;global.probe_mouse_down=false;
+global.probe_held=function(_key){return array_contains(global.keys_held,_key);};
+global.probe_pressed=function(_key){return array_contains(global.keys_pressed,_key);};
+for(var i=0;i<3;i++)if(file_exists(save_slot_filename(i)))file_delete(save_slot_filename(i));
+if(file_exists(working_directory+"probe_controls.ini"))file_delete(working_directory+"probe_controls.ini");
+global.frontend_accessibility_ready=false;frontend_accessibility_init();
+global.frontend_keybindings=frontend_keybindings_defaults();global.frontend_double_tap_dash=true;
+room_goto(rm_save_select);

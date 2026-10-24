@@ -62,6 +62,8 @@ function frontend_draw_level_map() {
     var outline = make_color_rgb(44, 76, 63);
     level_map_round_panel(512, 24, 256, 60, make_color_rgb(255, 251, 232), outline);
     frontend_text(640, 40, "Caraguatatuba", font_body, outline, fa_center);
+    level_map_round_panel(32,24,224,60,make_color_rgb(255,251,232),outline);
+    frontend_text(144,40,save_difficulty_name(save_active_difficulty()),font_body,outline,fa_center);
 
     for (var i = 0; i < 4; i++) level_map_route(level_nodes[i], level_nodes[i + 1], global.frontend_level_completed[i]);
     level_map_route(tutorial_node, level_nodes[0], global.frontend_tutorial_completed);
@@ -110,7 +112,8 @@ function frontend_draw_level_map() {
     var available = frontend_level_is_available(selected_level);
     var complete = selected_level == -1 ? global.frontend_tutorial_completed : global.frontend_level_completed[selected_level];
     var status = complete ? "Concluída" : (available ? "Disponível" : "Conclua a fase anterior");
-    frontend_text(640, 652, status, font_small, outline, fa_center);
+    var goal_hint = selected_level == -1 ? "Treino prático" : "Meta: " + string(save_difficulty_target(levels[selected_level].targets[0],save_active_difficulty())*100) + " pontos";
+    frontend_text(640, 652, status + " · " + goal_hint, font_small, outline, fa_center);
     for (var i = 6; i < 8; i++) {
         var b = buttons[i];
         var enabled = b.action != "start" || available;

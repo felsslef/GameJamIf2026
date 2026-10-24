@@ -4,6 +4,7 @@ process_state = "raw_waste";
 floor_age = 0;
 exposure_age = 0;
 burning = false;
+burning_age = 0;
 fire_progress = 0;
 fire_work_frame = -1;
 tool_owner = noone;
